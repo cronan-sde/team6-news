@@ -1,5 +1,3 @@
-const { Mongoose } = require("mongoose");
-
 //create mongoose user schema
 const mongoose = require('mongoose');
 
@@ -11,7 +9,7 @@ const UserSchema = new mongoose.Schema({
   },
   email: {
     type: String,
-    required: TextTrackCue
+    required: true
   },
   password: {
     type: String,
