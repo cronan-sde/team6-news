@@ -4,7 +4,6 @@ const app = express();
 const bodyParser = require('body-parser');
 const cors = require('cors');
 const mongoose = require('mongoose');
-//dburl
 const dbUrl = process.env.DB_URL;
 
 //requiring User model
