@@ -3,11 +3,23 @@ const router = require('express').Router();
 let User = require('../models/user.model');
 
 //'/login' needs to find a user based on username, password
-// router.route('/login/:username').get((req, res) => {
-//   User.find()
-//     .then(user => res.json(user))
-//     .catch(err => res.status(404).json('Error: ' + err));
-// });
+//DONE: FIX AFTER LUNCH
+//returns json for valid user if name and pass are matches in db
+//returns error if no match on name or pass
+router.route('/login').post((req, res) => {
+  const userToFind = req.body.username;
+  const pass = req.body.password;
+
+  User.findOne({
+    username: userToFind,
+    password: pass
+  }, function(err, user) {
+    if (user !== null) {
+      return res.json(user);
+    }
+    return res.status(400).json("Error: Invalid username/password");
+  }) 
+});
 
 //users can be added to DB through '/user/signup'
 router.route('/signup').post((req, res) => {
