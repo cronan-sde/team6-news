@@ -3,6 +3,7 @@ const express = require('express');
 const app = express();
 const bodyParser = require('body-parser');
 const cors = require('cors');
+const path = require('path');
 const mongoose = require('mongoose');
 const dbUrl = process.env.DB_URL;
 const port = process.env.PORT || 3000;
@@ -30,6 +31,11 @@ const userRouter = require('./routes/user');
 //setting route, when going to /user userRouter will load
 // '/user/userRouter'
 app.use('/user', userRouter);
+
+app.use(express.static(path.join(__dirname, '../build')))
+app.get('*', (req, res) => {
+  res.sendFile(path.join(__dirname, '../build'))
+})
 
 
 // Open port 3000 on server and log port number to console
