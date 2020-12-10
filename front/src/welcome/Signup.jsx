@@ -33,9 +33,11 @@ const Signup = (props) => {
           onChange={props.onChangeSignUp}
         ></input>{" "}
         <br />
-        <button type="submit">Submit</button>
+        <button type="submit" onClick={props.onSubmitSignup}>
+          Submit
+        </button>
         <br />
-        <button type="cancel">Cancel</button>
+        <button type="cancel" name="hasClickedSignup" onClick={props.userHasCanceled}>Cancel</button>
       </form>
     </div>
   );

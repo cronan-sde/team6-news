@@ -1,21 +1,32 @@
 import React from "react";
 import Login from "./Login.jsx";
 import Signup from "./Signup.jsx";
+import LoginBtn from "./LoginBtn.jsx";
+import SigupBtn from "./SignupBtn.jsx";
 import NewsFeed from "../inner-components/newsfeed/NewsFeed.jsx";
 import SearchBar from "../inner-components/search/SearchBar.jsx";
 
 const Welcome = (props) => {
-  return (
-    <div>
-      <h1>{props.username}</h1>
-      <div>
-        <Login onChangeLogin={props.onChange} />
-        <Signup onChangeSignUp={props.onChange} />
-        <NewsFeed />
-        <SearchBar onChangeSearch={props.onChange} />
+  if (props.hasClickedLogin) {
+    return (
+      <Login onChangeLogin={props.onChange} onSubmitLogin={props.onSubmitLogin} userHasCanceled={props.userHasCanceled}/>
+    )
+  } else if (props.hasClickedSignup) {
+    return (<Signup onChangeSignUp={props.onChange} onSubmitSignup={props.onSubmitSignup} userHasCanceled={props.userHasCanceled}/>)
+  }
+  else {
+   return ( 
+   <div>
+        <h1>{props.username}</h1>
+        <div>
+          <LoginBtn userHasClicked={props.userHasClicked} />
+          <SigupBtn userHasClicked={props.userHasClicked} />
+          <NewsFeed />
+          <SearchBar onChangeSearch={props.onChange} />
+        </div>
       </div>
-    </div>
-  );
+    );
+  } 
 };
 
 export default Welcome;
