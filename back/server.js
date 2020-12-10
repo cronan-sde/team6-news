@@ -31,6 +31,7 @@ const articleRouter = require('./routes/article');
 //setting route, when going to /user userRouter will load
 // '/user/userRouter'
 app.use('/user', userRouter);
+app.use('/articles', articleRouter);
 
 // Open port 3000 on server and log port number to console
 app.listen(port, () => {

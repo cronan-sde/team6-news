@@ -2,6 +2,8 @@
 const mongoose = require('mongoose');
 require('mongoose-type-email');
 
+//TODO: add bookmarks and favorites to schema
+
 //type designates type of data coming in
 //unique designates something must be unique and not already used
 //required designates a required field
@@ -30,7 +32,7 @@ const UserSchema = new mongoose.Schema({
   createdAt: {
     type: Date,
     default: Date.now()
-  }
+  },
 });
 
 const User = mongoose.model('User', UserSchema);

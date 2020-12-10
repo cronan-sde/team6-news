@@ -20,6 +20,11 @@ const ArticleSchema = new mongoose.Schema({
   },
   source: {
     type: String
+  },
+  uuid: {
+    type: String,
+    unique: true,
+    required: true
   }
 })
 
