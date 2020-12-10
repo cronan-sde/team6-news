@@ -7,7 +7,7 @@ export default class App extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            name: '',
+            username: '',
             email: '',
             password: '',
             searchBar: '',
@@ -28,7 +28,7 @@ export default class App extends React.Component {
         if (this.state.successfulLogin === false) {
             return (
                 <div>
-                    <Welcome onChangeSearch={this.onChange}/>
+                    <Welcome username={this.state.username} onChange={this.onChange}/>
                 </div>
             )
         } else {
