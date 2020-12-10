@@ -7,12 +7,12 @@ import SearchBar from '../inner-components/search/SearchBar.jsx';
 const Welcome = (props) => {
     return (
         <div>
-            <h1>Hello World!</h1>
+            <h1>{props.username}</h1>
             <div>
-                <Login />
+                <Login onChangeLogin={props.onChange}/>
                 <Signup />
                 <NewsFeed />
-                <SearchBar onChangeSearch={props.onChangeSearch}/>
+                <SearchBar onChangeSearch={props.onChange}/>
             </div>
         </div>
     )
