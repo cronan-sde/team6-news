@@ -26,6 +26,7 @@ mongoose.connect(dbUrl, {
 
 //getting routers
 const userRouter = require('./routes/user');
+const articleRouter = require('./routes/article');
 
 //setting route, when going to /user userRouter will load
 // '/user/userRouter'
