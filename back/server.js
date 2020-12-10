@@ -7,9 +7,6 @@ const mongoose = require('mongoose');
 //dburl
 const dbUrl = process.env.DB_URL;
 
-//requiring User model
-const User = require('./models/user');
-
 
 //connecting mongoose to mongodb 
 mongoose.connect(dbUrl, {
