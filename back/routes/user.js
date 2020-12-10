@@ -3,11 +3,19 @@ const router = require('express').Router();
 let User = require('../models/user.model');
 
 //'/login' needs to find a user based on username, password
-// router.route('/login/:username').get((req, res) => {
-//   User.find()
-//     .then(user => res.json(user))
-//     .catch(err => res.status(404).json('Error: ' + err));
-// });
+//TODO: FIX AFTER LUNCH
+router.route('/login').post((req, res) => {
+  const userToFind = req.body.username;
+  const pass = req.body.password;
+
+  if (!validateSecret(userToFind, pass)) {
+    return res.status(400).json("Error: Incorrect username/password");
+  }
+  User.findOne({username: userToFind})
+    .then(user => {
+      res.json(user);
+    })
+});
 
 //users can be added to DB through '/user/signup'
 router.route('/signup').post((req, res) => {
@@ -30,6 +38,18 @@ router.route('/signup').post((req, res) => {
     .then(() => res.json('User Registered'))
     .catch(err => res.status(400).json('Error: ' + err));
 });
+
+function validateSecret(name, pass) {
+  User.findOne({username: name}).select('password')
+  .then(function(user) {
+    if (user && user.password === pass) {
+      return true;
+    }
+    else {
+      return false;
+    }
+  })
+}
 
 //exporting the router for use by the server
 module.exports = router;
