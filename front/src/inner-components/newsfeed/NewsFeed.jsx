@@ -2,11 +2,18 @@ import React from 'react';
 import NewsClip from './NewsClip.jsx';
 
 const NewsFeed = (props) => {
-    return (
-        <div>
 
-        </div>
-    )
+    // Right now this is a basic setup to render a NewsClip for every article in the news array
+    // sent down from this.state in App.jsx
+    // Once we have a proper API that gives us the right information we want, we will know
+    // what information needs to be passed down to NewsClip, such as id, photo, title, etc.
+    // props.displyNews.map( article => {
+    //     return (
+    //         <div>
+    //             <NewsClip />
+    //         </div>
+    //     )
+    // })
 }
 
 export default NewsFeed;
