@@ -1,6 +1,8 @@
 import React from 'react';
 import Welcome from './welcome/Welcome.jsx';
 import User from './user/User.jsx';
+import axios from 'axios';
+
 
 
 export default class App extends React.Component {
@@ -14,7 +16,8 @@ export default class App extends React.Component {
             searchBar: '',
             successfulLogin: false,
             hasClickedLogin: false,
-            hasClickedSignup: false
+            hasClickedSignup: false,
+            trendingNews: []
         }
         // All methods are bound to "this" in order to be passed down as props
         this.onChange = this.onChange.bind(this);
@@ -64,12 +67,56 @@ export default class App extends React.Component {
         console.log(`Signup submit button clicked. Username = ${this.state.username}, Email = ${this.state.email} and password = ${this.state.password}`);
     }
 
+    componentDidMount() {
+        // This is a Bing News API - please see axios request
+         const options = {
+            method: 'GET',
+            url: 'https://bing-news-search1.p.rapidapi.com/news',
+            params: {safeSearch: 'Off', textFormat: 'Raw'},
+            headers: {
+              'x-bingapis-sdk': 'true',
+              'x-rapidapi-key': 'e3f18f7f6dmsh2b9a79ca11616a4p158f61jsndccd31dce415',
+              'x-rapidapi-host': 'bing-news-search1.p.rapidapi.com'
+            }
+          };
+
+        //   axios.request(options)
+        //   .then( response => {
+        //         this.setState({
+        //             trendingNews: response.addTrailers.value
+        //         })
+        //         console.log(response.data);
+        //   }).catch(function (error) {
+        //         console.error(error);
+        //   });
+
+        /* 
+          • The axios request above grabs response.data.value that is an array of objects. 
+          • The request has been coded out to save on request limits
+          • Objects in response.data.value will appear something like:
+          response.data.value = {
+              datePublished: <string>,
+              description: <string>,
+              image: {
+                  thumbnail: {
+                      contentUrl: <string>
+                  }
+              },
+              name: <string>,
+              url: <string>,
+              _type: <string>
+          }
+          
+          */ 
+    }
+
     render () {
         // This conditional rendering is checking to see if a user has logged in successfully or not. Once user information is gained, a function will change "this.state.successfulLogin" to "true" and the else "return()" will render instead of Welcome.
         if (this.state.successfulLogin === false) {
             return (
                 <div>
-                    <Welcome username={this.state.username} onChange={this.onChange} userHasClicked={this.userHasClicked} userHasCanceled={this.userHasCanceled} onSubmitLogin={this.onSubmitLogin} onSubmitSignup={this.onSubmitSignup}/>
+                    <Welcome username={this.state.username} onChange={this.onChange} userHasClicked={this.userHasClicked} userHasCanceled={this.userHasCanceled} onSubmitLogin={this.onSubmitLogin} onSubmitSignup={this.onSubmitSignup}
+                    hasClickedLogin={this.state.hasClickedLogin} hasClickedSignup={this.state.hasClickedSignup}/>
                 </div>
             )
         } else {
