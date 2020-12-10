@@ -6,12 +6,17 @@ const cors = require('cors');
 const mongoose = require('mongoose');
 //dburl
 const dbUrl = process.env.DB_URL;
+const port = process.env.PORT || 3000;
+
+app.use(cors());
+app.use(bodyParser.json());
 
 
 //connecting mongoose to mongodb 
 mongoose.connect(dbUrl, {
   useNewUrlParser: true,
-  useUnifiedTopology: true
+  useUnifiedTopology: true,
+  useCreateIndex: true
 }).then(() => {
   console.log("DB CONNECTION OPEN"); //if no errors
 })
@@ -20,9 +25,15 @@ mongoose.connect(dbUrl, {
   console.log(err);
 });
 
+//getting routers
+const userRouter = require('./routes/user');
+
+//setting route, when going to /user userRouter will load
+// '/user/userRouter'
+app.use('/user', userRouter);
 
 
 // Open port 3000 on server and log port number to console
-app.listen(3000, () => {
-  console.log("Listening on port 3000");
+app.listen(port, () => {
+  console.log(`Listening on port ${port}`);
 });
