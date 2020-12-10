@@ -7,12 +7,13 @@ const NewsFeed = (props) => {
     // sent down from this.state in App.jsx
     // Once we have a proper API that gives us the right information we want, we will know
     // what information needs to be passed down to NewsClip, such as id, photo, title, etc.
+    
     // props.displyNews.map( article => {
-    //     return (
-    //         <div>
-    //             <NewsClip />
-    //         </div>
-    //     )
+        return (
+            <div>
+                <NewsClip />
+            </div>
+        )
     // })
 }
 
