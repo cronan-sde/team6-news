@@ -28,7 +28,7 @@ export default class App extends React.Component {
         if (this.state.successfulLogin === false) {
             return (
                 <div>
-                    <Welcome onChange={this.onChange}/>
+                    <Welcome onChangeSearch={this.onChange}/>
                 </div>
             )
         } else {

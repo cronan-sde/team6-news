@@ -12,7 +12,7 @@ const Welcome = (props) => {
                 <Login />
                 <Signup />
                 <NewsFeed />
-                <SearchBar onChange={props.onChange}/>
+                <SearchBar onChangeSearch={props.onChangeSearch}/>
             </div>
         </div>
     )
