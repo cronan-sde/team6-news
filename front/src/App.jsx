@@ -99,6 +99,8 @@ export default class App extends React.Component {
           uuid: "ecdce856-82ff-477f-a9b0-7c51f43788a0",
         },
       ],
+      //key:value pair - bookmarkedNews
+      bookmarkedNews: ["CNN"],
     };
     // All methods are bound to "this" in order to be passed down as props
     this.onChange = this.onChange.bind(this);
@@ -106,6 +108,7 @@ export default class App extends React.Component {
     this.userHasCanceled = this.userHasCanceled.bind(this);
     this.onSubmitLogin = this.onSubmitLogin.bind(this);
     this.onSubmitSignup = this.onSubmitSignup.bind(this);
+    this.showBookmarks = this.showBookmarks.bind(this);
   }
 
   // This is an event listener method for input fields to change state based on the target name and value
@@ -154,6 +157,16 @@ export default class App extends React.Component {
     console.log(
       `Signup submit button clicked. Username = ${this.state.username}, Email = ${this.state.email} and password = ${this.state.password}`
     );
+  }
+  //this.setState({squares: squares});
+  showBookmarks(event) {
+    event.preventDefault();
+    //this.setState({
+    //[event.target.name]: event.target.value,
+    this.setState({
+      news: this.state.bookmarkedNews,
+    });
+    //this.setState({ [event.target.name]: this.state.bookmarkedNews });
   }
 
   componentDidMount() {
@@ -207,6 +220,7 @@ export default class App extends React.Component {
       return (
         <div>
           <User 
+            showBookmarks={this.showBookmarks}
             news={this.state.news}
           />
         </div>
