@@ -50,6 +50,11 @@ router.route('/article/:username').post((req, res) => {
   }); 
 });
 
+//add route to remove article from user bookmarks
+//remove user from article followers
+//need to check if article has followers left
+//if no followers left remove article from db
+
 
 //export router
 module.exports = router;
