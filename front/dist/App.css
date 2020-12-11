@@ -17,3 +17,12 @@ body{
     background-size: cover;
     background-repeat: no-repeat;
   }
+
+
+
+  /* Login Button, Sign up Button, Logout Button */
+  .UserLogBtns {
+    float: right;
+    display: inline-block;
+    padding: .8% 2%;
+  }
