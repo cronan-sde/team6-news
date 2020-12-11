@@ -4,7 +4,7 @@ const AddBookmark = (props) => {
     if (props.successfulLogin) {
         return (
             <div>
-                <button onClick={() => { props.addToBookmarks(props.articleObject) }}></button>
+                <button onClick={() => { props.addToBookmarks(props.articleObject) }}>Add to Bookmarks</button>
             </div>
         )
 

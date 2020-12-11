@@ -4,7 +4,7 @@ const AddFavorite = (props) => {
     if (props.successfulLogin) {
         return (
             <div>
-                <button onClick={ () => { props.addToFavorites(props.source) }}></button>
+                <button onClick={ () => { props.addToFavorites(props.source) }}>Add This Source to Favorites</button>
             </div>
         )
 
