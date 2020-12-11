@@ -1,0 +1,19 @@
+body{
+    /* The image can change, this is just a placeholder */
+    background: url("https://www.freeiconspng.com/uploads/news-icon-18.png") no-repeat center center fixed;
+    content: '';
+    background-blend-mode: color-burn;
+    filter: drop-shadow(2px 4px 6px black);
+    z-index: -1;
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background-position: center center;
+    background-color: rgba(138, 136, 136, 0.375);
+    background-size: cover;
+    background-attachment: fixed; 
+    background-size: cover;
+    background-repeat: no-repeat;
+  }
