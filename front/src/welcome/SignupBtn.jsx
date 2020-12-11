@@ -2,7 +2,7 @@ import React from "react";
 
 const SignupBtn = (props) => {
     return (
-        <div>
+        <div className="UserLogBtns">
             <button name="hasClickedSignup" type="button" onClick={props.userHasClicked}>Sign up</button>
         </div>
     )
