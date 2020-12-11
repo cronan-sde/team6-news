@@ -32,7 +32,10 @@ const UserSchema = new mongoose.Schema({
   createdAt: {
     type: Date,
     default: Date.now()
-  }
+  },
+  bookmarks: [
+    { type: mongoose.Schema.Types.ObjectId, ref: 'Article' }
+  ]
 });
 
 const User = mongoose.model('User', UserSchema);

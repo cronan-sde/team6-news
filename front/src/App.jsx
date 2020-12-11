@@ -112,8 +112,6 @@ export default class App extends React.Component {
     this.onSubmitSignup = this.onSubmitSignup.bind(this);
     this.showBookmarks = this.showBookmarks.bind(this);
     this.showFavorites = this.showFavorites.bind(this);
-    // this.addToBookmarks = this.addToBookmarks.bind(this);
-    // this.addToFavorites = this.addToFavorites.bind(this);
     this.onSubmitSearch = this.onSubmitSearch.bind(this);
   }
 
@@ -192,13 +190,6 @@ export default class App extends React.Component {
       news: this.state.bookmarkedNews,
     });
   }
-  //  send username with the newsObj
-  //   addToBookmarks(newsObj) {
-  //     newsObj.preventDefault();
-
-  //   }
-
-  // addToFavorites(sourceStr) {}
 
   showFavorites(event) {
     event.preventDefault();
@@ -271,8 +262,6 @@ export default class App extends React.Component {
             showFavorites={this.showFavorites}
             news={this.state.news}
             userLogout={this.userLogout}
-            // addToBookmarks={this.addToBookmarks}
-            addToFavorites={this.addToFavorites}
             onSubmitSearch={this.onSubmitSearch}
             onChange={this.onChange}
           />

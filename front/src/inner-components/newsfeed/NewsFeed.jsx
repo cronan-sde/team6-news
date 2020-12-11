@@ -12,13 +12,17 @@ const NewsFeed = (props) => {
             {
                 props.news.map( article => {
                     return (
-                        
                             <NewsClip 
                                 key={article.uuid}
                                 description={article.description} 
                                 title={article.title} 
                                 image={article.image_url} 
                                 url={article.url}
+                                source={article.source}
+                                articleObject={article}
+                                successfulLogin={props.successfulLogin}
+                                addToBookmarks={props.addToBookmarks}
+                                addToFavorites={props.addToFavorites}
                             />
                     )
                 })

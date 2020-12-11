@@ -34,7 +34,12 @@ const Welcome = (props) => {
             onChangeSearch={props.onChange}
             onSubmitSearch={props.onSubmitSearch}
           />
-          <NewsFeed news={props.news} />
+          <NewsFeed
+            news={props.news}
+            successfulLogin={props.successfulLogin}
+            addToBookmarks={props.addToBookmarks}
+            addToFavorites={props.addToFavorites}
+          />
         </div>
       </div>
     );
