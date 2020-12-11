@@ -11,7 +11,10 @@ const User = (props) => {
       <h1>Hello World User</h1>
       <div>
         <LogoutBtn userLogout={props.userLogout} />
-        <SearchBar onChangeSearch={props.onChange} />
+        <SearchBar
+          onChangeSearch={props.onChange}
+          onSubmitSearch={props.onSubmitSearch}
+        />
         <FavoritesBtn showFavorites={props.showFavorites} />
         <BookmarksBtn showBookmarks={props.showBookmarks} />
         <NewsFeed news={props.news} />

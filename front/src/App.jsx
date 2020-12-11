@@ -112,6 +112,7 @@ export default class App extends React.Component {
     this.onSubmitSignup = this.onSubmitSignup.bind(this);
     this.showBookmarks = this.showBookmarks.bind(this);
     this.showFavorites = this.showFavorites.bind(this);
+    this.onSubmitSearch = this.onSubmitSearch.bind(this);
   }
 
   // This is an event listener method for input fields to change state based on the target name and value
@@ -161,6 +162,26 @@ export default class App extends React.Component {
       `Signup submit button clicked. Username = ${this.state.username}, Email = ${this.state.email} and password = ${this.state.password}`
     );
   }
+
+  onSubmitSearch(event) {
+    event.preventDefault();
+
+    //api.thenewsapi.com/v1/news/all?api_token=YOUR_API_TOKEN&search=usd
+    // const keyword = this.state.searchBar;
+    // console.log(`The this state searchBar is ${keyword}`);
+
+    // axios
+    //   .get(
+    //     `https://api.thenewsapi.com/v1/news/all?api_token=YOUR_KEY=${this.state.searchBar}`
+    //   )
+    //   .then((res) => {
+    this.setState({
+      [this.state.news]: res.data.data,
+    });
+
+    //   });
+  }
+
   //this.setState({squares: squares});
   showBookmarks(event) {
     event.preventDefault();
@@ -229,6 +250,7 @@ export default class App extends React.Component {
             hasClickedSignup={this.state.hasClickedSignup}
             news={this.state.news}
             successfulLogin={this.state.successfulLogin}
+            onSubmitSearch={this.onSubmitSearch}
           />
         </div>
       );
@@ -240,6 +262,8 @@ export default class App extends React.Component {
             showFavorites={this.showFavorites}
             news={this.state.news}
             userLogout={this.userLogout}
+            onSubmitSearch={this.onSubmitSearch}
+            onChange={this.onChange}
           />
         </div>
       );
