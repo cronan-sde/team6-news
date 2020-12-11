@@ -112,7 +112,6 @@ export default class App extends React.Component {
     this.onSubmitSignup = this.onSubmitSignup.bind(this);
     this.showBookmarks = this.showBookmarks.bind(this);
     this.showFavorites = this.showFavorites.bind(this);
-    this.addToBookmarks = this.addToBookmarks.bind(this);
   }
 
   // This is an event listener method for input fields to change state based on the target name and value
@@ -170,12 +169,6 @@ export default class App extends React.Component {
       news: this.state.bookmarkedNews,
     });
   }
-//  send username with the newsObj
-//   addToBookmarks(newsObj) {
-//     newsObj.preventDefault();
-
-
-//   }
 
   showFavorites(event) {
     event.preventDefault();
@@ -247,7 +240,6 @@ export default class App extends React.Component {
             showFavorites={this.showFavorites}
             news={this.state.news}
             userLogout={this.userLogout}
-            // addToBookmarks={this.addToBookmarks}
           />
         </div>
       );
