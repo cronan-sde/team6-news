@@ -4,7 +4,6 @@ const app = express();
 const bodyParser = require('body-parser');
 const cors = require('cors');
 const mongoose = require('mongoose');
-const dbUrl = process.env.DATABASE_URL;
 const port = process.env.PORT || 3000;
 
 app.use(cors());
@@ -12,7 +11,7 @@ app.use(bodyParser.json());
 
 
 //connecting mongoose to mongodb 
-mongoose.connect(dbUrl, {
+mongoose.connect(process.env.DATABASE_URL, {
   useNewUrlParser: true,
   useUnifiedTopology: true,
   useCreateIndex: true
