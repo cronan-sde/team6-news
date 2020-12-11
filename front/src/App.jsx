@@ -235,6 +235,7 @@ export default class App extends React.Component {
             hasClickedLogin={this.state.hasClickedLogin}
             hasClickedSignup={this.state.hasClickedSignup}
             news={this.state.news}
+            successfulLogin={this.state.successfulLogin}
           />
         </div>
       );
