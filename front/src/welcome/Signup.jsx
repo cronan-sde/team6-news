@@ -2,9 +2,9 @@ import React from "react";
 
 const Signup = (props) => {
   return (
-    <div>
+    <div className="modal">
       <p>Signup</p>
-      <form>
+      <form className="form-content">
         <label className="signup-label">Username: </label>
         <input
           type="text"
@@ -33,11 +33,22 @@ const Signup = (props) => {
           onChange={props.onChangeSignUp}
         ></input>{" "}
         <br />
-        <button type="submit" onClick={props.onSubmitSignup}>
+        <button 
+          type="submit" 
+          onClick={props.onSubmitSignup}
+          className="access-submit-button"
+        >
           Submit
         </button>
         <br />
-        <button type="cancel" name="hasClickedSignup" onClick={props.userHasCanceled}>Cancel</button>
+        <button 
+          type="cancel" 
+          name="hasClickedSignup" 
+          onClick={props.userHasCanceled}
+          className="access-cancel-button"
+          >
+            Cancel
+          </button>
       </form>
     </div>
   );

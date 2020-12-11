@@ -4,7 +4,7 @@ const Login = (props) => {
   return (
     <div className="modal">
       <p>Login</p>
-      <form>
+      <form className="form-content">
         <label className="login-label">Username: </label>
         <input
           type="text"
@@ -19,11 +19,15 @@ const Login = (props) => {
           onChange={props.onChangeLogin}
         ></input>{" "}
         <br />
-        <button type="submit" onClick={props.onSubmitLogin}>
+        <button 
+        className="access-submit-button" 
+        type="submit" 
+        onClick={props.onSubmitLogin}>
           Submit
         </button>{" "}
         <br />
         <button
+          className="access-cancel-button"
           type="cancel"
           name="hasClickedLogin"
           onClick={props.userHasCanceled}
