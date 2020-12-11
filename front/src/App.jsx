@@ -164,7 +164,7 @@ export default class App extends React.Component {
     //this.setState({
     //[event.target.name]: event.target.value,
     this.setState({
-      [news]: this.state.bookmarkedNews,
+      news: this.state.bookmarkedNews,
     });
     //this.setState({ [event.target.name]: this.state.bookmarkedNews });
   }
@@ -212,13 +212,17 @@ export default class App extends React.Component {
             onSubmitSignup={this.onSubmitSignup}
             hasClickedLogin={this.state.hasClickedLogin}
             hasClickedSignup={this.state.hasClickedSignup}
+            news={this.state.news}
           />
         </div>
       );
     } else {
       return (
         <div>
-          <User showBookmarks={this.showBookmarks} />
+          <User 
+            showBookmarks={this.showBookmarks}
+            news={this.state.news}
+          />
         </div>
       );
     }

@@ -21,8 +21,8 @@ const Welcome = (props) => {
         <div>
           <LoginBtn userHasClicked={props.userHasClicked} />
           <SigupBtn userHasClicked={props.userHasClicked} />
-          <NewsFeed />
           <SearchBar onChangeSearch={props.onChange} />
+          <NewsFeed news={props.news}/>
         </div>
       </div>
     );
