@@ -25,7 +25,10 @@ const ArticleSchema = new mongoose.Schema({
     type: String,
     unique: true,
     required: true
-  }
+  },
+  bookmarkedBy: [
+   { type: mongoose.Schema.Types.ObjectId, ref: 'User' }
+  ]
 })
 
 const Article = mongoose.model('Article', ArticleSchema);

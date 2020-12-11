@@ -3,7 +3,7 @@ const router = require('express').Router();
 let Article = require('../models/article.model');
 let User = require('../models/user.model');
 
-//TODO: Add articles to user bookmarks
+//Done: Add articles to user bookmarks
 //use uuid to store reference of article in userSchema []
 router.route('/article/:username').post((req, res) => {
   //get article info
@@ -26,7 +26,6 @@ router.route('/article/:username').post((req, res) => {
         source,
         uuid
     });
-      newArticle.save(); //save new article
 
       article = newArticle; //set article parameter to newArticle
     }
@@ -41,6 +40,10 @@ router.route('/article/:username').post((req, res) => {
       else {
         user.bookmarks.push(article); //adding article to user bookmarks
         user.save(); //saving changes
+        //adding user to article bookmarkedBy
+        article.bookmarkedBy.push(user);
+        //saving article to db
+        article.save();
         return res.status(200).json("Success"); //successful operation
       }
     })
