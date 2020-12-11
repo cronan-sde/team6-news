@@ -22,7 +22,12 @@ const Welcome = (props) => {
           <LoginBtn userHasClicked={props.userHasClicked} />
           <SigupBtn userHasClicked={props.userHasClicked} />
           <SearchBar onChangeSearch={props.onChange} />
-          <NewsFeed news={props.news}/>
+          <NewsFeed 
+          news={props.news} 
+          successfulLogin={props.successfulLogin} 
+          addToBookmarks={props.addToBookmarks}
+          addToFavorites={props.addToFavorites}
+          />
         </div>
       </div>
     );
