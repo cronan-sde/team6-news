@@ -161,6 +161,21 @@ export default class App extends React.Component {
     console.log(
       `Signup submit button clicked. Username = ${this.state.username}, Email = ${this.state.email} and password = ${this.state.password}`
     );
+    axios
+      .post("https://team6-news.herokuapp.com/user/signup", {
+        username: this.state.username,
+        email: this.state.email,
+        password: this.state.password,
+      })
+      .then((res) => {
+        console.log(res.data);
+        this.setState({ successfulLogin: true });
+      })
+      .catch((error) => {
+        if (error) {
+          alert("Error in onSubmitSignup in axios request");
+        }
+      });
   }
 
   onSubmitSearch(event) {
