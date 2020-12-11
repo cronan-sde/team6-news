@@ -101,14 +101,18 @@ export default class App extends React.Component {
       ],
       //key:value pair - bookmarkedNews
       bookmarkedNews: ["CNN"],
+      favoriteSources: ["The New York Times", "The Wall Street Journal"],
     };
     // All methods are bound to "this" in order to be passed down as props
     this.onChange = this.onChange.bind(this);
     this.userHasClicked = this.userHasClicked.bind(this);
+    this.userLogout = this.userLogout.bind(this);
     this.userHasCanceled = this.userHasCanceled.bind(this);
     this.onSubmitLogin = this.onSubmitLogin.bind(this);
     this.onSubmitSignup = this.onSubmitSignup.bind(this);
     this.showBookmarks = this.showBookmarks.bind(this);
+    this.showFavorites = this.showFavorites.bind(this);
+    this.addToBookmarks = this.addToBookmarks.bind(this);
   }
 
   // This is an event listener method for input fields to change state based on the target name and value
@@ -161,12 +165,30 @@ export default class App extends React.Component {
   //this.setState({squares: squares});
   showBookmarks(event) {
     event.preventDefault();
-    //this.setState({
-    //[event.target.name]: event.target.value,
+
     this.setState({
       news: this.state.bookmarkedNews,
     });
-    //this.setState({ [event.target.name]: this.state.bookmarkedNews });
+  }
+//  send username with the newsObj
+//   addToBookmarks(newsObj) {
+//     newsObj.preventDefault();
+
+
+//   }
+
+  showFavorites(event) {
+    event.preventDefault();
+    this.setState({ news: this.state.favoriteSources });
+  }
+
+  userLogout(event) {
+    event.preventDefault();
+    //setting successfulLogin:false so it redirect to the Welcome page
+    this.setState({
+      successfulLogin: false,
+      hasClickedLogin: false,
+    });
   }
 
   componentDidMount() {
@@ -213,15 +235,19 @@ export default class App extends React.Component {
             hasClickedLogin={this.state.hasClickedLogin}
             hasClickedSignup={this.state.hasClickedSignup}
             news={this.state.news}
+            successfulLogin={this.state.successfulLogin}
           />
         </div>
       );
     } else {
       return (
         <div>
-          <User 
+          <User
             showBookmarks={this.showBookmarks}
+            showFavorites={this.showFavorites}
             news={this.state.news}
+            userLogout={this.userLogout}
+            // addToBookmarks={this.addToBookmarks}
           />
         </div>
       );
