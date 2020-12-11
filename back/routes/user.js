@@ -6,9 +6,9 @@ let User = require('../models/user.model');
 //DONE: FIX AFTER LUNCH
 //returns json for valid user if name and pass are matches in db
 //returns error if no match on name or pass
-router.route('/login').post((req, res) => {
-  const userToFind = req.body.username;
-  const pass = req.body.password;
+router.route('/login/:username&:pass').get((req, res) => {
+  const userToFind = req.params.username;
+  const pass = req.params.pass;
 
   User.findOne({
     username: userToFind,
