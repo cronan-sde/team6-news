@@ -12,9 +12,9 @@ const User = (props) => {
       <div>
         <LogoutBtn userLogout={props.userLogout} />
         <SearchBar onChangeSearch={props.onChange} />
-        <NewsFeed onChangeSearch={props.onChange} />
         <FavoritesBtn showFavorites={props.showFavorites} />
         <BookmarksBtn showBookmarks={props.showBookmarks} />
+        <NewsFeed news={props.news} />
       </div>
     </div>
   );

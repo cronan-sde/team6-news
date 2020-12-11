@@ -199,13 +199,16 @@ export default class App extends React.Component {
             onSubmitSignup={this.onSubmitSignup}
             hasClickedLogin={this.state.hasClickedLogin}
             hasClickedSignup={this.state.hasClickedSignup}
+            news={this.state.news}
           />
         </div>
       );
     } else {
       return (
         <div>
-          <User />
+          <User 
+            news={this.state.news}
+          />
         </div>
       );
     }
