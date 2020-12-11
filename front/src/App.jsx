@@ -1,139 +1,165 @@
-import React from 'react';
-import Welcome from './welcome/Welcome.jsx';
-import User from './user/User.jsx';
-import axios from 'axios';
-
-
+import React from "react";
+import Welcome from "./welcome/Welcome.jsx";
+import User from "./user/User.jsx";
+import axios from "axios";
 
 export default class App extends React.Component {
-    constructor(props) {
-        super(props);
-        // All important, saved information will live in state. Event listeners will update certain values where needed.
-        this.state = {
-            username: '',
-            email: '',
-            password: '',
-            searchBar: '',
-            successfulLogin: false,
-            hasClickedLogin: false,
-            hasClickedSignup: false,
-            trendingNews: [],
-            // The news array is hard coded information to look like the information we can gain from our API
-            // This is to be used to save on our API calls while still having real data to use in building 
-            news:
-            [ {
-                categories: ["tech"],
-                description: "A bunch of Galaxy phone users got a bit of a head start on t...",
-                image_url: "https://article.thenewsapi.com/image/38cc5291-e316-4d2c-837c-6aef401163f0",
-                keywords: "",
-                language: "en",
-                locale: "us",
-                published_at: "2020-12-10T22:28:00.000000Z",
-                relevance_score: null,
-                snippet: "19 new Android games from the last week: The best, worst, an...",
-                source: "androidpolice.com",
-                title: "Galaxy Note9, A71, and other Samsung phones get December update on Verizon",
-                url: "https://article.thenewsapi.com/38cc5291-e316-4d2c-837c-6aef401163f0",
-                uuid: "38cc5291-e316-4d2c-837c-6aef401163f0"
-            },
-            {
-                categories: ["general"],
-                description: "On Thursday, Airbnb sold investors on an unlikely story: tha...",
-                image_url: "https://article.thenewsapi.com/image/a31cdddb-d51a-4b86-82e8-c9c7eb8a8d01",
-                keywords: "",
-                language: "en",
-                locale: "us",
-                published_at: "2020-12-10T22:20:08.000000Z",
-                relevance_score: null,
-                snippet: "The company’s shares skyrocketed on their first day of tra...",
-                source: "bostonglobe.com",
-                title: "Airbnb tops $100 Billion on first day of trading, reviving talk of a bubble",
-                url: "https://article.thenewsapi.com/a31cdddb-d51a-4b86-82e8-c9c7eb8a8d01",
-                uuid: "a31cdddb-d51a-4b86-82e8-c9c7eb8a8d01"
-            },
-            {
-        	    categories: ["business", "tech"],
-                description: "",
-                image_url: "https://article.thenewsapi.com/image/62d5009c-50ee-4052-83ac-262be53621df",
-                keywords: "",
-                language: "en",
-                locale: "us",
-                published_at: "2020-12-10T22:19:54.000000Z",
-                relevance_score: null,
-                snippet: "President-elect Joe Biden told a group of civil rights leade...",
-                source: "businessinsider.com",
-                title: "Biden tells civil rights leaders that Republicans weaponized the 'defund the police' slogan to 'beat the hell' out of Democrats",
-                url: "https://article.thenewsapi.com/62d5009c-50ee-4052-83ac-262be53621df",
-                uuid: "62d5009c-50ee-4052-83ac-262be53621df"
-            },
-            {
-                categories: ["general", "politics"],
-                description: "The revelation that federal prosecutors have launched a tax ...",
-                image_url: "https://article.thenewsapi.com/image/ecdce856-82ff-477f-a9b0-7c51f43788a0",
-                keywords: "General news, Crime, News industry, Media industry, Media and entertainment industry, Business, Criminal investigations, Law and order, 2019-2020 Coronavirus pandemic, Government and politics, Government transitions, National governments, Presidential el",
-                language: "en",
-                locale: "us",
-                published_at: "2020-12-10T22:53:15.000000Z",
-                relevance_score: null,
-                snippet: "Biden's transition contends with probe into son's finances T...",
-                source: "abcnews.go.com",
-                title: "Biden's transition contends with probe into son's finances",
-                url: "https://article.thenewsapi.com/ecdce856-82ff-477f-a9b0-7c51f43788a0",
-                uuid: "ecdce856-82ff-477f-a9b0-7c51f43788a0",
-            }]
-        }
-        // All methods are bound to "this" in order to be passed down as props
-        this.onChange = this.onChange.bind(this);
-        this.userHasClicked = this.userHasClicked.bind(this);
-        this.userHasCanceled = this.userHasCanceled.bind(this);
-        this.onSubmitLogin = this.onSubmitLogin.bind(this);
-        this.onSubmitSignup = this.onSubmitSignup.bind(this);
-    }
+  constructor(props) {
+    super(props);
+    // All important, saved information will live in state. Event listeners will update certain values where needed.
+    this.state = {
+      username: "",
+      email: "",
+      password: "",
+      searchBar: "",
+      successfulLogin: false,
+      hasClickedLogin: false,
+      hasClickedSignup: false,
+      trendingNews: [],
+      // The news array is hard coded information to look like the information we can gain from our API
+      // This is to be used to save on our API calls while still having real data to use in building
+      news: [
+        {
+          categories: ["tech"],
+          description:
+            "A bunch of Galaxy phone users got a bit of a head start on t...",
+          image_url:
+            "https://article.thenewsapi.com/image/38cc5291-e316-4d2c-837c-6aef401163f0",
+          keywords: "",
+          language: "en",
+          locale: "us",
+          published_at: "2020-12-10T22:28:00.000000Z",
+          relevance_score: null,
+          snippet:
+            "19 new Android games from the last week: The best, worst, an...",
+          source: "androidpolice.com",
+          title:
+            "Galaxy Note9, A71, and other Samsung phones get December update on Verizon",
+          url:
+            "https://article.thenewsapi.com/38cc5291-e316-4d2c-837c-6aef401163f0",
+          uuid: "38cc5291-e316-4d2c-837c-6aef401163f0",
+        },
+        {
+          categories: ["general"],
+          description:
+            "On Thursday, Airbnb sold investors on an unlikely story: tha...",
+          image_url:
+            "https://article.thenewsapi.com/image/a31cdddb-d51a-4b86-82e8-c9c7eb8a8d01",
+          keywords: "",
+          language: "en",
+          locale: "us",
+          published_at: "2020-12-10T22:20:08.000000Z",
+          relevance_score: null,
+          snippet:
+            "The company’s shares skyrocketed on their first day of tra...",
+          source: "bostonglobe.com",
+          title:
+            "Airbnb tops $100 Billion on first day of trading, reviving talk of a bubble",
+          url:
+            "https://article.thenewsapi.com/a31cdddb-d51a-4b86-82e8-c9c7eb8a8d01",
+          uuid: "a31cdddb-d51a-4b86-82e8-c9c7eb8a8d01",
+        },
+        {
+          categories: ["business", "tech"],
+          description: "",
+          image_url:
+            "https://article.thenewsapi.com/image/62d5009c-50ee-4052-83ac-262be53621df",
+          keywords: "",
+          language: "en",
+          locale: "us",
+          published_at: "2020-12-10T22:19:54.000000Z",
+          relevance_score: null,
+          snippet:
+            "President-elect Joe Biden told a group of civil rights leade...",
+          source: "businessinsider.com",
+          title:
+            "Biden tells civil rights leaders that Republicans weaponized the 'defund the police' slogan to 'beat the hell' out of Democrats",
+          url:
+            "https://article.thenewsapi.com/62d5009c-50ee-4052-83ac-262be53621df",
+          uuid: "62d5009c-50ee-4052-83ac-262be53621df",
+        },
+        {
+          categories: ["general", "politics"],
+          description:
+            "The revelation that federal prosecutors have launched a tax ...",
+          image_url:
+            "https://article.thenewsapi.com/image/ecdce856-82ff-477f-a9b0-7c51f43788a0",
+          keywords:
+            "General news, Crime, News industry, Media industry, Media and entertainment industry, Business, Criminal investigations, Law and order, 2019-2020 Coronavirus pandemic, Government and politics, Government transitions, National governments, Presidential el",
+          language: "en",
+          locale: "us",
+          published_at: "2020-12-10T22:53:15.000000Z",
+          relevance_score: null,
+          snippet:
+            "Biden's transition contends with probe into son's finances T...",
+          source: "abcnews.go.com",
+          title: "Biden's transition contends with probe into son's finances",
+          url:
+            "https://article.thenewsapi.com/ecdce856-82ff-477f-a9b0-7c51f43788a0",
+          uuid: "ecdce856-82ff-477f-a9b0-7c51f43788a0",
+        },
+      ],
+    };
+    // All methods are bound to "this" in order to be passed down as props
+    this.onChange = this.onChange.bind(this);
+    this.userHasClicked = this.userHasClicked.bind(this);
+    this.userHasCanceled = this.userHasCanceled.bind(this);
+    this.onSubmitLogin = this.onSubmitLogin.bind(this);
+    this.onSubmitSignup = this.onSubmitSignup.bind(this);
+  }
 
-    // This is an event listener method for input fields to change state based on the target name and value
-    onChange(event) {
-        event.preventDefault();
-        this.setState({
-            [event.target.name]: event.target.value
-        })
-    }
+  // This is an event listener method for input fields to change state based on the target name and value
+  onChange(event) {
+    event.preventDefault();
+    this.setState({
+      [event.target.name]: event.target.value,
+    });
+  }
 
-    // This method is an event listener for any buttons clicked to start rendering a new component, such as the modal
-    // signup or modal login
-    userHasClicked(event) {
-        event.preventDefault();
-        this.setState({
-            [event.target.name]: true
-        })
-    }
+  // This method is an event listener for any buttons clicked to start rendering a new component, such as the modal
+  // signup or modal login
+  userHasClicked(event) {
+    event.preventDefault();
+    this.setState({
+      [event.target.name]: true,
+    });
+  }
 
-    // This method is an event listener for any cancel button clicked to stop rendering a component, such as the modal
-    // signup or modal login
-    userHasCanceled(event) {
-        event.preventDefault();
-        this.setState({
-            [event.target.name]: false
-        })
-    }
+  // This method is an event listener for any cancel button clicked to stop rendering a component, such as the modal
+  // signup or modal login
+  userHasCanceled(event) {
+    event.preventDefault();
+    this.setState({
+      [event.target.name]: false,
+    });
+  }
 
-    // For now, this event listener is waiting for the login submit button to be hit and do a simple console.log
-    // Eventually this will be used to send a request to the server with the proper information
-    onSubmitLogin(event) {
-        event.preventDefault();
-        console.log(`Login submit button clicked. Username = ${this.state.username} and password = ${this.state.password}`);
-    }
+  // For now, this event listener is waiting for the login submit button to be hit and do a simple console.log
+  // Eventually this will be used to send a request to the server with the proper information
+  onSubmitLogin(event) {
+    event.preventDefault();
+    console.log(
+      `Login submit button clicked. Username = ${this.state.username} and password = ${this.state.password}`
+    );
+    //this is for testing purposes - will be changed later on!
+    this.setState({
+      successfulLogin: true,
+    });
+  }
 
-    // For now, this event listener is waiting for the signup submit button to be hit and do a simple console.log
-    // Eventually this will be used to send a request to the server with the proper information
-    onSubmitSignup(event) {
-        event.preventDefault();
-        console.log(`Signup submit button clicked. Username = ${this.state.username}, Email = ${this.state.email} and password = ${this.state.password}`);
-    }
+  // For now, this event listener is waiting for the signup submit button to be hit and do a simple console.log
+  // Eventually this will be used to send a request to the server with the proper information
+  onSubmitSignup(event) {
+    event.preventDefault();
+    console.log(
+      `Signup submit button clicked. Username = ${this.state.username}, Email = ${this.state.email} and password = ${this.state.password}`
+    );
+  }
 
-    componentDidMount() {
-        // Request sends to The News API to gain access to top news stories, currently set to limit of 3, max is 5
-        // res.data.data returns an array of objects. Objects inside array returned appears as such:
-        /*
+  componentDidMount() {
+    // Request sends to The News API to gain access to top news stories, currently set to limit of 3, max is 5
+    // res.data.data returns an array of objects. Objects inside array returned appears as such:
+    /*
             res.data.data[0] = {
                 categories: [<sting>, <sting>],
                 description: <string>,
@@ -149,33 +175,39 @@ export default class App extends React.Component {
                 uuid: <string>
             }
         */
+    // Need to work on a way to import a .env file to the front end to not reveal api key
+    //  axios.get(`https://api.thenewsapi.com/v1/news/top?api_token=${process.env.NEWS_API_KEY}&locale=us&limit=3`)
+    //  .then( res => {
+    //      this.setState({
+    //          trendingNews: res.data.data
+    //      })
+    //      console.log(res.data.data)
+    //  })
+  }
 
-        // Need to work on a way to import a .env file to the front end to not reveal api key
-        //  axios.get(`https://api.thenewsapi.com/v1/news/top?api_token=${process.env.NEWS_API_KEY}&locale=us&limit=3`)
-        //  .then( res => {
-        //      this.setState({
-        //          trendingNews: res.data.data
-        //      })
-        //      console.log(res.data.data)
-        //  })
-         
+  render() {
+    // This conditional rendering is checking to see if a user has logged in successfully or not. Once user information is gained, a function will change "this.state.successfulLogin" to "true" and the else "return()" will render instead of Welcome.
+    if (this.state.successfulLogin === false) {
+      return (
+        <div>
+          <Welcome
+            username={this.state.username}
+            onChange={this.onChange}
+            userHasClicked={this.userHasClicked}
+            userHasCanceled={this.userHasCanceled}
+            onSubmitLogin={this.onSubmitLogin}
+            onSubmitSignup={this.onSubmitSignup}
+            hasClickedLogin={this.state.hasClickedLogin}
+            hasClickedSignup={this.state.hasClickedSignup}
+          />
+        </div>
+      );
+    } else {
+      return (
+        <div>
+          <User />
+        </div>
+      );
     }
-
-    render () {
-        // This conditional rendering is checking to see if a user has logged in successfully or not. Once user information is gained, a function will change "this.state.successfulLogin" to "true" and the else "return()" will render instead of Welcome.
-        if (this.state.successfulLogin === false) {
-            return (
-                <div>
-                    <Welcome username={this.state.username} onChange={this.onChange} userHasClicked={this.userHasClicked} userHasCanceled={this.userHasCanceled} onSubmitLogin={this.onSubmitLogin} onSubmitSignup={this.onSubmitSignup}
-                    hasClickedLogin={this.state.hasClickedLogin} hasClickedSignup={this.state.hasClickedSignup}/>
-                </div>
-            )
-        } else {
-            return (
-                <div>
-                    <User />
-                </div>
-            )
-        }
-    }
+  }
 }
