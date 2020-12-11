@@ -249,8 +249,8 @@ export default class App extends React.Component {
             hasClickedLogin={this.state.hasClickedLogin}
             hasClickedSignup={this.state.hasClickedSignup}
             news={this.state.news}
-            successfulLogin={this.state.successfulLogin}
             onSubmitSearch={this.onSubmitSearch}
+            successfulLogin={this.state.successfulLogin}
           />
         </div>
       );
@@ -264,6 +264,7 @@ export default class App extends React.Component {
             userLogout={this.userLogout}
             onSubmitSearch={this.onSubmitSearch}
             onChange={this.onChange}
+            successfulLogin={this.state.successfulLogin}
           />
         </div>
       );
