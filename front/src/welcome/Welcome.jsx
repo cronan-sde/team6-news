@@ -9,19 +9,43 @@ import SearchBar from "../inner-components/search/SearchBar.jsx";
 const Welcome = (props) => {
   if (props.hasClickedLogin) {
     return (
-      <Login
-        onChangeLogin={props.onChange}
-        onSubmitLogin={props.onSubmitLogin}
-        userHasCanceled={props.userHasCanceled}
-      />
+      <div>
+        <Login
+          onChangeLogin={props.onChange}
+          onSubmitLogin={props.onSubmitLogin}
+          userHasCanceled={props.userHasCanceled}
+        />
+        <SearchBar
+          onChangeSearch={props.onChange}
+          onSubmitSearch={props.onSubmitSearch}
+        />
+        <NewsFeed
+          news={props.news}
+          successfulLogin={props.successfulLogin}
+          addToBookmarks={props.addToBookmarks}
+          addToFavorites={props.addToFavorites}
+        />
+      </div>
     );
   } else if (props.hasClickedSignup) {
     return (
-      <Signup
-        onChangeSignUp={props.onChange}
-        onSubmitSignup={props.onSubmitSignup}
-        userHasCanceled={props.userHasCanceled}
-      />
+      <div>
+        <Signup
+          onChangeSignUp={props.onChange}
+          onSubmitSignup={props.onSubmitSignup}
+          userHasCanceled={props.userHasCanceled}
+        />
+        <SearchBar
+          onChangeSearch={props.onChange}
+          onSubmitSearch={props.onSubmitSearch}
+        />
+        <NewsFeed
+          news={props.news}
+          successfulLogin={props.successfulLogin}
+          addToBookmarks={props.addToBookmarks}
+          addToFavorites={props.addToFavorites}
+        />
+      </div>
     );
   } else {
     return (
