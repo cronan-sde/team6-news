@@ -4,7 +4,6 @@ let Article = require('../models/article.model');
 let User = require('../models/user.model');
 
 //Done: Add articles to user bookmarks
-//use uuid to store reference of article in userSchema []
 router.route('/article/:username').post((req, res) => {
   //get article info
   const { title, description, url, imageUrl, published, source, uuid } = req.body;
