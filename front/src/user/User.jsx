@@ -17,7 +17,12 @@ const User = (props) => {
         />
         <FavoritesBtn showFavorites={props.showFavorites} />
         <BookmarksBtn showBookmarks={props.showBookmarks} />
-        <NewsFeed news={props.news} />
+        <NewsFeed 
+          news={props.news}
+          successfulLogin={props.successfulLogin}
+          addToBookmarks={props.addToBookmarks}
+          addToFavorites={props.addToFavorites}
+        />
       </div>
     </div>
   );
