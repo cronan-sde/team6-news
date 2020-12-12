@@ -183,6 +183,7 @@ export default class App extends React.Component {
       ],
       bookmarkedNews: ["CNN"],
       favoriteSources: ["The New York Times", "The Wall Street Journal"],
+      favoriteSourcesArticles: []
     };
     // All methods are bound to "this" in order to be passed down as props
     this.onChange = this.onChange.bind(this);
