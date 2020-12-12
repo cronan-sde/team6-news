@@ -15,6 +15,8 @@ export default class App extends React.Component {
       successfulLogin: false,
       hasClickedLogin: false,
       hasClickedSignup: false,
+      memberSince: '',
+      userId: '',
       // The news array is hard coded information to look like the information we can gain from our API
       // This is to be used to save on our API calls while still having real data to use in building
       news: [
@@ -146,13 +148,21 @@ export default class App extends React.Component {
   // Eventually this will be used to send a request to the server with the proper information
   onSubmitLogin(event) {
     event.preventDefault();
-    console.log(
-      `Login submit button clicked. Username = ${this.state.username} and password = ${this.state.password}`
-    );
-    //this is for testing purposes - will be changed later on!
-    this.setState({
-      successfulLogin: true,
-    });
+
+    axios.get(`https://team6-news.herokuapp.com/user/login/${this.state.username}&${this.state.password}`)
+    .then( res => {
+      let userInfo = res.data;
+      this.setState({
+        memberSince: userInfo.createdAt,
+        bookmarkedNews: userInfo.bookmarks,
+        favoriteSources: userInfo.favorites,
+        userId: userInfo.id,
+        successfulLogin: true
+      })
+    })
+    .catch( err => {
+      if (err) alert("Incorrect login information. Please try again.")
+    })
   }
 
   onSubmitSignup(event) {
@@ -194,21 +204,8 @@ export default class App extends React.Component {
   }
 
   // This method will be called when a logged in User adds an article to their Bookmarks
-  // *********** Need to partner with Cody to see exactly what he is expecting on the backend
-  // There is no undefined information, just need to know what is expected on back end. 
-  // Calling this function will not break the app, just gets an error from the server
   addToBookmarks(newsObj) {
-    let articleObj =     { 
-      title: newsObj.title,
-      description: newsObj.description,
-      url: newsObj.url,
-      imageUrl:  newsObj.image_url,
-      published: newsObj.published_at,
-      source: newsObj.source,
-      uuid: newsObj.uuid
-    }
-    console.log(articleObj);
-    axios.post(`https://team6-news.herokuapp.com/article/${this.state.username}`, 
+    axios.post(`https://team6-news.herokuapp.com/bookmarks/article/${this.state.username}`, 
     { 
       title: newsObj.title,
       description: newsObj.description,
@@ -219,9 +216,11 @@ export default class App extends React.Component {
       uuid: newsObj.uuid
     })
     .then( res => {
+      // Once a good response is received, we need to decide how to notify the user
       console.log(res.data);
     })
     .catch( err => {
+      // This needs to be edited not to alert the User to retry or whatever we decide
       if (err) alert("Error found in addToBookMarks post request in App.jsx");
     })
   }
@@ -235,9 +234,12 @@ export default class App extends React.Component {
     });
   }
 
-  // This axios request is the same as addToBookMarks - need to partner with Cody
+  // This method will be called when a logged in User adds an article to their Favorites
+  // *********** Need to partner with Cody to see exactly what he is expecting on the backend
+  // There is no undefined information, just need to know what is expected on back end. 
+  // Calling this function will not break the app, just gets an error from the server
   addToFavorites(sourceStr) {
-    axios.post(`https://team6-news.herokuapp.com/article/${this.state.username}/${sourceStr}`)
+    axios.post(`https://team6-news.herokuapp.com/favorites/article/${this.state.username}/${sourceStr}`)
     .then( res => {
       console.log(res.data);
     })
