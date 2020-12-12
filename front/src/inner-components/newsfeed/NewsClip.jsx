@@ -1,6 +1,8 @@
 import React from 'react';
 import AddBookmark from './newsfeedButtons/AddBookmark.jsx';
 import AddFavorite from './newsfeedButtons/AddFavorite.jsx';
+import RemoveBookmark from './newsfeedButtons/RemoveBookmark.jsx';
+import RemoveFavorite from './newsfeedButtons/RemoveFavorite.jsx';
 
 
 const NewsClip = (props) => {
@@ -16,7 +18,9 @@ const NewsClip = (props) => {
             </div>
             <div>
                 <AddFavorite successfulLogin={props.successfulLogin} source={props.source} addToFavorites={props.addToFavorites}/>
+                <RemoveFavorite successfulLogin={props.successfulLogin} source={props.source} removeFromFavorites={props.removeFromFavorites} />
                 <AddBookmark successfulLogin={props.successfulLogin} articleObject={props.articleObject} addToBookmarks={props.addToBookmarks}/>
+                <RemoveBookmark successfulLogin={props.successfulLogin} articleObject={props.articleObject} removeFromBookmarks={props.removeFromBookmarks} />
             </div>
         </div>
     )
