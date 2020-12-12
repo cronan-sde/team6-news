@@ -1,6 +1,6 @@
 //getting express router and user schema
 const router = require('express').Router();
-let User = require('../models/user.model');
+const User = require('../models/user.model');
 
 //'/login' needs to find a user based on username, password
 //DONE: FIX AFTER LUNCH

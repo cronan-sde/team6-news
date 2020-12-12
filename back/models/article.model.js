@@ -19,7 +19,8 @@ const ArticleSchema = new mongoose.Schema({
     type: Date
   },
   source: {
-    type: String
+    type: String,
+    lowercase: true
   },
   uuid: {
     type: String,

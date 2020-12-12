@@ -1,7 +1,7 @@
 //express router and article schema
 const router = require('express').Router();
-let Article = require('../models/article.model');
-let User = require('../models/user.model');
+const Article = require('../models/article.model');
+const User = require('../models/user.model');
 
 //Done: Add articles to user bookmarks
 router.route('/article/:username').post((req, res) => {
@@ -80,6 +80,7 @@ router.route('/article/:username/:articleId').delete((req, res) => {
     })
   })
 })
+
 
 
 //export router
