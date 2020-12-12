@@ -34,7 +34,16 @@ const UserSchema = new mongoose.Schema({
     default: Date.now()
   },
   bookmarks: [
-    { type: mongoose.Schema.Types.ObjectId, ref: 'Article' }
+    { 
+      type: mongoose.Schema.Types.ObjectId, 
+      ref: 'Article' 
+    }
+  ],
+  favorites: [
+    {
+      type: String,
+      lowercase: true
+    }
   ]
 });
 

@@ -27,11 +27,13 @@ mongoose.connect(process.env.DATABASE_URL, {
 //getting routers
 const userRouter = require('./routes/user');
 const articleRouter = require('./routes/article');
+const favSourcesRouter = require('./routes/favorites');
 
 //setting route, when going to /user userRouter will load
 // '/user/userRouter'
 app.use('/user', userRouter);
 app.use('/bookmarks', articleRouter);
+app.use('/favorites', favSourcesRouter)
 
 // Open port 3000 on server and log port number to console
 app.listen(port, () => {
