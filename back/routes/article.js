@@ -50,10 +50,37 @@ router.route('/article/:username').post((req, res) => {
   }); 
 });
 
-//add route to remove article from user bookmarks
-//remove user from article followers
-//need to check if article has followers left
-//if no followers left remove article from db
+//Done: add route to remove article from user bookmarks
+//Done: remove user from article followers
+//DONE: need to check if article has followers left
+//Done: if no followers left remove article from db
+router.route('/article/:username/:articleId').delete((req, res) => {
+  const {username, articleId} = req.params;
+
+  //finding user and removing the ID referencing the Article from bookmarks
+  User.findOneAndUpdate({username: username}, {$pull: {bookmarks: articleId}}, {safe: true}, function(err, user) {
+    if (err) {
+      return res.status(400).json("Error: Article not found"); //if an error occurs article id is wrong
+    }
+    if (!user) {
+      return res.status(400).json("Error: User not found"); //if user is null, username was wrong
+    }
+    //Now searching the article to remove the user from its bookmarkedBy array
+    Article.findByIdAndUpdate(articleId, {$pull: {bookmarkedBy: user._id}}, {safe: true, new: true}, function(err, article){
+      if (!article) {
+        return res.status(400).json("Error: Article not in users bookmarks"); //error here means article was already removed
+      }
+      let result = article.bookmarkedBy.length; //checking how many users are bookmarking this article
+      if (result === 0) {
+        //delete article from db, no users are bookmarking it
+        Article.findByIdAndDelete(articleId, function(err, delArticle) {
+          console.log("DELETED ARTICLE: " + delArticle);
+        })
+      }
+      return res.json("Successful bookmark removal"); //successful removal of associations between User and Article
+    })
+  })
+})
 
 
 //export router
