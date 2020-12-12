@@ -19,7 +19,7 @@ export default class App extends React.Component {
       userId: '',
       // The news array is hard coded information to look like the information we can gain from our API
       // This is to be used to save on our API calls while still having real data to use in building
-      news: [
+      displayedNews: [
         {
           categories: ["tech"],
           description:
@@ -100,7 +100,7 @@ export default class App extends React.Component {
           uuid: "ecdce856-82ff-477f-a9b0-7c51f43788a0",
         },
       ],
-      //key:value pair - bookmarkedNews
+      trendingNews: [],
       bookmarkedNews: ["CNN"],
       favoriteSources: ["The New York Times", "The Wall Street Journal"],
     };
@@ -118,6 +118,7 @@ export default class App extends React.Component {
     this.addToFavorites = this.addToFavorites.bind(this);
     this.removeFromBookmarks = this.removeFromBookmarks.bind(this);
     this.removeFromFavorites = this.removeFromFavorites.bind(this);
+    this.showTendingNews = this.showTendingNews.bind(this);
   }
 
   // This is an event listener method for input fields to change state based on the target name and value
@@ -199,7 +200,7 @@ export default class App extends React.Component {
     //   )
     //   .then((res) => {
     this.setState({
-      [this.state.news]: res.data.data,
+      [this.state.displayedNews]: res.data.data,
     });
 
     //   });
@@ -236,7 +237,7 @@ export default class App extends React.Component {
     event.preventDefault();
 
     this.setState({
-      news: this.state.bookmarkedNews,
+      displayedNews: this.state.bookmarkedNews,
     });
   }
 
@@ -260,7 +261,16 @@ export default class App extends React.Component {
 
   showFavorites(event) {
     event.preventDefault();
-    this.setState({ news: this.state.favoriteSources });
+    this.setState({ 
+      displayedNews: this.state.favoriteSources 
+    });
+  }
+
+  showTendingNews(event) {
+    event.preventDefault();
+    this.setState({
+      displayedNews: this.state.trendingNews
+    })
   }
 
   userLogout(event) {
@@ -295,7 +305,8 @@ export default class App extends React.Component {
     //  axios.get(`https://api.thenewsapi.com/v1/news/top?api_token=${process.env.NEWS_API_KEY}&locale=us&limit=3`)
     //  .then( res => {
     //      this.setState({
-    //          news: res.data.data
+    //          displayedNews: res.data.data
+    //          trendingNews: res.data.data
     //      })
     //      console.log(res.data.data)
     //  })
@@ -336,6 +347,7 @@ export default class App extends React.Component {
             addToFavorites={this.addToFavorites}
             removeFromBookmarks={this.removeFromBookmarks}
             removeFromFavorites={this.removeFromFavorites}
+            showTendingNews={this.showTendingNews}
           />
         </div>
       );
