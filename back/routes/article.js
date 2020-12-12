@@ -67,7 +67,7 @@ router.route('/article/:username/:articleId').delete((req, res) => {
     //Now searching the article to remove the user from its bookmarkedBy array
     Article.findByIdAndUpdate(articleId, {$pull: {bookmarkedBy: user._id}}, {safe: true, new: true}, function(err, article){
       if (!article) {
-        return res.status(400).json("Error: Article not in users bookmarks"); //error here means article was already removed
+        return res.status(400).json("Error: Article no longer exists in DB"); //error here means article was already removed
       }
       let result = article.bookmarkedBy.length; //checking how many users are bookmarking this article
       if (result === 0) {
