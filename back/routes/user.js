@@ -6,6 +6,7 @@ let User = require('../models/user.model');
 //DONE: FIX AFTER LUNCH
 //returns json for valid user if name and pass are matches in db
 //returns error if no match on name or pass
+//populates the bookmarks array with the articles stored in db for use on front-end
 router.route('/login/:username&:pass').get((req, res) => {
   const userToFind = req.params.username;
   const pass = req.params.pass;
@@ -13,12 +14,14 @@ router.route('/login/:username&:pass').get((req, res) => {
   User.findOne({
     username: userToFind,
     password: pass
-  }, function(err, user) {
-    if (user !== null) {
-      return res.json(user);
-    }
-    return res.status(400).json("Error: Invalid username/password");
-  }) 
+  })
+  .populate("bookmarks")
+    .then(user => {
+      if (user) {
+        return res.json(user);
+      }
+      return res.status(400).json("Error: Invalid username/password");
+    })
 });
 
 //users can be added to DB through '/user/signup'
