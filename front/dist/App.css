@@ -23,8 +23,9 @@ body{
   /* Login Button, Sign up Button, Logout Button */
   .UserLogBtns {
     float: right;
-    display: inline-block;
-    padding: .8% 2%;
+  }
+  .UserLogBtns:hover {
+      cursor: pointer;
   }
 
 
@@ -62,12 +63,15 @@ body{
     color: white;
   }
 
-  .access-submit-button{
+  .access-submit-button {
     background: rgb(170, 170, 170);
     opacity: 0.95;
     justify-content: center;
     position: absolute;
     left: 46%
+   }
+   .access-submit-button:hover {
+       cursor: pointer;
    }
 
    .access-cancel-button{
@@ -76,6 +80,9 @@ body{
     justify-content: center;
     position: absolute;
     right: 46%
+   }
+   .access-cancel-button:hover {
+       cursor: pointer;
    }
 
 
