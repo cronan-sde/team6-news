@@ -4,6 +4,7 @@ import NewsFeed from "../inner-components/newsfeed/NewsFeed.jsx";
 import LogoutBtn from "./LogoutBtn.jsx";
 import FavoritesBtn from "./FavoritesBtn.jsx";
 import BookmarksBtn from "./BookmarksBtn.jsx";
+import TrendingNewsBtn from './TrendingNewsBtn.jsx';
 
 const User = (props) => {
   return (
@@ -15,6 +16,7 @@ const User = (props) => {
           onChangeSearch={props.onChange}
           onSubmitSearch={props.onSubmitSearch}
         />
+        <TrendingNewsBtn showTrendingNews={props.showTrendingNews} />
         <FavoritesBtn showFavorites={props.showFavorites} />
         <BookmarksBtn showBookmarks={props.showBookmarks} />
         <NewsFeed 

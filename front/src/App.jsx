@@ -19,7 +19,7 @@ export default class App extends React.Component {
       userId: '',
       // The news array is hard coded information to look like the information we can gain from our API
       // This is to be used to save on our API calls while still having real data to use in building
-      news: [
+      displayedNews: [
         {
           categories: ["tech"],
           description:
@@ -100,7 +100,87 @@ export default class App extends React.Component {
           uuid: "ecdce856-82ff-477f-a9b0-7c51f43788a0",
         },
       ],
-      //key:value pair - bookmarkedNews
+      trendingNews: [
+        {
+          categories: ["tech"],
+          description:
+            "A bunch of Galaxy phone users got a bit of a head start on t...",
+          image_url:
+            "https://article.thenewsapi.com/image/38cc5291-e316-4d2c-837c-6aef401163f0",
+          keywords: "",
+          language: "en",
+          locale: "us",
+          published_at: "2020-12-10T22:28:00.000000Z",
+          relevance_score: null,
+          snippet:
+            "19 new Android games from the last week: The best, worst, an...",
+          source: "androidpolice.com",
+          title:
+            "Galaxy Note9, A71, and other Samsung phones get December update on Verizon",
+          url:
+            "https://article.thenewsapi.com/38cc5291-e316-4d2c-837c-6aef401163f0",
+          uuid: "38cc5291-e316-4d2c-837c-6aef401163f0",
+        },
+        {
+          categories: ["general"],
+          description:
+            "On Thursday, Airbnb sold investors on an unlikely story: tha...",
+          image_url:
+            "https://article.thenewsapi.com/image/a31cdddb-d51a-4b86-82e8-c9c7eb8a8d01",
+          keywords: "",
+          language: "en",
+          locale: "us",
+          published_at: "2020-12-10T22:20:08.000000Z",
+          relevance_score: null,
+          snippet:
+            "The company’s shares skyrocketed on their first day of tra...",
+          source: "bostonglobe.com",
+          title:
+            "Airbnb tops $100 Billion on first day of trading, reviving talk of a bubble",
+          url:
+            "https://article.thenewsapi.com/a31cdddb-d51a-4b86-82e8-c9c7eb8a8d01",
+          uuid: "a31cdddb-d51a-4b86-82e8-c9c7eb8a8d01",
+        },
+        {
+          categories: ["business", "tech"],
+          description: "",
+          image_url:
+            "https://article.thenewsapi.com/image/62d5009c-50ee-4052-83ac-262be53621df",
+          keywords: "",
+          language: "en",
+          locale: "us",
+          published_at: "2020-12-10T22:19:54.000000Z",
+          relevance_score: null,
+          snippet:
+            "President-elect Joe Biden told a group of civil rights leade...",
+          source: "businessinsider.com",
+          title:
+            "Biden tells civil rights leaders that Republicans weaponized the 'defund the police' slogan to 'beat the hell' out of Democrats",
+          url:
+            "https://article.thenewsapi.com/62d5009c-50ee-4052-83ac-262be53621df",
+          uuid: "62d5009c-50ee-4052-83ac-262be53621df",
+        },
+        {
+          categories: ["general", "politics"],
+          description:
+            "The revelation that federal prosecutors have launched a tax ...",
+          image_url:
+            "https://article.thenewsapi.com/image/ecdce856-82ff-477f-a9b0-7c51f43788a0",
+          keywords:
+            "General news, Crime, News industry, Media industry, Media and entertainment industry, Business, Criminal investigations, Law and order, 2019-2020 Coronavirus pandemic, Government and politics, Government transitions, National governments, Presidential el",
+          language: "en",
+          locale: "us",
+          published_at: "2020-12-10T22:53:15.000000Z",
+          relevance_score: null,
+          snippet:
+            "Biden's transition contends with probe into son's finances T...",
+          source: "abcnews.go.com",
+          title: "Biden's transition contends with probe into son's finances",
+          url:
+            "https://article.thenewsapi.com/ecdce856-82ff-477f-a9b0-7c51f43788a0",
+          uuid: "ecdce856-82ff-477f-a9b0-7c51f43788a0",
+        },
+      ],
       bookmarkedNews: ["CNN"],
       favoriteSources: ["The New York Times", "The Wall Street Journal"],
     };
@@ -118,6 +198,7 @@ export default class App extends React.Component {
     this.addToFavorites = this.addToFavorites.bind(this);
     this.removeFromBookmarks = this.removeFromBookmarks.bind(this);
     this.removeFromFavorites = this.removeFromFavorites.bind(this);
+    this.showTrendingNews = this.showTrendingNews.bind(this);
   }
 
   // This is an event listener method for input fields to change state based on the target name and value
@@ -199,7 +280,7 @@ export default class App extends React.Component {
     //   )
     //   .then((res) => {
     this.setState({
-      [this.state.news]: res.data.data,
+      [this.state.displayedNews]: res.data.data,
     });
 
     //   });
@@ -234,9 +315,8 @@ export default class App extends React.Component {
   //this.setState({squares: squares});
   showBookmarks(event) {
     event.preventDefault();
-
     this.setState({
-      news: this.state.bookmarkedNews,
+      displayedNews: this.state.bookmarkedNews,
     });
   }
 
@@ -260,7 +340,16 @@ export default class App extends React.Component {
 
   showFavorites(event) {
     event.preventDefault();
-    this.setState({ news: this.state.favoriteSources });
+    this.setState({ 
+      displayedNews: this.state.favoriteSources 
+    });
+  }
+
+  showTrendingNews(event) {
+    event.preventDefault();
+    this.setState({
+      displayedNews: this.state.trendingNews
+    })
   }
 
   userLogout(event) {
@@ -295,7 +384,8 @@ export default class App extends React.Component {
     //  axios.get(`https://api.thenewsapi.com/v1/news/top?api_token=${process.env.NEWS_API_KEY}&locale=us&limit=3`)
     //  .then( res => {
     //      this.setState({
-    //          news: res.data.data
+    //          displayedNews: res.data.data
+    //          trendingNews: res.data.data
     //      })
     //      console.log(res.data.data)
     //  })
@@ -315,7 +405,7 @@ export default class App extends React.Component {
             onSubmitSignup={this.onSubmitSignup}
             hasClickedLogin={this.state.hasClickedLogin}
             hasClickedSignup={this.state.hasClickedSignup}
-            news={this.state.news}
+            news={this.state.displayedNews}
             onSubmitSearch={this.onSubmitSearch}
             successfulLogin={this.state.successfulLogin}
           />
@@ -327,7 +417,7 @@ export default class App extends React.Component {
           <User
             showBookmarks={this.showBookmarks}
             showFavorites={this.showFavorites}
-            news={this.state.news}
+            news={this.state.displayedNews}
             userLogout={this.userLogout}
             onSubmitSearch={this.onSubmitSearch}
             onChange={this.onChange}
@@ -336,6 +426,7 @@ export default class App extends React.Component {
             addToFavorites={this.addToFavorites}
             removeFromBookmarks={this.removeFromBookmarks}
             removeFromFavorites={this.removeFromFavorites}
+            showTrendingNews={this.showTrendingNews}
           />
         </div>
       );
