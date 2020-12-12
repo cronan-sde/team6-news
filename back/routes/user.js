@@ -15,7 +15,8 @@ router.route('/login/:username&:pass').get((req, res) => {
     username: userToFind,
     password: pass
   })
-  .populate("bookmarks")
+  //populates bookmarks with article, hids bookmarkedBy array
+  .populate("bookmarks", "-bookmarkedBy") 
     .then(user => {
       if (user) {
         return res.json(user);
