@@ -15,6 +15,8 @@ export default class App extends React.Component {
       successfulLogin: false,
       hasClickedLogin: false,
       hasClickedSignup: false,
+      memberSince: '',
+      userId: '',
       // The news array is hard coded information to look like the information we can gain from our API
       // This is to be used to save on our API calls while still having real data to use in building
       news: [
@@ -146,14 +148,21 @@ export default class App extends React.Component {
   // Eventually this will be used to send a request to the server with the proper information
   onSubmitLogin(event) {
     event.preventDefault();
-    console.log(
-      `Login submit button clicked. Username = ${this.state.username} and password = ${this.state.password}`
-    );
-    // axios.get(`https://team6-news.herokuapp.com/login/:username&:pass`)
-    //this is for testing purposes - will be changed later on!
-    this.setState({
-      successfulLogin: true,
-    });
+
+    axios.get(`https://team6-news.herokuapp.com/user/login/${this.state.username}&${this.state.password}`)
+    .then( res => {
+      let userInfo = res.data;
+      this.setState({
+        memberSince: userInfo.createdAt,
+        bookmarkedNews: userInfo.bookmarks,
+        favoriteSources: userInfo.favorites,
+        userId: userInfo.id,
+        successfulLogin: true
+      })
+    })
+    .catch( err => {
+      if (err) alert("Incorrect login information. Please try again.")
+    })
   }
 
   onSubmitSignup(event) {
