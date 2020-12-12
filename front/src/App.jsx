@@ -15,7 +15,6 @@ export default class App extends React.Component {
       successfulLogin: false,
       hasClickedLogin: false,
       hasClickedSignup: false,
-      trendingNews: [],
       // The news array is hard coded information to look like the information we can gain from our API
       // This is to be used to save on our API calls while still having real data to use in building
       news: [
@@ -113,6 +112,8 @@ export default class App extends React.Component {
     this.showBookmarks = this.showBookmarks.bind(this);
     this.showFavorites = this.showFavorites.bind(this);
     this.onSubmitSearch = this.onSubmitSearch.bind(this);
+    this.addToBookmarks = this.addToBookmarks.bind(this);
+    this.addToFavorites = this.addToFavorites.bind(this);
   }
 
   // This is an event listener method for input fields to change state based on the target name and value
@@ -154,13 +155,8 @@ export default class App extends React.Component {
     });
   }
 
-  // For now, this event listener is waiting for the signup submit button to be hit and do a simple console.log
-  // Eventually this will be used to send a request to the server with the proper information
   onSubmitSignup(event) {
     event.preventDefault();
-    console.log(
-      `Signup submit button clicked. Username = ${this.state.username}, Email = ${this.state.email} and password = ${this.state.password}`
-    );
     axios
       .post("https://team6-news.herokuapp.com/user/signup", {
         username: this.state.username,
@@ -197,6 +193,39 @@ export default class App extends React.Component {
     //   });
   }
 
+  // This method will be called when a logged in User adds an article to their Bookmarks
+  // *********** Need to partner with Cody to see exactly what he is expecting on the backend
+  // There is no undefined information, just need to know what is expected on back end. 
+  // Calling this function will not break the app, just gets an error from the server
+  addToBookmarks(newsObj) {
+    let articleObj =     { 
+      title: newsObj.title,
+      description: newsObj.description,
+      url: newsObj.url,
+      imageUrl:  newsObj.image_url,
+      published: newsObj.published_at,
+      source: newsObj.source,
+      uuid: newsObj.uuid
+    }
+    console.log(articleObj);
+    axios.post(`https://team6-news.herokuapp.com/article/${this.state.username}`, 
+    { 
+      title: newsObj.title,
+      description: newsObj.description,
+      url: newsObj.url,
+      imageUrl:  newsObj.image_url,
+      published: newsObj.published_at,
+      source: newsObj.source,
+      uuid: newsObj.uuid
+    })
+    .then( res => {
+      console.log(res.data);
+    })
+    .catch( err => {
+      if (err) alert("Error found in addToBookMarks post request in App.jsx");
+    })
+  }
+
   //this.setState({squares: squares});
   showBookmarks(event) {
     event.preventDefault();
@@ -204,6 +233,17 @@ export default class App extends React.Component {
     this.setState({
       news: this.state.bookmarkedNews,
     });
+  }
+
+  // This axios request is the same as addToBookMarks - need to partner with Cody
+  addToFavorites(sourceStr) {
+    axios.post(`https://team6-news.herokuapp.com/article/${this.state.username}/${sourceStr}`)
+    .then( res => {
+      console.log(res.data);
+    })
+    .catch( err => {
+      if (err) alert("Error found in addToFavorites post request in App.jsx")
+    })
   }
 
   showFavorites(event) {
@@ -243,7 +283,7 @@ export default class App extends React.Component {
     //  axios.get(`https://api.thenewsapi.com/v1/news/top?api_token=${process.env.NEWS_API_KEY}&locale=us&limit=3`)
     //  .then( res => {
     //      this.setState({
-    //          trendingNews: res.data.data
+    //          news: res.data.data
     //      })
     //      console.log(res.data.data)
     //  })
@@ -280,6 +320,8 @@ export default class App extends React.Component {
             onSubmitSearch={this.onSubmitSearch}
             onChange={this.onChange}
             successfulLogin={this.state.successfulLogin}
+            addToBookmarks={this.addToBookmarks}
+            addToFavorites={this.addToFavorites}
           />
         </div>
       );
