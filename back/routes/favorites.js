@@ -5,7 +5,7 @@ const User = require('../models/user.model');
 
 //Add to User favorites
 //Only adds unique sources, no duplicates will be put into favorites
-router.route('/add/:username/:source').post((req, res) => {
+router.route('/:username/:source').post((req, res) => {
   const {username, source} = req.params;
 
   User.findOneAndUpdate({username: username}, 
@@ -18,7 +18,7 @@ router.route('/add/:username/:source').post((req, res) => {
     })
 })
 
-router.route('/remove/:username/:source').delete((req, res) => {
+router.route('/:username/:source').delete((req, res) => {
   const {username, source} = req.params;
 
   User.findOneAndUpdate({username: username},
