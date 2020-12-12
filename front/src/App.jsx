@@ -116,6 +116,8 @@ export default class App extends React.Component {
     this.onSubmitSearch = this.onSubmitSearch.bind(this);
     this.addToBookmarks = this.addToBookmarks.bind(this);
     this.addToFavorites = this.addToFavorites.bind(this);
+    this.removeFromBookmarks = this.removeFromBookmarks.bind(this);
+    this.removeFromFavorites = this.removeFromFavorites.bind(this);
   }
 
   // This is an event listener method for input fields to change state based on the target name and value
@@ -225,6 +227,10 @@ export default class App extends React.Component {
     })
   }
 
+  removeFromBookmarks(newsObj) {
+    console.log(newsObj);
+  }
+
   //this.setState({squares: squares});
   showBookmarks(event) {
     event.preventDefault();
@@ -246,6 +252,10 @@ export default class App extends React.Component {
     .catch( err => {
       if (err) alert("Error found in addToFavorites post request in App.jsx")
     })
+  }
+
+  removeFromFavorites(sourceStr) {
+    console.log(sourceStr);
   }
 
   showFavorites(event) {
@@ -324,6 +334,8 @@ export default class App extends React.Component {
             successfulLogin={this.state.successfulLogin}
             addToBookmarks={this.addToBookmarks}
             addToFavorites={this.addToFavorites}
+            removeFromBookmarks={this.removeFromBookmarks}
+            removeFromFavorites={this.removeFromFavorites}
           />
         </div>
       );

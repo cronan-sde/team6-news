@@ -23,6 +23,8 @@ const NewsFeed = (props) => {
                                 successfulLogin={props.successfulLogin}
                                 addToBookmarks={props.addToBookmarks}
                                 addToFavorites={props.addToFavorites}
+                                removeFromBookmarks={props.removeFromBookmarks}
+                                removeFromFavorites={props.removeFromFavorites}
                             />
                     )
                 })
