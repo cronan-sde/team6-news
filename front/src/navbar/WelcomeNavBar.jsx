@@ -13,7 +13,7 @@ const WelcomeNavBar = (props) => {
                 onSubmitSearch={props.onSubmitSearch}
             />
             <LoginBtn userHasClicked={props.userHasClicked} />
-            <SignupBtn userHasClicked={props.userHasClicked} />
+            {/* <SignupBtn userHasClicked={props.userHasClicked} /> */}
         </div>
     )
 }

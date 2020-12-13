@@ -33,7 +33,7 @@ const Login = (props) => {
         >
           Cancel
         </button>
-        <p className="message">Not Registered? <a href="#" onClick={props.userSwapsModal}>Create an account</a></p>
+        <p className="message">Not Registered? <a name="hasClickedSignup" href="#" onClick={props.userSwapsModal}>Create an account</a></p>
       </form>
     </div>
   );

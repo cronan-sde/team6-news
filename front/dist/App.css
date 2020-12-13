@@ -43,12 +43,16 @@ body{
 
   div {
     /* border: 1px solid red; */
-    margin-left: auto;
+    /* margin-left: auto;
     margin-right: auto;
-    display: block;
+    display: block; */
   }
 
   /* Nav Bar */
+  .navbar {
+    width: 100%;
+    background: linear-gradient(90deg, rgb(213, 212, 212) 0%, rgb(202, 203, 205) 35%, rgba(218,220,225,1) 100%);
+  }
   .navbar img {
     position: absolute;
     float: left;
@@ -56,48 +60,28 @@ body{
     display: block;
     margin-left: 1%;
   }
-  .navbar input {
+  .navbar form {
+    text-align: center;
+    margin: 1%; 
     position: absolute;
-    left: 17%;
-    text-align: left;
-    display: block;
-    margin-left: 1%;
   }
-  .navbar {
-    width: 100%;
-    height: 1%;
-    background: rgb(255,255,255);
-    background: linear-gradient(90deg, rgba(255,255,255,1) 0%, rgba(242,245,248,1) 35%, rgba(236,236,237,1) 100%);
-    display: inline-block;
+  .navbar input {
   }
+
+  
 
   /* Login Button, Sign up Button, Logout Button */
   .UserLogBtns {
     float: right;
-    font-family: sans-serif;
-    text-transform: uppercase;
-    outline: 0;
-    background: #4f93b8;
-    width: 10%;
-    border: 0;
-    padding: 1%;
-    margin: 1%;
-    color: #FFFFFF;
-    font-size: 14px;
-    -webkit-transition: all 0.3 ease;
-    transition: all 0.3 ease;
-    cursor: pointer;
-    text-align: center;
   }
   .UserLogBtns:hover {
-    background: #327193;
   }
 
-  #searchBar {
+  /* #searchBar {
     font-size: 90%;
     text-align: center;
     filter: drop-shadow(2px 4px 6px black);
-  }
+  } */
 
 
   /* Modal Windows */
