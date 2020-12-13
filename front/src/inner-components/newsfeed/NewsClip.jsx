@@ -11,10 +11,13 @@ const NewsClip = (props) => {
     return (
         <div className="NewsClipCard">
             <div>
-                <img src={props.image} alt="image"></img>
-                <p>{props.title}</p>
-                <p>{props.description}</p>
-                <a href={props.url} target="_blank">Click here to see the full article.</a>
+                <img className="NewsClipCardImg" src={props.image} alt="image"></img>
+                <div className="NewsClipCardContentContainer">
+                    <p className="NewsClipCardTitle">{props.title}</p>
+                    <p className="NewsClipCardDescription">{props.description}</p>
+                    <p className="NewsClipCardSource">News Source: <a href={props.url} target="_blank">{props.source}</a></p>
+                    <p className="NewsClipCardPublishDate">Publish Date: {props.published_at}</p>
+                </div>
             </div>
             <div>
                 <AddFavorite successfulLogin={props.successfulLogin} source={props.source} addToFavorites={props.addToFavorites}/>

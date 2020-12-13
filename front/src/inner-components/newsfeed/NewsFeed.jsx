@@ -19,6 +19,7 @@ const NewsFeed = (props) => {
                                 image={article.image_url} 
                                 url={article.url}
                                 source={article.source}
+                                published_at={article.published_at}
                                 articleObject={article}
                                 successfulLogin={props.successfulLogin}
                                 addToBookmarks={props.addToBookmarks}
