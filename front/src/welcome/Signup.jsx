@@ -49,7 +49,7 @@ const Signup = (props) => {
           >
             Cancel
           </button>
-          <p className="message">Already registered? <a href="#" onClick={props.userSwapsModal}>Sign In</a></p>
+          <p className="message">Already registered? <a name="hasClickedLogin" href="#" onClick={props.userSwapsModal}>Sign In</a></p>
       </form>
     </div>
   );
