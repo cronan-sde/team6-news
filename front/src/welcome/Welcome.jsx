@@ -1,25 +1,24 @@
 import React from "react";
 import Login from "./Login.jsx";
 import Signup from "./Signup.jsx";
-import LoginBtn from "./LoginBtn.jsx";
-import SigupBtn from "./SignupBtn.jsx";
 import NewsFeed from "../inner-components/newsfeed/NewsFeed.jsx";
-import SearchBar from "../inner-components/search/SearchBar.jsx";
+import WelcomeNavBar from '../navbar/WelcomeNavBar.jsx';
 
 const Welcome = (props) => {
   if (props.hasClickedLogin) {
     return (
       <div>
+        <WelcomeNavBar 
+          onChangeSearch={props.onChange}
+          onSubmitSearch={props.onSubmitSearch}
+          userHasClicked={props.userHasClicked}
+        />
         <Login
           onChangeLogin={props.onChange}
           onSubmitLogin={props.onSubmitLogin}
           hasClickedLogin={props.hasClickedLogin}
           userHasCanceled={props.userHasCanceled}
           userSwapsModal={props.userSwapsModal}
-        />
-        <SearchBar
-          onChangeSearch={props.onChange}
-          onSubmitSearch={props.onSubmitSearch}
         />
         <NewsFeed
           news={props.news}
@@ -32,15 +31,16 @@ const Welcome = (props) => {
   } else if (props.hasClickedSignup) {
     return (
       <div>
+        <WelcomeNavBar 
+          onChangeSearch={props.onChange}
+          onSubmitSearch={props.onSubmitSearch}
+          userHasClicked={props.userHasClicked}
+        />
         <Signup
           onChangeSignUp={props.onChange}
           onSubmitSignup={props.onSubmitSignup}
           userHasCanceled={props.userHasCanceled}
           userSwapsModal={props.userSwapsModal}
-        />
-        <SearchBar
-          onChangeSearch={props.onChange}
-          onSubmitSearch={props.onSubmitSearch}
         />
         <NewsFeed
           news={props.news}
@@ -55,11 +55,10 @@ const Welcome = (props) => {
       <div>
         <h1>{props.username}</h1>
         <div>
-          <LoginBtn userHasClicked={props.userHasClicked} />
-          <SigupBtn userHasClicked={props.userHasClicked} />
-          <SearchBar
+          <WelcomeNavBar 
             onChangeSearch={props.onChange}
             onSubmitSearch={props.onSubmitSearch}
+            userHasClicked={props.userHasClicked}
           />
           <NewsFeed
             news={props.news}
