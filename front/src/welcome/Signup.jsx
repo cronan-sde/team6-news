@@ -28,7 +28,7 @@ const Signup = (props) => {
         ></input>{" "}
         <input
           type="password"
-          name="password"
+          name="passwordValidation"
           className="form-input"
           placeholder="Confirm Password"
           onChange={props.onChangeSignUp}
