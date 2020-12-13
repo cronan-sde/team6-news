@@ -53,7 +53,6 @@ const Welcome = (props) => {
   } else {
     return (
       <div>
-        <h1>{props.username}</h1>
         <div>
           <WelcomeNavBar 
             onChangeSearch={props.onChange}
