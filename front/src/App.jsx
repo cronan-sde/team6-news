@@ -2,8 +2,8 @@ import React from "react";
 import Welcome from "./welcome/Welcome.jsx";
 import User from "./user/User.jsx";
 import axios from "axios";
-import WelcomeNavBar from './navbar/WelcomeNavBar.jsx';
-import UserNavBar from './navbar/UserNavBar.jsx';
+import WelcomeNavBar from "./navbar/WelcomeNavBar.jsx";
+import UserNavBar from "./navbar/UserNavBar.jsx";
 
 export default class App extends React.Component {
   constructor(props) {
@@ -17,8 +17,8 @@ export default class App extends React.Component {
       successfulLogin: false,
       hasClickedLogin: false,
       hasClickedSignup: false,
-      memberSince: '',
-      userId: '',
+      memberSince: "",
+      userId: "",
       // The news array is hard coded information to look like the information we can gain from our API
       // This is to be used to save on our API calls while still having real data to use in building
       displayedNews: [
@@ -185,7 +185,7 @@ export default class App extends React.Component {
       ],
       bookmarkedNews: ["CNN"],
       favoriteSources: ["The New York Times", "The Wall Street Journal"],
-      favoriteSourcesArticles: []
+      favoriteSourcesArticles: [],
     };
     // All methods are bound to "this" in order to be passed down as props
     this.onChange = this.onChange.bind(this);
@@ -236,13 +236,13 @@ export default class App extends React.Component {
     if (event.target.name === "hasClickedLogin") {
       this.setState({
         hasClickedSignup: false,
-        hasClickedLogin: true
-      })
+        hasClickedLogin: true,
+      });
     } else {
       this.setState({
         hasClickedLogin: false,
-        hasClickedSignup: true
-      })
+        hasClickedSignup: true,
+      });
     }
   }
 
@@ -251,20 +251,23 @@ export default class App extends React.Component {
   onSubmitLogin(event) {
     event.preventDefault();
 
-    axios.get(`https://team6-news.herokuapp.com/user/login/${this.state.username}&${this.state.password}`)
-    .then( res => {
-      let userInfo = res.data;
-      this.setState({
-        memberSince: userInfo.createdAt,
-        bookmarkedNews: userInfo.bookmarks,
-        favoriteSources: userInfo.favorites,
-        userId: userInfo.id,
-        successfulLogin: true
+    axios
+      .get(
+        `https://team6-news.herokuapp.com/user/login/${this.state.username}&${this.state.password}`
+      )
+      .then((res) => {
+        let userInfo = res.data;
+        this.setState({
+          memberSince: userInfo.createdAt,
+          bookmarkedNews: userInfo.bookmarks,
+          favoriteSources: userInfo.favorites,
+          userId: userInfo.id,
+          successfulLogin: true,
+        });
       })
-    })
-    .catch( err => {
-      if (err) alert("Incorrect login information. Please try again.")
-    })
+      .catch((err) => {
+        if (err) alert("Incorrect login information. Please try again.");
+      });
   }
 
   onSubmitSignup(event) {
@@ -307,24 +310,27 @@ export default class App extends React.Component {
 
   // This method will be called when a logged in User adds an article to their Bookmarks
   addToBookmarks(newsObj) {
-    axios.post(`https://team6-news.herokuapp.com/bookmarks/article/${this.state.username}`, 
-    { 
-      title: newsObj.title,
-      description: newsObj.description,
-      url: newsObj.url,
-      imageUrl:  newsObj.image_url,
-      published: newsObj.published_at,
-      source: newsObj.source,
-      uuid: newsObj.uuid
-    })
-    .then( res => {
-      // Once a good response is received, we need to decide how to notify the user
-      console.log(res.data);
-    })
-    .catch( err => {
-      // This needs to be edited not to alert the User to retry or whatever we decide
-      if (err) alert("Error found in addToBookMarks post request in App.jsx");
-    })
+    axios
+      .post(
+        `https://team6-news.herokuapp.com/bookmarks/article/${this.state.username}`,
+        {
+          title: newsObj.title,
+          description: newsObj.description,
+          url: newsObj.url,
+          imageUrl: newsObj.image_url,
+          published: newsObj.published_at,
+          source: newsObj.source,
+          uuid: newsObj.uuid,
+        }
+      )
+      .then((res) => {
+        // Once a good response is received, we need to decide how to notify the user
+        console.log(res.data);
+      })
+      .catch((err) => {
+        // This needs to be edited not to alert the User to retry or whatever we decide
+        if (err) alert("Error found in addToBookMarks post request in App.jsx");
+      });
   }
 
   removeFromBookmarks(newsObj) {
@@ -341,24 +347,28 @@ export default class App extends React.Component {
 
   // This method will be called when a logged in User adds an article to their Favorites
   // *********** Need to partner with Cody to see exactly what he is expecting on the backend
-  // There is no undefined information, just need to know what is expected on back end. 
+  // There is no undefined information, just need to know what is expected on back end.
   // Calling this function will not break the app, just gets an error from the server
   addToFavorites(sourceStr) {
-    axios.post(`https://team6-news.herokuapp.com/favorites/article/${this.state.username}/${sourceStr}`)
-    .then( res => {
-      console.log(res.data);
-    })
-    .catch( err => {
-      if (err) alert("Error found in addToFavorites post request in App.jsx")
-    })
+    axios
+      .post(
+        `https://team6-news.herokuapp.com/favorites/article/${this.state.username}/${sourceStr}`
+      )
+      .then((res) => {
+        console.log(res.data);
+      })
+      .catch((err) => {
+        if (err) alert("Error found in addToFavorites post request in App.jsx");
+      });
   }
 
   removeFromFavorites(sourceStr) {
     console.log(sourceStr);
   }
-
-  // showFavorites(event) {
-  //   event.preventDefault();
+  /* If favorite sources articles is empty, then showFavorites queries the news
+api and sets displayedNews and favoriteSourcesArticles to the result returned. */
+  showFavorites(event) {
+    event.preventDefault();
   //   let faves = this.state.favoriteSources.slice();
   //   faves.join('" + "');
 
@@ -372,16 +382,18 @@ export default class App extends React.Component {
   //       this.setState({
   //         displayedNews: found,
   //         favoriteSourcesArticles: found,
+  //       }).catch( err => {
+  //         if (err) alert(err);
   //       });
   //     });
   //   }
-  // }
+  }
 
   showTrendingNews(event) {
     event.preventDefault();
     this.setState({
-      displayedNews: this.state.trendingNews
-    })
+      displayedNews: this.state.trendingNews,
+    });
   }
 
   userLogout(event) {
@@ -428,7 +440,7 @@ export default class App extends React.Component {
     if (this.state.successfulLogin === false) {
       return (
         <div id="app-welcome-container">
-          <WelcomeNavBar 
+          <WelcomeNavBar
             onChangeSearch={this.onChange}
             onSubmitSearch={this.onSubmitSearch}
             userHasClicked={this.userHasClicked}
@@ -452,21 +464,23 @@ export default class App extends React.Component {
     } else {
       return (
         <div id="app-user-container">
-          <UserNavBar 
+          <UserNavBar
             onChangeSearch={this.onChange}
             onSubmitSearch={this.onSubmitSearch}
             userLogout={this.userLogout}
             showTrendingNews={this.showTrendingNews}
-            FavoritesBtn showFavorites={this.showFavorites}
-            BookmarksBtn showBookmarks={this.showBookmarks}
+            FavoritesBtn
+            showFavorites={this.showFavorites}
+            BookmarksBtn
+            showBookmarks={this.showBookmarks}
           />
           <User
-          news={this.state.displayedNews}
-          successfulLogin={this.state.successfulLogin}
-          addToBookmarks={this.addToBookmarks}
-          addToFavorites={this.addToFavorites}
-          removeFromBookmarks={this.removeFromBookmarks}
-          removeFromFavorites={this.removeFromFavorites}
+            news={this.state.displayedNews}
+            successfulLogin={this.state.successfulLogin}
+            addToBookmarks={this.addToBookmarks}
+            addToFavorites={this.addToFavorites}
+            removeFromBookmarks={this.removeFromBookmarks}
+            removeFromFavorites={this.removeFromFavorites}
           />
         </div>
       );
