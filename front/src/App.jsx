@@ -367,8 +367,8 @@ export default class App extends React.Component {
   }
   /* If favorite sources articles is empty, then showFavorites queries the news
 api and sets displayedNews and favoriteSourcesArticles to the result returned. */
-  // showFavorites(event) {
-  //   event.preventDefault();
+  showFavorites(event) {
+    event.preventDefault();
   //   let faves = this.state.favoriteSources.slice();
   //   faves.join('" + "');
 
@@ -387,7 +387,7 @@ api and sets displayedNews and favoriteSourcesArticles to the result returned. *
   //       });
   //     });
   //   }
-  // }
+  }
 
   showTrendingNews(event) {
     event.preventDefault();
