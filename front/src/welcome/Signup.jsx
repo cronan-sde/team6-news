@@ -3,36 +3,36 @@ import React from "react";
 const Signup = (props) => {
   return (
     <div className="modal">
-      <p>Signup</p>
       <form className="form-content">
-        <label className="signup-label">Username: </label>
+        <p>Signup</p>
         <input
           type="text"
           name="username"
+          className="form-input"
+          placeholder="Username"
           onChange={props.onChangeSignUp}
         ></input>{" "}
-        <br />
-        <label className="signup-label">Email:</label>
         <input
           type="email"
           name="email"
+          className="form-input"
+          placeholder="Email"
           onChange={props.onChangeSignUp}
         ></input>{" "}
-        <br />
-        <label className="signup-label">Password: </label>
         <input
           type="password"
           name="password"
+          className="form-input"
+          placeholder="Password"
           onChange={props.onChangeSignUp}
         ></input>{" "}
-        <br />
-        <label className="signup-label">Confirm Password: </label>
         <input
           type="password"
           name="password"
+          className="form-input"
+          placeholder="Confirm Password"
           onChange={props.onChangeSignUp}
         ></input>{" "}
-        <br />
         <button 
           type="submit" 
           onClick={props.onSubmitSignup}
@@ -49,6 +49,7 @@ const Signup = (props) => {
           >
             Cancel
           </button>
+          <p className="message">Already registered? <a href="#" onClick={props.userSwapsModal}>Sign In</a></p>
       </form>
     </div>
   );

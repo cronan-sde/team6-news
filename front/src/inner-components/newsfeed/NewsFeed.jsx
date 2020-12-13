@@ -8,7 +8,7 @@ const NewsFeed = (props) => {
     // Once we have a proper API that gives us the right information we want, we will know
     // what information needs to be passed down to NewsClip, such as id, photo, title, etc.
     return (
-        <div>
+        <div id="newsfeed">
             {
                 props.news.map( article => {
                     return (
