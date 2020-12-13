@@ -233,8 +233,17 @@ export default class App extends React.Component {
 
   userSwapsModal(event) {
     event.preventDefault();
-    this.userHasCanceled(event);
-    this.userHasClicked(event);
+    if (event.target.name === "hasClickedLogin") {
+      this.setState({
+        hasClickedSignup: false,
+        hasClickedLogin: true
+      })
+    } else {
+      this.setState({
+        hasClickedLogin: false,
+        hasClickedSignup: true
+      })
+    }
   }
 
   // For now, this event listener is waiting for the login submit button to be hit and do a simple console.log
