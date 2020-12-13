@@ -9,8 +9,8 @@ const NewsClip = (props) => {
     // This will return a single NewsClip card that will feature the information we give it based on the API we use
     // Thinks can change here, for now everything is just filler to give an overview
     return (
-        <div className="NewsClipCard">
-            <div>
+        <div className="NewsClipCard-container">
+            <div className="NewsClipCard">
                 <img className="NewsClipCardImg" src={props.image} alt="image"></img>
                 <div className="NewsClipCardContentContainer">
                     <p className="NewsClipCardTitle">{props.title}</p>

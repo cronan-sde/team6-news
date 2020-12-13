@@ -201,6 +201,15 @@ body{
   }
 
   /* NewsClipCard */
+  .NewsClipCard-container {
+    height: 300px;
+    width: 45%;
+    margin: 1rem;
+    display: inline-block;
+    background: #fff;
+    border-radius: 5%;
+
+  }
   .NewsClipCard {
     /* width: 40%;
     height: 320px;
@@ -211,13 +220,7 @@ body{
     margin-left: 2%;
     margin-top: 2%;
     display: inline-block; */
-    background: #fff;
-    border-radius: 2px;
-    display: inline-block;
-    height: 300px;
-    margin: 1rem;
     position: relative;
-    width: 45%;
     overflow: hidden;
     border-radius: 5%;
   }
