@@ -3,12 +3,11 @@ import React from "react";
 
 const SearchBar = (props) => {
   return (
-    <div>
+    <div id="searchBar">
       <input
         type="text"
         name="searchBar"
         placeholder="Search News"
-        id="searchBar"
         onChange={props.onChangeSearch}
       ></input>
       <button onClick={props.onSubmitSearch} type="submit">
