@@ -204,6 +204,8 @@ export default class App extends React.Component {
     this.removeFromFavorites = this.removeFromFavorites.bind(this);
     this.showTrendingNews = this.showTrendingNews.bind(this);
     this.userSwapsModal = this.userSwapsModal.bind(this);
+    this.checkBookmarks = this.checkBookmarks.bind(this);
+    this.checkFavorites = this.checkFavorites.bind(this);
   }
 
   // This is an event listener method for input fields to change state based on the target name and value
@@ -364,6 +366,17 @@ export default class App extends React.Component {
     }
   }
 
+  // This method will check the bookmarkedNews array to see whether or not a user has added an article to their bookmarks
+  // The method will return true or false to determine if the add or remove button should render
+  checkBookmarks(articleOgj) {
+    if (this.state.bookmarkedNews.length > 0) {
+        this.state.bookmarkedNews.map( bookmarkedArticle => {
+            if (bookmarkedArticle.uuid === articleObj.uuid) return true;
+        })
+    }
+    return false;
+  }
+
   // This method will be called when a logged in User adds an article to their Favorites
   // *********** Need to partner with Cody to see exactly what he is expecting on the backend
   // There is no undefined information, just need to know what is expected on back end.
@@ -410,6 +423,17 @@ api and sets displayedNews and favoriteSourcesArticles to the result returned. *
   //       });
   //     });
   //   }
+  }
+
+  // This method will check the favoriteSources array to see whether or not a user has added a source to their favorites
+  // The method will return true or false to determine if the add or remove button should render
+  checkFavorites(sourceStr) {
+    if (this.state.favoriteStrs.length > 0) {
+        this.state.favoriteSources.map( favoritedSource => {
+            if (favoritedSource === sourceStr) return true;
+        })
+    }
+    return false;
   }
 
   showTrendingNews(event) {
@@ -504,6 +528,10 @@ api and sets displayedNews and favoriteSourcesArticles to the result returned. *
             addToFavorites={this.addToFavorites}
             removeFromBookmarks={this.removeFromBookmarks}
             removeFromFavorites={this.removeFromFavorites}
+            favoriteSources={this.state.favoriteSources}
+            bookmarkedNews={this.state.bookmarkedNews}
+            checkBookmarks={this.checkBookmarks}
+            checkFavorites={this.checkFavorites}
           />
         </div>
       );

@@ -1,6 +1,8 @@
 import React from 'react';
 
 const RemoveFavorite = (props) => {
+    let inFavorites = ()=> {props.checkFavorites(props.source)};
+
     if (props.successfulLogin) {
         return (
             <div>

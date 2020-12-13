@@ -1,6 +1,12 @@
 import React from 'react';
 
 const AddBookmark = (props) => {
+    let inBookmarks; 
+    ()=> {
+        inBookmarks = props.checkBookmarks(props.articleObject)
+        console.log(inBookmarks)
+    };
+
     if (props.successfulLogin) {
         return (
             <div>
