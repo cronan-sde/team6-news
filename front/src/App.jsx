@@ -367,7 +367,7 @@ export default class App extends React.Component {
   //       displayedNews: this.state.favoriteSourcesArticles
   //     });
   //   } else {
-  //     axios.get(`https://api.thenewsapi.com/v1/news/top?api_token=rqPSPjTTwmZvMuUxAlo0wGqet1jVWiEVPmvF3Xtx&locale&search=${faves}&locale=us&limit=3`).then( (res) => {
+  //     axios.get(`https://api.thenewsapi.com/v1/news/top?api_token=YOUR_API_KEY&search=${faves}&locale=us&limit=3`).then( (res) => {
   //       const found = res.data.data;
   //       this.setState({
   //         displayedNews: found,
