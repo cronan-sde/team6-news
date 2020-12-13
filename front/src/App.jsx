@@ -2,6 +2,8 @@ import React from "react";
 import Welcome from "./welcome/Welcome.jsx";
 import User from "./user/User.jsx";
 import axios from "axios";
+import WelcomeNavBar from './navbar/WelcomeNavBar.jsx';
+import UserNavBar from './navbar/UserNavBar.jsx';
 
 export default class App extends React.Component {
   constructor(props) {
@@ -403,7 +405,12 @@ export default class App extends React.Component {
     // This conditional rendering is checking to see if a user has logged in successfully or not. Once user information is gained, a function will change "this.state.successfulLogin" to "true" and the else "return()" will render instead of Welcome.
     if (this.state.successfulLogin === false) {
       return (
-        <div>
+        <div id="app-welcome-container">
+          <WelcomeNavBar 
+            onChangeSearch={this.onChange}
+            onSubmitSearch={this.onSubmitSearch}
+            userHasClicked={this.userHasClicked}
+          />
           <Welcome
             username={this.state.username}
             onChange={this.onChange}
@@ -422,21 +429,22 @@ export default class App extends React.Component {
       );
     } else {
       return (
-        <div>
-          <User
-            showBookmarks={this.showBookmarks}
-            showFavorites={this.showFavorites}
-            news={this.state.displayedNews}
-            userLogout={this.userLogout}
+        <div id="app-user-container">
+          <UserNavBar 
+            onChangeSearch={this.onChange}
             onSubmitSearch={this.onSubmitSearch}
-            onChange={this.onChange}
-            successfulLogin={this.state.successfulLogin}
-            addToBookmarks={this.addToBookmarks}
-            addToFavorites={this.addToFavorites}
-            removeFromBookmarks={this.removeFromBookmarks}
-            removeFromFavorites={this.removeFromFavorites}
+            userLogout={this.userLogout}
             showTrendingNews={this.showTrendingNews}
-            hasClickedLogin={this.state.hasClickedLogin}
+            FavoritesBtn showFavorites={this.showFavorites}
+            BookmarksBtn showBookmarks={this.showBookmarks}
+          />
+          <User
+          news={this.state.displayedNews}
+          successfulLogin={this.state.successfulLogin}
+          addToBookmarks={this.addToBookmarks}
+          addToFavorites={this.addToFavorites}
+          removeFromBookmarks={this.removeFromBookmarks}
+          removeFromFavorites={this.removeFromFavorites}
           />
         </div>
       );

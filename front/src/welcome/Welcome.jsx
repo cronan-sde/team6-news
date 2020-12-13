@@ -2,17 +2,11 @@ import React from "react";
 import Login from "./Login.jsx";
 import Signup from "./Signup.jsx";
 import NewsFeed from "../inner-components/newsfeed/NewsFeed.jsx";
-import WelcomeNavBar from '../navbar/WelcomeNavBar.jsx';
 
 const Welcome = (props) => {
   if (props.hasClickedLogin) {
     return (
-      <div>
-        <WelcomeNavBar 
-          onChangeSearch={props.onChange}
-          onSubmitSearch={props.onSubmitSearch}
-          userHasClicked={props.userHasClicked}
-        />
+      <div className="welcome-container">
         <Login
           onChangeLogin={props.onChange}
           onSubmitLogin={props.onSubmitLogin}
@@ -30,12 +24,7 @@ const Welcome = (props) => {
     );
   } else if (props.hasClickedSignup) {
     return (
-      <div>
-        <WelcomeNavBar 
-          onChangeSearch={props.onChange}
-          onSubmitSearch={props.onSubmitSearch}
-          userHasClicked={props.userHasClicked}
-        />
+      <div className="welcome-container">
         <Signup
           onChangeSignUp={props.onChange}
           onSubmitSignup={props.onSubmitSignup}
@@ -52,21 +41,13 @@ const Welcome = (props) => {
     );
   } else {
     return (
-      <div>
-        <h1>{props.username}</h1>
-        <div>
-          <WelcomeNavBar 
-            onChangeSearch={props.onChange}
-            onSubmitSearch={props.onSubmitSearch}
-            userHasClicked={props.userHasClicked}
-          />
-          <NewsFeed
-            news={props.news}
-            successfulLogin={props.successfulLogin}
-            addToBookmarks={props.addToBookmarks}
-            addToFavorites={props.addToFavorites}
-          />
-        </div>
+      <div className="welcome-container">
+        <NewsFeed
+          news={props.news}
+          successfulLogin={props.successfulLogin}
+          addToBookmarks={props.addToBookmarks}
+          addToFavorites={props.addToFavorites}
+        />
       </div>
     );
   }
