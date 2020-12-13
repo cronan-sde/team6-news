@@ -3,29 +3,28 @@ import React from "react";
 const Login = (props) => {
   return (
     <div className="modal">
-      <p>Login</p>
       <form className="form-content">
-        <label className="login-label">Username: </label>
+        <p>Login</p>
         <input
           type="text"
           name="username"
+          className="form-input"
+          placeholder="Username"
           onChange={props.onChangeLogin}
         ></input>{" "}
-        <br />
-        <label className="login-label">Password: </label>
         <input
           type="password"
           name="password"
+          className="form-input"
+          placeholder="Password"
           onChange={props.onChangeLogin}
         ></input>{" "}
-        <br />
         <button 
         className="access-submit-button" 
         type="submit" 
         onClick={props.onSubmitLogin}>
           Submit
         </button>{" "}
-        <br />
         <button
           className="access-cancel-button"
           type="cancel"
@@ -34,6 +33,7 @@ const Login = (props) => {
         >
           Cancel
         </button>
+        <p className="message">Not Registered? <a href="#" onClick={props.userSwapsModal}>Create an account</a></p>
       </form>
     </div>
   );

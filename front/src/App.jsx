@@ -200,6 +200,7 @@ export default class App extends React.Component {
     this.removeFromBookmarks = this.removeFromBookmarks.bind(this);
     this.removeFromFavorites = this.removeFromFavorites.bind(this);
     this.showTrendingNews = this.showTrendingNews.bind(this);
+    this.userSwapsModal = this.userSwapsModal.bind(this);
   }
 
   // This is an event listener method for input fields to change state based on the target name and value
@@ -226,6 +227,12 @@ export default class App extends React.Component {
     this.setState({
       [event.target.name]: false,
     });
+  }
+
+  userSwapsModal(event) {
+    event.preventDefault();
+    this.userHasCanceled(event);
+    this.userHasClicked(event);
   }
 
   // For now, this event listener is waiting for the login submit button to be hit and do a simple console.log
@@ -409,6 +416,7 @@ export default class App extends React.Component {
             news={this.state.displayedNews}
             onSubmitSearch={this.onSubmitSearch}
             successfulLogin={this.state.successfulLogin}
+            userSwapsModal={this.userSwapsModal}
           />
         </div>
       );

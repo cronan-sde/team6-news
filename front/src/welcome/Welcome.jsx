@@ -13,7 +13,9 @@ const Welcome = (props) => {
         <Login
           onChangeLogin={props.onChange}
           onSubmitLogin={props.onSubmitLogin}
+          hasClickedLogin={props.hasClickedLogin}
           userHasCanceled={props.userHasCanceled}
+          userSwapsModal={props.userSwapsModal}
         />
         <SearchBar
           onChangeSearch={props.onChange}
@@ -34,6 +36,7 @@ const Welcome = (props) => {
           onChangeSignUp={props.onChange}
           onSubmitSignup={props.onSubmitSignup}
           userHasCanceled={props.userHasCanceled}
+          userSwapsModal={props.userSwapsModal}
         />
         <SearchBar
           onChangeSearch={props.onChange}
