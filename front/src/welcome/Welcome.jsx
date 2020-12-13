@@ -2,17 +2,11 @@ import React from "react";
 import Login from "./Login.jsx";
 import Signup from "./Signup.jsx";
 import NewsFeed from "../inner-components/newsfeed/NewsFeed.jsx";
-import WelcomeNavBar from '../navbar/WelcomeNavBar.jsx';
 
 const Welcome = (props) => {
   if (props.hasClickedLogin) {
     return (
       <div className="welcome-container">
-        <WelcomeNavBar 
-          onChangeSearch={props.onChange}
-          onSubmitSearch={props.onSubmitSearch}
-          userHasClicked={props.userHasClicked}
-        />
         <Login
           onChangeLogin={props.onChange}
           onSubmitLogin={props.onSubmitLogin}
@@ -31,11 +25,6 @@ const Welcome = (props) => {
   } else if (props.hasClickedSignup) {
     return (
       <div className="welcome-container">
-        <WelcomeNavBar 
-          onChangeSearch={props.onChange}
-          onSubmitSearch={props.onSubmitSearch}
-          userHasClicked={props.userHasClicked}
-        />
         <Signup
           onChangeSignUp={props.onChange}
           onSubmitSignup={props.onSubmitSignup}
@@ -53,11 +42,6 @@ const Welcome = (props) => {
   } else {
     return (
       <div className="welcome-container">
-        <WelcomeNavBar 
-          onChangeSearch={props.onChange}
-          onSubmitSearch={props.onSubmitSearch}
-          userHasClicked={props.userHasClicked}
-        />
         <NewsFeed
           news={props.news}
           successfulLogin={props.successfulLogin}

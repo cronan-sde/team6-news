@@ -2,6 +2,8 @@ import React from "react";
 import Welcome from "./welcome/Welcome.jsx";
 import User from "./user/User.jsx";
 import axios from "axios";
+import WelcomeNavBar from './navbar/WelcomeNavBar.jsx';
+import UserNavBar from './navbar/UserNavBar.jsx';
 
 export default class App extends React.Component {
   constructor(props) {
@@ -404,6 +406,11 @@ export default class App extends React.Component {
     if (this.state.successfulLogin === false) {
       return (
         <div id="app-welcome-container">
+          <WelcomeNavBar 
+            onChangeSearch={this.onChange}
+            onSubmitSearch={this.onSubmitSearch}
+            userHasClicked={this.userHasClicked}
+          />
           <Welcome
             username={this.state.username}
             onChange={this.onChange}
@@ -423,20 +430,21 @@ export default class App extends React.Component {
     } else {
       return (
         <div id="app-user-container">
-          <User
-            showBookmarks={this.showBookmarks}
-            showFavorites={this.showFavorites}
-            news={this.state.displayedNews}
-            userLogout={this.userLogout}
+          <UserNavBar 
+            onChangeSearch={this.onChange}
             onSubmitSearch={this.onSubmitSearch}
-            onChange={this.onChange}
-            successfulLogin={this.state.successfulLogin}
-            addToBookmarks={this.addToBookmarks}
-            addToFavorites={this.addToFavorites}
-            removeFromBookmarks={this.removeFromBookmarks}
-            removeFromFavorites={this.removeFromFavorites}
+            userLogout={this.userLogout}
             showTrendingNews={this.showTrendingNews}
-            hasClickedLogin={this.state.hasClickedLogin}
+            FavoritesBtn showFavorites={this.showFavorites}
+            BookmarksBtn showBookmarks={this.showBookmarks}
+          />
+          <User
+          news={this.state.news}
+          successfulLogin={this.state.successfulLogin}
+          addToBookmarks={this.addToBookmarks}
+          addToFavorites={this.addToFavorites}
+          removeFromBookmarks={this.removeFromBookmarks}
+          removeFromFavorites={this.removeFromFavorites}
           />
         </div>
       );
