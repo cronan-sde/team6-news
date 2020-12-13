@@ -357,12 +357,25 @@ export default class App extends React.Component {
     console.log(sourceStr);
   }
 
-  showFavorites(event) {
-    event.preventDefault();
-    this.setState({ 
-      displayedNews: this.state.favoriteSources 
-    });
-  }
+  // showFavorites(event) {
+  //   event.preventDefault();
+  //   let faves = this.state.favoriteSources.slice();
+  //   faves.join('" + "');
+
+  //   if (this.state.favoriteSourcesArticles.length > 0) {
+  //     this.setState({
+  //       displayedNews: this.state.favoriteSourcesArticles
+  //     });
+  //   } else {
+  //     axios.get(`https://api.thenewsapi.com/v1/news/top?api_token=rqPSPjTTwmZvMuUxAlo0wGqet1jVWiEVPmvF3Xtx&locale&search=${faves}&locale=us&limit=3`).then( (res) => {
+  //       const found = res.data.data;
+  //       this.setState({
+  //         displayedNews: found,
+  //         favoriteSourcesArticles: found,
+  //       });
+  //     });
+  //   }
+  // }
 
   showTrendingNews(event) {
     event.preventDefault();
