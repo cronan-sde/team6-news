@@ -1,6 +1,6 @@
 body{
     /* The image can change, this is just a placeholder */
-    background: url("https://www.freeiconspng.com/uploads/news-icon-18.png") no-repeat center center fixed;
+    /* background: url("https://www.freeiconspng.com/uploads/news-icon-18.png") no-repeat center center fixed; */
     content: '';
     background-blend-mode: color-burn;
     filter: drop-shadow(2px 4px 6px black);
@@ -15,17 +15,74 @@ body{
     background-attachment: fixed; 
     background-size: cover;
     background-repeat: no-repeat;
-    background-color: #c8cad0;
+    background-color: #dadce1;
+    font-family: sans-serif;
   }
 
+  /* Buttons */
+  button {
+    font-family: sans-serif;
+    text-transform: uppercase;
+    outline: 0;
+    background: #4f93b8;
+    width: 10%;
+    border: 0;
+    padding: 1%;
+    margin: 1%;
+    color: #FFFFFF;
+    font-size: 14px;
+    -webkit-transition: all 0.3 ease;
+    transition: all 0.3 ease;
+    cursor: pointer;
+    display: inline-block;
+  }
+  button:hover {
+    background: #327193;
+  }
 
+  /* Input Fields */
+  input {
+    font-family: sans-serif;
+    outline: 0;
+    background: #f2f2f2;
+    width: 40%;
+    border: 0;
+    margin: 2% 1% 2%;
+    padding: 1%;
+    box-sizing: border-box;
+    font-size: 80%;
+  }
+
+  /* Logo */
+  .navbar {
+
+  }
 
   /* Login Button, Sign up Button, Logout Button */
   .UserLogBtns {
     float: right;
+    font-family: sans-serif;
+    text-transform: uppercase;
+    outline: 0;
+    background: #4f93b8;
+    width: 10%;
+    border: 0;
+    padding: 1%;
+    margin: 1%;
+    color: #FFFFFF;
+    font-size: 14px;
+    -webkit-transition: all 0.3 ease;
+    transition: all 0.3 ease;
+    cursor: pointer;
   }
   .UserLogBtns:hover {
-      cursor: pointer;
+    background: #327193;
+  }
+
+  #searchBar {
+    font-size: 90%;
+    text-align: center;
+    cursor: pointer;
   }
 
 
@@ -39,74 +96,50 @@ body{
     display: flex;
     justify-content: center;
     align-items: center;
-    z-index: 9999;
-    animation-name: slidein;
-    animation-duration: 1s;
-    animation-direction: reverse;
+    z-index: 999;
   }
 
   .form-content{
     position: relative;
     z-index: 1;
     background: #FFFFFF;
-    max-width: 360px;
-    margin: 0 auto 100px;
-    padding: 45px;
+    max-width: 25%;
+    margin: 0 auto 2%;
+    padding: 4%;
     text-align: center;
     box-shadow: 0 0 20px 0 rgba(0, 0, 0, 0.2), 0 5px 5px 0 rgba(0, 0, 0, 0.24);
     opacity: 1;
+    font-family: sans-serif;
   }
 
   .form-input {
-    font-family: "Roboto", sans-serif;
+    font-family: sans-serif;
     outline: 0;
     background: #f2f2f2;
     width: 100%;
     border: 0;
-    margin: 0 0 15px;
-    padding: 15px;
+    margin: 0 0 5%;
+    padding: 5%;
     box-sizing: border-box;
-    font-size: 14px;
+    font-size: 80%;
   }
 
   .access-submit-button {
-    font-family: "Roboto", sans-serif;
-    text-transform: uppercase;
-    outline: 0;
-    background: #4f93b8;
     width: 100%;
-    border: 0;
-    padding: 15px;
-    color: #FFFFFF;
-    font-size: 14px;
-    -webkit-transition: all 0.3 ease;
-    transition: all 0.3 ease;
-    cursor: pointer;
-   }
-   .access-submit-button:hover {
-    background: #327193;
+    padding: 4%;
    }
 
    .access-cancel-button{
-    font-family: "Roboto", sans-serif;
-    text-transform: uppercase;
-    outline: 0;
     background: #4e524e;
     width: 100%;
-    border: 0;
-    padding: 15px;
-    color: #FFFFFF;
-    font-size: 14px;
-    -webkit-transition: all 0.3 ease;
-    transition: all 0.3 ease;
-    cursor: pointer;
+    padding: 4%;
    }
    .access-cancel-button:hover {
     background: #333534;
    }
 
    .form-content .message {
-    margin: 15px 0 0;
+    margin: 5% 0 0;
     color: #b3b3b3;
     font-size: 12px;
   }
@@ -155,15 +188,14 @@ body{
 
   /* NewsClipCard */
   .NewsClipCard {
-    width: 525px;
-    height: 250px;
+    width: 40%;
+    height: 20%;
     background: rgb(255,255,255);
     background: linear-gradient(90deg, rgba(255,255,255,1) 0%, rgba(242,245,248,1) 35%, rgba(236,236,237,1) 100%);
-    box-shadow: 0 13px 15px rgba(0, 0, 0, 0.3);
-    border-radius: 10px;
+    box-shadow: 0 1% 1% rgba(0, 0, 0, 0.3);
+    border-radius: 5%;
     margin-left: 2%;
     margin-top: 2%;
-    transition: background-color .5s, box-shadow .5s, margin-left .5s;
     display: inline-block;
   }
   /* .NewsClipCard:hover {
@@ -183,15 +215,15 @@ body{
   } */
   .NewsClipCardImg {
     width: 200px;
-    height: 220px;
-    margin-top: 15px;
-    margin-left: 15px;
-    border-radius: 10px 10px 10px;
+    height: 300px;
+    margin-top: 2%;
+    margin-left: 2%;
+    border-radius: 5% 5% 5%;
     float: left;
   }
   .NewsClipCardContentContainer{
     width: 55%;
-    height: 250px;
+    height: 1%;
     float: left;
     margin-left: 5px;
     overflow: hidden;

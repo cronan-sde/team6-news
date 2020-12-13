@@ -436,6 +436,7 @@ export default class App extends React.Component {
             removeFromBookmarks={this.removeFromBookmarks}
             removeFromFavorites={this.removeFromFavorites}
             showTrendingNews={this.showTrendingNews}
+            hasClickedLogin={this.state.hasClickedLogin}
           />
         </div>
       );
