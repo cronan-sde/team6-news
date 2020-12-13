@@ -403,7 +403,7 @@ export default class App extends React.Component {
     // This conditional rendering is checking to see if a user has logged in successfully or not. Once user information is gained, a function will change "this.state.successfulLogin" to "true" and the else "return()" will render instead of Welcome.
     if (this.state.successfulLogin === false) {
       return (
-        <div>
+        <div id="app-welcome-container">
           <Welcome
             username={this.state.username}
             onChange={this.onChange}
@@ -422,7 +422,7 @@ export default class App extends React.Component {
       );
     } else {
       return (
-        <div>
+        <div id="app-user-container">
           <User
             showBookmarks={this.showBookmarks}
             showFavorites={this.showFavorites}

@@ -7,7 +7,7 @@ import WelcomeNavBar from '../navbar/WelcomeNavBar.jsx';
 const Welcome = (props) => {
   if (props.hasClickedLogin) {
     return (
-      <div>
+      <div className="welcome-container">
         <WelcomeNavBar 
           onChangeSearch={props.onChange}
           onSubmitSearch={props.onSubmitSearch}
@@ -30,7 +30,7 @@ const Welcome = (props) => {
     );
   } else if (props.hasClickedSignup) {
     return (
-      <div>
+      <div className="welcome-container">
         <WelcomeNavBar 
           onChangeSearch={props.onChange}
           onSubmitSearch={props.onSubmitSearch}
@@ -52,20 +52,18 @@ const Welcome = (props) => {
     );
   } else {
     return (
-      <div>
-        <div>
-          <WelcomeNavBar 
-            onChangeSearch={props.onChange}
-            onSubmitSearch={props.onSubmitSearch}
-            userHasClicked={props.userHasClicked}
-          />
-          <NewsFeed
-            news={props.news}
-            successfulLogin={props.successfulLogin}
-            addToBookmarks={props.addToBookmarks}
-            addToFavorites={props.addToFavorites}
-          />
-        </div>
+      <div className="welcome-container">
+        <WelcomeNavBar 
+          onChangeSearch={props.onChange}
+          onSubmitSearch={props.onSubmitSearch}
+          userHasClicked={props.userHasClicked}
+        />
+        <NewsFeed
+          news={props.news}
+          successfulLogin={props.successfulLogin}
+          addToBookmarks={props.addToBookmarks}
+          addToFavorites={props.addToFavorites}
+        />
       </div>
     );
   }
