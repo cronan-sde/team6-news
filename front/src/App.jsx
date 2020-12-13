@@ -439,7 +439,7 @@ export default class App extends React.Component {
             BookmarksBtn showBookmarks={this.showBookmarks}
           />
           <User
-          news={this.state.news}
+          news={this.state.displayedNews}
           successfulLogin={this.state.successfulLogin}
           addToBookmarks={this.addToBookmarks}
           addToFavorites={this.addToFavorites}
