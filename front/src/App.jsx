@@ -13,6 +13,7 @@ export default class App extends React.Component {
       username: "",
       email: "",
       password: "",
+      passwordValidation: "",
       searchBar: "",
       successfulLogin: false,
       hasClickedLogin: false,
@@ -183,8 +184,8 @@ export default class App extends React.Component {
           uuid: "ecdce856-82ff-477f-a9b0-7c51f43788a0",
         },
       ],
-      bookmarkedNews: ["CNN"],
-      favoriteSources: ["The New York Times", "The Wall Street Journal"],
+      bookmarkedNews: [],
+      favoriteSources: [],
       favoriteSourcesArticles: [],
     };
     // All methods are bound to "this" in order to be passed down as props
@@ -272,21 +273,35 @@ export default class App extends React.Component {
 
   onSubmitSignup(event) {
     event.preventDefault();
-    axios
-      .post("https://team6-news.herokuapp.com/user/signup", {
-        username: this.state.username,
-        email: this.state.email,
-        password: this.state.password,
-      })
-      .then((res) => {
-        console.log(res.data);
-        this.setState({ successfulLogin: true });
-      })
-      .catch((error) => {
-        if (error) {
-          alert("Error in onSubmitSignup in axios request");
-        }
-      });
+
+    function emailIsValid (email) {
+      return /\S+@\S+\.\S+/.test(email);
+    }
+
+    if (this.state.username.length < 4) {
+      alert("Username must be at least four characters long.");
+    }
+    else if (!emailIsValid(this.state.email)) {
+      alert("Invalid email. Please enter a valid email address.");
+    } else if(this.state.passwordValidation !== this.state.password) {
+      alert("Password confirmation does not match. Please make sure both password inputs match.");
+    }else {
+      axios
+        .post("https://team6-news.herokuapp.com/user/signup", {
+          username: this.state.username,
+          email: this.state.email,
+          password: this.state.password,
+        })
+        .then((res) => {
+          console.log(res.data);
+          this.setState({ successfulLogin: true });
+        })
+        .catch((error) => {
+          if (error) {
+            alert("Error in onSubmitSignup in axios request");
+          }
+        });
+    }
   }
 
   onSubmitSearch(event) {
@@ -340,9 +355,13 @@ export default class App extends React.Component {
   //this.setState({squares: squares});
   showBookmarks(event) {
     event.preventDefault();
-    this.setState({
-      displayedNews: this.state.bookmarkedNews,
-    });
+    if (this.state.bookmarkedNews.length === 0) {
+      alert("No favorites have been added.");
+    } else {
+      this.setState({
+        displayedNews: this.state.bookmarkedNews,
+      });
+    }
   }
 
   // This method will be called when a logged in User adds an article to their Favorites
@@ -369,6 +388,10 @@ export default class App extends React.Component {
 api and sets displayedNews and favoriteSourcesArticles to the result returned. */
   showFavorites(event) {
     event.preventDefault();
+    if (this.state.favoriteSources.length === 0) {
+      alert("No favorites have been added.");
+      return;
+    }
   //   let faves = this.state.favoriteSources.slice();
   //   faves.join('" + "');
 
