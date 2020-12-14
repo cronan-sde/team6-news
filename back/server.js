@@ -4,10 +4,14 @@ const app = express();
 const bodyParser = require('body-parser');
 const cors = require('cors');
 const mongoose = require('mongoose');
+const path = require('path');
 const port = process.env.PORT || 3000;
+
+let reqPath = path.join(__dirname, '../');
 
 app.use(cors());
 app.use(bodyParser.json());
+app.use(express.static(path.join(reqPath, 'front/dist'))); 
 
 
 //connecting mongoose to mongodb 
@@ -23,6 +27,10 @@ mongoose.connect(process.env.DATABASE_URL, {
   console.log("CONNECTION ERROR");
   console.log(err);
 });
+
+app.get('/', (req, res) => {
+  res.sendFile(path.join(reqPath, 'front/dist/index.html'));
+})
 
 //getting routers
 const userRouter = require('./routes/user');
