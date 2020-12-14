@@ -448,9 +448,11 @@ export default class App extends React.Component {
   // There is no undefined information, just need to know what is expected on back end.
   // Calling this function will not break the app, just gets an error from the server
   addToFavorites(sourceStr) {
-    if (this.checkFavorites(sourceStr)) { // not checking right now
+    if (this.checkFavorites(sourceStr)) {
+      // not checking right now
       alert("Already added to your favorites.");
     } else {
+      let result = this.state.favoriteSources;
       axios
         .post(
           `https://team6-news.herokuapp.com/favorites/${this.state.username}/${sourceStr}`
@@ -458,6 +460,10 @@ export default class App extends React.Component {
         .then((res) => {
           console.log(res.data);
           alert("News source added to favorites!");
+          result.push(sourceStr);
+          this.setState({
+            favoriteSources: result,
+          });
         })
         .catch((err) => {
           if (err)
@@ -467,7 +473,30 @@ export default class App extends React.Component {
   }
 
   removeFromFavorites(sourceStr) {
-    console.log(sourceStr);
+    let favSources = this.state.favoriteSources;
+    console.log("Inside removeFromFavorites");
+
+    if (favSources.includes(sourceStr)) {
+      //if (src === sourceStr) {
+      console.log("In here!");
+
+      axios
+        .delete(
+          `https://team6-news.herokuapp.com/favorites/${this.state.username}/${sourceStr}`
+        )
+        .then((res) => {
+          let sourceStrIndex = this.state.favoriteSources.indexOf(sourceStr);
+          let deleted = favSources.splice(sourceStrIndex, 1);
+          this.setState({ favoriteSources: favSources });
+
+          alert("Deleted from favorites successfully!");
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+    } else {
+      alert("This source is not added to your favorites currently!");
+    }
   }
 
   /* If favorite sources articles is empty, then showFavorites queries the news
