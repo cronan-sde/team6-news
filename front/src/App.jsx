@@ -187,6 +187,7 @@ export default class App extends React.Component {
       bookmarkedNews: [],
       favoriteSources: [],
       favoriteSourcesArticles: [],
+      newsHeadline: "Trending News"
     };
     // All methods are bound to "this" in order to be passed down as props
     this.onChange = this.onChange.bind(this);
@@ -363,6 +364,7 @@ export default class App extends React.Component {
     } else {
       this.setState({
         displayedNews: this.state.bookmarkedNews,
+        newsHeadline: "Bookmarked News"
       });
     }
   }
@@ -433,6 +435,7 @@ export default class App extends React.Component {
     //   this.setState({
     //     displayedNews: results,
     //     favoriteSourcesArticles: results,
+    //     newsHeadline: "Favorite News Sources"
     //   });
     // }
   }
@@ -452,6 +455,7 @@ export default class App extends React.Component {
     event.preventDefault();
     this.setState({
       displayedNews: this.state.trendingNews,
+      newsHeadline: "Trending News"
     });
   }
 
@@ -504,6 +508,7 @@ export default class App extends React.Component {
             onSubmitSearch={this.onSubmitSearch}
             userHasClicked={this.userHasClicked}
           />
+          <p className="news-headline">{this.state.newsHeadline}</p>
           <Welcome
             username={this.state.username}
             onChange={this.onChange}
@@ -533,6 +538,7 @@ export default class App extends React.Component {
             BookmarksBtn
             showBookmarks={this.showBookmarks}
           />
+          <p className="news-headline">{this.state.newsHeadline}</p>
           <User
             news={this.state.displayedNews}
             successfulLogin={this.state.successfulLogin}
