@@ -20,10 +20,30 @@ const NewsClip = (props) => {
                 </div>
             </div>
             <div>
-                <AddFavorite successfulLogin={props.successfulLogin} source={props.source} addToFavorites={props.addToFavorites}/>
-                <RemoveFavorite successfulLogin={props.successfulLogin} source={props.source} removeFromFavorites={props.removeFromFavorites} />
-                <AddBookmark successfulLogin={props.successfulLogin} articleObject={props.articleObject} addToBookmarks={props.addToBookmarks}/>
-                <RemoveBookmark successfulLogin={props.successfulLogin} articleObject={props.articleObject} removeFromBookmarks={props.removeFromBookmarks} />
+                <AddFavorite 
+                    successfulLogin={props.successfulLogin} 
+                    source={props.source} 
+                    addToFavorites={props.addToFavorites} 
+                    checkFavorites={props.checkFavorites}
+                />
+                <RemoveFavorite 
+                    successfulLogin={props.successfulLogin} 
+                    source={props.source} 
+                    removeFromFavorites={props.removeFromFavorites} 
+                    checkFavorites={props.checkFavorites}
+                />
+                <AddBookmark 
+                    successfulLogin={props.successfulLogin} 
+                    articleObject={props.articleObject} 
+                    addToBookmarks={props.addToBookmarks}
+                    checkBookmarks={props.checkBookmarks}
+                />
+                <RemoveBookmark 
+                    successfulLogin={props.successfulLogin} 
+                    articleObject={props.articleObject} 
+                    removeFromBookmarks={props.removeFromBookmarks} 
+                    checkBookmarks={props.checkBookmarks}
+                />
             </div>
         </div>
     )
