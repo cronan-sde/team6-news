@@ -256,8 +256,12 @@ export default class App extends React.Component {
     event.preventDefault();
 
     axios
-      .get(
-        `https://team6-news.herokuapp.com/user/login/${this.state.username}&${this.state.password}`
+      .post(
+        "https://team6-news.herokuapp.com/user/login", 
+        {
+          username: this.state.username,
+          password: this.state.password
+        }
       )
       .then((res) => {
         let userInfo = res.data;
@@ -329,38 +333,89 @@ export default class App extends React.Component {
 
   // This method will be called when a logged in User adds an article to their Bookmarks
   addToBookmarks(newsObj) {
-    axios
-      .post(
-        `https://team6-news.herokuapp.com/bookmarks/article/${this.state.username}`,
-        {
-          title: newsObj.title,
-          description: newsObj.description,
-          url: newsObj.url,
-          imageUrl: newsObj.image_url,
-          published: newsObj.published_at,
-          source: newsObj.source,
-          uuid: newsObj.uuid,
+    let bookmarkedNewsArray = this.state.bookmarkedNews;
+    
+    // Function build for axios request to avoid duplicates and still be called when needed
+    const axiosRequest = () => {
+      axios
+        .post(
+          `https://team6-news.herokuapp.com/bookmarks/article/${this.state.username}`,
+          {
+            title: newsObj.title,
+            description: newsObj.description,
+            url: newsObj.url,
+            imageUrl: newsObj.image_url,
+            published: newsObj.published_at,
+            source: newsObj.source,
+            uuid: newsObj.uuid,
+          }
+        )
+        .then((res) => {
+          // Once a good response is received, we need to decide how to notify the user
+          console.log(res.data);
+          bookmarkedNewsArray.push(newsObj);
+          this.setState({
+            bookmarkedNews: bookmarkedNewsArray
+          })
+        })
+        .catch((err) => {
+          // This needs to be edited not to alert the User to retry or whatever we decide
+          if (err) alert("Error found in addToBookMarks post request in App.jsx");
+        });
+    }
+
+    // Check if there are any bookmarks already
+    if (bookmarkedNewsArray.length > 0) {
+      // Iterate over bookmarked aticles
+      bookmarkedNewsArray.map( article => {
+        // Check if the passed in object matches any of the articles currently bookmarked
+        if (newsObj.uuid === article.uuid) {
+          alert("Article already added.")
+        } else {
+          // Send request if article isn't already bookmarked
+          axiosRequest();
         }
-      )
-      .then((res) => {
-        // Once a good response is received, we need to decide how to notify the user
-        console.log(res.data);
       })
-      .catch((err) => {
-        // This needs to be edited not to alert the User to retry or whatever we decide
-        if (err) alert("Error found in addToBookMarks post request in App.jsx");
-      });
+    } else {
+      // Send request if there are no articles yet added.
+      axiosRequest();
+    }
+
   }
 
   removeFromBookmarks(newsObj) {
-    console.log(newsObj);
+    let bookmarkedNews = this.state.bookmarkedNews;
+    let displayedNews = this.state.displayedNews;
+    // Function to remove bookmark from list without needed another get request to server
+    const removeBookmark = () => {
+      bookmarkedNews.map( (article, index) => {
+        if (article._id === newsObj._id) bookmarkedNews.splice(index, 1);
+      })
+    }
+    // Check if the bookmarks are currently displayed
+    if (displayedNews === bookmarkedNews) {
+      removeBookmark();
+      this.setState({
+        displayedNews: bookmarkedNews
+      })
+    } else {
+      removeBookmark();
+    }
+    // Send update to delete to server
+    axios.delete(`https://team6-news.herokuapp.com/bookmarks/article/${this.state.username}/${newsObj._id}`)
+    .then ( res => {
+      alert(`${res.data}`);
+    }) 
+    .catch( err => {
+      if (err) alert("Error found in removeFromBookmarks axios request in App.jsx")
+    })
   }
 
   //this.setState({squares: squares});
   showBookmarks(event) {
     event.preventDefault();
     if (this.state.bookmarkedNews.length === 0) {
-      alert("No favorites have been added.");
+      alert("No bookmarks have been added.");
     } else {
       this.setState({
         displayedNews: this.state.bookmarkedNews,
