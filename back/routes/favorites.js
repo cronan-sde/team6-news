@@ -1,35 +1,11 @@
-//get express router
+//get express router and favorites controller
 const router = require('express').Router();
-//get User model
-const User = require('../models/user.model');
+const favController = require('../controllers/favorites');
 
-//Add to User favorites
-//Only adds unique sources, no duplicates will be put into favorites
-router.route('/:username/:source').post((req, res) => {
-  const {username, source} = req.params;
-
-  User.findOneAndUpdate({username: username}, 
-    {$addToSet: {favorites: source}}, {safe: true, new: true},
-    function(err, result) {
-      if (!result) {
-        return res.status(400).json("Error: Invalid username");
-      }
-      return res.status(200).json("Success");
-    })
-})
-
-router.route('/:username/:source').delete((req, res) => {
-  const {username, source} = req.params;
-
-  User.findOneAndUpdate({username: username},
-    {$pull: {favorites: source}}, {safe: true, new: true},
-    function(err, result) {
-      if (result === null) {
-        return res.status(400).json("Error: Invalid username");
-      }
-      return res.status(200).json("Success"); 
-    })
-})
+//post delete routes for /:username/:source
+router.route('/:username/:source')
+.post(favController.add_to_favorites)
+.delete(favController.remove_favorite);
 
 //exporting the router
 module.exports = router;
