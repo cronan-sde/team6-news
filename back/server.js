@@ -7,6 +7,7 @@ const mongoose = require('mongoose');
 const path = require('path');
 const port = process.env.PORT || 3000;
 
+//path to get to react
 let reqPath = path.join(__dirname, '../');
 
 app.use(cors());
@@ -28,6 +29,7 @@ mongoose.connect(process.env.DATABASE_URL, {
   console.log(err);
 });
 
+//route to display app
 app.get('/', (req, res) => {
   res.sendFile(path.join(reqPath, 'front/dist/index.html'));
 })
