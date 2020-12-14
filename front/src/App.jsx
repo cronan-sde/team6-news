@@ -391,6 +391,14 @@ export default class App extends React.Component {
       bookmarkedNews.map( (article, index) => {
         if (article._id === newsObj._id) bookmarkedNews.splice(index, 1);
       })
+      // Send update to delete to server
+      axios.delete(`https://team6-news.herokuapp.com/bookmarks/article/${this.state.username}/${newsObj._id}`)
+      .then ( res => {
+        alert(`${res.data}`);
+      }) 
+      .catch( err => {
+        if (err) alert("Error found in removeFromBookmarks axios request in App.jsx")
+      })
     }
     // Check if the bookmarks are currently displayed
     if (displayedNews === bookmarkedNews) {
@@ -401,14 +409,6 @@ export default class App extends React.Component {
     } else {
       removeBookmark();
     }
-    // Send update to delete to server
-    axios.delete(`https://team6-news.herokuapp.com/bookmarks/article/${this.state.username}/${newsObj._id}`)
-    .then ( res => {
-      alert(`${res.data}`);
-    }) 
-    .catch( err => {
-      if (err) alert("Error found in removeFromBookmarks axios request in App.jsx")
-    })
   }
 
   //this.setState({squares: squares});
