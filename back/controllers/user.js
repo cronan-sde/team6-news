@@ -5,7 +5,7 @@ const bcrypt = require('bcryptjs');
 //returns json for valid user if name and pass are matches in db
 //returns error if no match on name or pass
 //populates the bookmarks array with the articles stored in db for use on front-end
-module.exports.user_login = async (req, res) => {
+exports.user_login = async (req, res) => {
   const {username, password} = req.body;
 
   //getting user matching username and getting their password from db
