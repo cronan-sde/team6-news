@@ -274,18 +274,19 @@ export default class App extends React.Component {
   onSubmitSignup(event) {
     event.preventDefault();
 
-    function emailIsValid (email) {
+    function emailIsValid(email) {
       return /\S+@\S+\.\S+/.test(email);
     }
 
     if (this.state.username.length < 4) {
       alert("Username must be at least four characters long.");
-    }
-    else if (!emailIsValid(this.state.email)) {
+    } else if (!emailIsValid(this.state.email)) {
       alert("Invalid email. Please enter a valid email address.");
-    } else if(this.state.passwordValidation !== this.state.password) {
-      alert("Password confirmation does not match. Please make sure both password inputs match.");
-    }else {
+    } else if (this.state.passwordValidation !== this.state.password) {
+      alert(
+        "Password confirmation does not match. Please make sure both password inputs match."
+      );
+    } else {
       axios
         .post("https://team6-news.herokuapp.com/user/signup", {
           username: this.state.username,
@@ -384,32 +385,43 @@ export default class App extends React.Component {
   removeFromFavorites(sourceStr) {
     console.log(sourceStr);
   }
+
   /* If favorite sources articles is empty, then showFavorites queries the news
-api and sets displayedNews and favoriteSourcesArticles to the result returned. */
+  api and sets displayedNews and favoriteSourcesArticles to the result returned. Searches
+  for articles based on the domain (i.e. nytimes.com, foxnews.com, etc).*/
   showFavorites(event) {
     event.preventDefault();
-    if (this.state.favoriteSources.length === 0) {
-      alert("No favorites have been added.");
-      return;
-    }
-  //   let faves = this.state.favoriteSources.slice();
-  //   faves.join('" + "');
+    // if (this.state.favoriteSources.length === 0) {
+    //   alert("No favorites have been added.");
+    //   return;
+    // }
 
-  //   if (this.state.favoriteSourcesArticles.length > 0) {
-  //     this.setState({
-  //       displayedNews: this.state.favoriteSourcesArticles
-  //     });
-  //   } else {
-  //     axios.get(`https://api.thenewsapi.com/v1/news/top?api_token=YOUR_API_KEY&search=${faves}&locale=us&limit=3`).then( (res) => {
-  //       const found = res.data.data;
-  //       this.setState({
-  //         displayedNews: found,
-  //         favoriteSourcesArticles: found,
-  //       }).catch( err => {
-  //         if (err) alert(err);
-  //       });
-  //     });
-  //   }
+    // let faves = this.state.favoriteSources.slice();
+
+    // if (this.state.favoriteSourcesArticles.length > 0) {
+    //   this.setState({
+    //     displayedNews: this.state.favoriteSourcesArticles,
+    //   });
+    // } else {
+    //   let results = [];
+    //   faves.map((source) => {
+    //     axios
+    //       .get(
+    //         `https://api.thenewsapi.com/v1/news/top?api_token=YOUR_API_KEY&domains=${source}&locale=us&limit=1`
+    //       )
+    //       .then((res) => {
+    //         const found = res.data.data;
+    //         results.push(found);
+    //       })
+    //       .catch((err) => {
+    //         if (err) alert(err);
+    //       });
+    //   });
+    //   this.setState({
+    //     displayedNews: results,
+    //     favoriteSourcesArticles: results,
+    //   });
+    // }
   }
 
   showTrendingNews(event) {
