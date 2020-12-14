@@ -1,5 +1,6 @@
 const path = require('path');
 const SRC_DIR = path.join(__dirname, '/client/src');
+const Dotenv = require('dotenv-webpack');
 
 module.exports = {
   entry: './front/src/index.js',
@@ -25,4 +26,7 @@ module.exports = {
         }
     ]
   },
+  plugins: [
+    new Dotenv()
+  ]
 };
