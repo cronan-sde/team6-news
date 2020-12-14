@@ -16,7 +16,8 @@ const UserSchema = new mongoose.Schema({
     unique: true,
     required: true,
     trim: true,
-    minlength: 4
+    minlength: 4,
+    lowercase: true
   },
   email: {
     type: mongoose.SchemaTypes.Email,
