@@ -105,93 +105,15 @@ export default class App extends React.Component {
           uuid: "ecdce856-82ff-477f-a9b0-7c51f43788a0",
         },
       ],
-      trendingNews: [
-        {
-          categories: ["tech"],
-          description:
-            "A bunch of Galaxy phone users got a bit of a head start on t...",
-          image_url:
-            "https://article.thenewsapi.com/image/38cc5291-e316-4d2c-837c-6aef401163f0",
-          keywords: "",
-          language: "en",
-          locale: "us",
-          published_at: "2020-12-10T22:28:00.000000Z",
-          relevance_score: null,
-          snippet:
-            "19 new Android games from the last week: The best, worst, an...",
-          source: "androidpolice.com",
-          title:
-            "Galaxy Note9, A71, and other Samsung phones get December update on Verizon",
-          url:
-            "https://article.thenewsapi.com/38cc5291-e316-4d2c-837c-6aef401163f0",
-          uuid: "38cc5291-e316-4d2c-837c-6aef401163f0",
-        },
-        {
-          categories: ["general"],
-          description:
-            "On Thursday, Airbnb sold investors on an unlikely story: tha...",
-          image_url:
-            "https://article.thenewsapi.com/image/a31cdddb-d51a-4b86-82e8-c9c7eb8a8d01",
-          keywords: "",
-          language: "en",
-          locale: "us",
-          published_at: "2020-12-10T22:20:08.000000Z",
-          relevance_score: null,
-          snippet:
-            "The company’s shares skyrocketed on their first day of tra...",
-          source: "bostonglobe.com",
-          title:
-            "Airbnb tops $100 Billion on first day of trading, reviving talk of a bubble",
-          url:
-            "https://article.thenewsapi.com/a31cdddb-d51a-4b86-82e8-c9c7eb8a8d01",
-          uuid: "a31cdddb-d51a-4b86-82e8-c9c7eb8a8d01",
-        },
-        {
-          categories: ["business", "tech"],
-          description: "",
-          image_url:
-            "https://article.thenewsapi.com/image/62d5009c-50ee-4052-83ac-262be53621df",
-          keywords: "",
-          language: "en",
-          locale: "us",
-          published_at: "2020-12-10T22:19:54.000000Z",
-          relevance_score: null,
-          snippet:
-            "President-elect Joe Biden told a group of civil rights leade...",
-          source: "businessinsider.com",
-          title:
-            "Biden tells civil rights leaders that Republicans weaponized the 'defund the police' slogan to 'beat the hell' out of Democrats",
-          url:
-            "https://article.thenewsapi.com/62d5009c-50ee-4052-83ac-262be53621df",
-          uuid: "62d5009c-50ee-4052-83ac-262be53621df",
-        },
-        {
-          categories: ["general", "politics"],
-          description:
-            "The revelation that federal prosecutors have launched a tax ...",
-          image_url:
-            "https://article.thenewsapi.com/image/ecdce856-82ff-477f-a9b0-7c51f43788a0",
-          keywords:
-            "General news, Crime, News industry, Media industry, Media and entertainment industry, Business, Criminal investigations, Law and order, 2019-2020 Coronavirus pandemic, Government and politics, Government transitions, National governments, Presidential el",
-          language: "en",
-          locale: "us",
-          published_at: "2020-12-10T22:53:15.000000Z",
-          relevance_score: null,
-          snippet:
-            "Biden's transition contends with probe into son's finances T...",
-          source: "abcnews.go.com",
-          title: "Biden's transition contends with probe into son's finances",
-          url:
-            "https://article.thenewsapi.com/ecdce856-82ff-477f-a9b0-7c51f43788a0",
-          uuid: "ecdce856-82ff-477f-a9b0-7c51f43788a0",
-        },
-      ],
+      trendingNews: [],
       bookmarkedNews: [],
       favoriteSources: [],
       favoriteSourcesArticles: [],
       newsHeadline: "Trending News",
       displayFavorites: false,
       displayBookmarks: false,
+      componentDidMountCount: 0,
+      componentDidMountStorage: []
     };
     // All methods are bound to "this" in order to be passed down as props
     this.onChange = this.onChange.bind(this);
@@ -605,15 +527,38 @@ export default class App extends React.Component {
                 uuid: <string>
             }
         */
-    // Need to work on a way to import a .env file to the front end to not reveal api key
-    //  axios.get(`https://api.thenewsapi.com/v1/news/top?api_token=${process.env.NEWS_API_KEY}&locale=us&limit=3`)
-    //  .then( res => {
-    //      this.setState({
-    //          displayedNews: res.data.data
-    //          trendingNews: res.data.data
-    //      })
-    //      console.log(res.data.data)
-    //  })
+    // let count = 0;
+    // let storage = [];
+    while (this.state.componentDidMountCount < 4) {
+      axios.get(`https://api.thenewsapi.com/v1/news/top?api_token=${process.env.NEWS_API_KEY}&locale=us&limit=5`)
+      .then( res => {
+        console.log(res.data.data)
+        res.data.data.map( article => {
+          let storage = this.state.trendingNews.slice();
+          storage.push(article);
+          this.setState({
+            trendingNews: storage,
+            displayedNews: storage
+          })
+        })
+      })
+      // .then( () => {
+      //   console.log("Count", count)
+      //   if (count >= 4) {
+      //     console.log(`Inside if conditional, count - ${count}, storage - ${storage}`)
+      //     this.setState({
+      //         displayedNews: storage,
+      //         trendingNews: storage
+      //     })
+      //   }
+      // })
+      .catch( err => {
+        console.error(err);
+      })
+      this.setState({
+        componentDidMountCount: this.state.componentDidMountCount++
+      })
+    }
   }
 
   render() {
