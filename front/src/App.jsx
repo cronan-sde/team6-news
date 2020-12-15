@@ -386,34 +386,35 @@ export default class App extends React.Component {
     let bookmarkedNews = this.state.bookmarkedNews;
     let displayedNews = this.state.displayedNews;
     // Function to remove bookmark from list without needed another get request to server
-    const removeBookmark = () => {
-      bookmarkedNews.map((article, index) => {
-        if (article._id === newsObj._id) bookmarkedNews.splice(index, 1);
-      });
-      // Send update to delete to server
-      axios
-        .delete(
-          `https://team6-news.herokuapp.com/bookmarks/article/${this.state.username}/${newsObj._id}`
-        )
-        .then((res) => {
-          alert(`${res.data}`);
-        })
-        .catch((err) => {
-          if (err)
-            alert(
-              "Error found in removeFromBookmarks axios request in App.jsx"
-            );
-        });
-    };
-    // Check if the bookmarks are currently displayed
-    if (displayedNews === bookmarkedNews) {
-      removeBookmark();
-      this.setState({
-        displayedNews: bookmarkedNews,
-      });
-    } else {
-      removeBookmark();
-    }
+    console.log("Function was called");
+    bookmarkedNews.map((article, index) => {
+      console.log("article", article, "newsObj", newsObj);
+      if (article._id === newsObj._id) {
+        if (displayedNews === bookmarkedNews) {
+          bookmarkedNews.splice(index, 1);
+          this.setState({
+            displayedNews: bookmarkedNews,
+          });
+        } else {
+          bookmarkedNews.splice(index, 1);
+        }
+        axios
+          .delete(
+            `https://team6-news.herokuapp.com/bookmarks/article/${this.state.username}/${newsObj._id}`
+          )
+          .then((res) => {
+            alert(`${res.data}`);
+          })
+          .catch((err) => {
+            if (err)
+              alert(
+                "Error found in removeFromBookmarks axios request in App.jsx"
+              );
+          });
+      }
+    });
+
+    // Send update to delete to server
   }
 
   //this.setState({squares: squares});
