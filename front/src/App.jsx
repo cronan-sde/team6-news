@@ -4,7 +4,7 @@ import User from "./user/User.jsx";
 import axios from "axios";
 import WelcomeNavBar from "./navbar/WelcomeNavBar.jsx";
 import UserNavBar from "./navbar/UserNavBar.jsx";
-
+import AlertModal from "./alert-modal/AlertModal.jsx";
 export default class App extends React.Component {
   constructor(props) {
     super(props);
@@ -20,6 +20,8 @@ export default class App extends React.Component {
       hasClickedSignup: false,
       memberSince: "",
       userId: "",
+      alertMessage: "",
+      alertModalDisplay: false,
       // The news array is hard coded information to look like the information we can gain from our API
       // This is to be used to save on our API calls while still having real data to use in building
       displayedNews: [
@@ -207,6 +209,7 @@ export default class App extends React.Component {
     this.userSwapsModal = this.userSwapsModal.bind(this);
     this.checkBookmarks = this.checkBookmarks.bind(this);
     this.checkFavorites = this.checkFavorites.bind(this);
+    this.alertModal = this.alertModal.bind(this);
   }
 
   // This is an event listener method for input fields to change state based on the target name and value
@@ -250,6 +253,13 @@ export default class App extends React.Component {
     }
   }
 
+  alertModal(stringMessage) {
+    this.setState({
+      alertMessage: stringMessage,
+      alertModalDisplay: true,
+    });
+  }
+
   // For now, this event listener is waiting for the login submit button to be hit and do a simple console.log
   // Eventually this will be used to send a request to the server with the proper information
   onSubmitLogin(event) {
@@ -283,9 +293,9 @@ export default class App extends React.Component {
     }
 
     if (this.state.username.length < 4) {
-      alert("Username must be at least four characters long.");
+      this.alertModal("Username must be at least four characters long.");
     } else if (!emailIsValid(this.state.email)) {
-      alert("Invalid email. Please enter a valid email address.");
+      this.alertModal("Invalid email. Please enter a valid email address.");
     } else if (
       this.state.password === "" ||
       this.state.passwordValidation === ""
@@ -622,6 +632,7 @@ export default class App extends React.Component {
             successfulLogin={this.state.successfulLogin}
             userSwapsModal={this.userSwapsModal}
           />
+          <AlertModal alertMessage={this.state.alertMessage}  userHasCanceled={this.userHasCanceled} alertModalDisplay={this.state.alertModalDisplay} />
         </div>
       );
     } else {
@@ -650,6 +661,7 @@ export default class App extends React.Component {
             checkBookmarks={this.checkBookmarks}
             checkFavorites={this.checkFavorites}
           />
+          <AlertModal alertMessage={this.state.alertMessage}  userHasCanceled={this.userHasCanceled} alertModalDisplay={this.state.alertModalDisplay} />
         </div>
       );
     }

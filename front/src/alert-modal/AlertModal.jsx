@@ -20,7 +20,7 @@ const AlertModal = (props) => {
         )
     } else {
         return (
-            <div className="modal"></div>
+            <div></div>
         )
     }
 }
