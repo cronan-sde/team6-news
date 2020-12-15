@@ -347,8 +347,9 @@ export default class App extends React.Component {
   addToBookmarks(newsObj) {
     let bookmarkedNewsArray = this.state.bookmarkedNews;
 
-    // Function build for axios request to avoid duplicates and still be called when needed
-    const axiosRequest = () => {
+    if (this.checkBookmarks(newsObj)) {
+      alert("Already added!");
+    } else {
       axios
         .post(
           `https://team6-news.herokuapp.com/bookmarks/article/${this.state.username}`,
@@ -366,6 +367,7 @@ export default class App extends React.Component {
           // Once a good response is received, we need to decide how to notify the user
           console.log(res.data);
           bookmarkedNewsArray.push(newsObj);
+          alert("Added to Bookmarks");
           this.setState({
             bookmarkedNews: bookmarkedNewsArray,
           });
@@ -375,24 +377,8 @@ export default class App extends React.Component {
           if (err)
             alert("Error found in addToBookMarks post request in App.jsx");
         });
-    };
-
-    // Check if there are any bookmarks already
-    if (bookmarkedNewsArray.length > 0) {
-      // Iterate over bookmarked aticles
-      bookmarkedNewsArray.map((article) => {
-        // Check if the passed in object matches any of the articles currently bookmarked
-        if (newsObj.uuid === article.uuid) {
-          alert("Article already added.");
-        } else {
-          // Send request if article isn't already bookmarked
-          axiosRequest();
-        }
-      });
-    } else {
-      // Send request if there are no articles yet added.
-      axiosRequest();
     }
+    // Function build for axios request to avoid duplicates and still be called when needed
   }
 
   removeFromBookmarks(newsObj) {
@@ -444,13 +430,17 @@ export default class App extends React.Component {
 
   // This method will check the bookmarkedNews array to see whether or not a user has added an article to their bookmarks
   // The method will return true or false to determine if the add or remove button should render
-  checkBookmarks(articleOgj) {
+  checkBookmarks(articleObj) {
     if (this.state.bookmarkedNews.length > 0) {
-      this.state.bookmarkedNews.map((bookmarkedArticle) => {
-        if (bookmarkedArticle.uuid === articleObj.uuid) return true;
-      });
+      for (let i = 0; i < this.state.bookmarkedNews.length; i++) {
+        if (this.state.bookmarkedNews[i].uuid === articleObj.uuid) {
+          return true;
+        }
+      }
+      return false;
+    } else {
+      return false;
     }
-    return false;
   }
 
   // This method will be called when a logged in User adds an article to their Favorites
