@@ -278,7 +278,8 @@ export default class App extends React.Component {
           memberSince: userInfo.createdAt,
           bookmarkedNews: userInfo.bookmarks,
           favoriteSources: userInfo.favorites,
-          userId: userInfo.id,
+          email: userInfo.email,
+          userId: userInfo._id,
           successfulLogin: true,
         });
       })
@@ -480,12 +481,7 @@ export default class App extends React.Component {
 
   removeFromFavorites(sourceStr) {
     let favSources = this.state.favoriteSources;
-    console.log("Inside removeFromFavorites");
-
     if (favSources.includes(sourceStr)) {
-      //if (src === sourceStr) {
-      console.log("In here!");
-
       axios
         .delete(
           `https://team6-news.herokuapp.com/favorites/${this.state.username}/${sourceStr}`
@@ -572,8 +568,23 @@ export default class App extends React.Component {
     event.preventDefault();
     //setting successfulLogin:false so it redirect to the Welcome page
     this.setState({
+      username: "",
+      email: "",
+      password: "",
+      passwordValidation: "",
+      searchBar: "",
       successfulLogin: false,
       hasClickedLogin: false,
+      hasClickedSignup: false,
+      memberSince: "",
+      userId: "",
+      alertMessage: "",
+      alertModalDisplay: false,
+      bookmarkedNews: [],
+      favoriteSources: [],
+      favoriteSourcesArticles: [],
+      displayFavorites: false,
+      displayBookmarks: false,
     });
   }
 
