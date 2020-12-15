@@ -278,12 +278,13 @@ export default class App extends React.Component {
           memberSince: userInfo.createdAt,
           bookmarkedNews: userInfo.bookmarks,
           favoriteSources: userInfo.favorites,
-          userId: userInfo.id,
+          email: userInfo.email,
+          userId: userInfo._id,
           successfulLogin: true,
         });
       })
       .catch((err) => {
-        if (err) alert("Incorrect login information. Please try again.");
+        if (err) this.alertModal("Incorrect login information. Please try again.");
       });
   }
 
@@ -302,9 +303,9 @@ export default class App extends React.Component {
       this.state.password === "" ||
       this.state.passwordValidation === ""
     ) {
-      alert("Please enter a password and confirm it.");
+      this.alertModal("Please enter a password and confirm it.");
     } else if (this.state.passwordValidation !== this.state.password) {
-      alert(
+      this.alertModal(
         "Password confirmation does not match. Please make sure both password inputs match."
       );
     } else {
@@ -320,7 +321,7 @@ export default class App extends React.Component {
         })
         .catch((error) => {
           if (error) {
-            alert("Error in onSubmitSignup in axios request");
+            this.alertModal("Account already exists for this email address.");
           }
         });
     }
@@ -348,7 +349,7 @@ export default class App extends React.Component {
     let bookmarkedNewsArray = this.state.bookmarkedNews;
 
     if (this.checkBookmarks(newsObj)) {
-      alert("Already added!");
+      this.alertModal("Already added!");
     } else {
       axios
         .post(
@@ -368,7 +369,7 @@ export default class App extends React.Component {
           newsObj._id = res.data;
           console.log(newsObj);
           bookmarkedNewsArray.push(newsObj);
-          alert("Added to Bookmarks");
+          this.alertModal("Added to Bookmarks");
           this.setState({
             bookmarkedNews: bookmarkedNewsArray,
           });
@@ -376,7 +377,8 @@ export default class App extends React.Component {
         .catch((err) => {
           // This needs to be edited not to alert the User to retry or whatever we decide
           if (err)
-            alert("Error found in addToBookMarks post request in App.jsx");
+          // TODO
+            this.alertModal("Error found in addToBookMarks post request in App.jsx");
         });
     }
     // Function build for axios request to avoid duplicates and still be called when needed
@@ -402,11 +404,12 @@ export default class App extends React.Component {
             `https://team6-news.herokuapp.com/bookmarks/article/${this.state.username}/${newsObj._id}`
           )
           .then((res) => {
-            alert(`${res.data}`);
+            this.alertModal(`${res.data}`);
           })
           .catch((err) => {
             if (err)
-              alert(
+              this.alertModal(
+                // TODO
                 "Error found in removeFromBookmarks axios request in App.jsx"
               );
           });
@@ -418,7 +421,7 @@ export default class App extends React.Component {
   showBookmarks(event) {
     event.preventDefault();
     if (this.state.bookmarkedNews.length === 0) {
-      alert("No bookmarks have been added.");
+      this.alertModal("No bookmarks have been added.");
     } else {
       this.setState({
         displayedNews: this.state.bookmarkedNews,
@@ -451,7 +454,7 @@ export default class App extends React.Component {
   addToFavorites(sourceStr) {
     if (this.checkFavorites(sourceStr)) {
       // not checking right now
-      alert("Already added to your favorites.");
+      this.alertModal("Already added to your favorites.");
     } else {
       let result = this.state.favoriteSources;
       axios
@@ -460,7 +463,7 @@ export default class App extends React.Component {
         )
         .then((res) => {
           console.log(res.data);
-          alert("News source added to favorites!");
+          this.alertModal("News source added to favorites!");
           result.push(sourceStr);
           this.setState({
             favoriteSources: result,
@@ -468,19 +471,15 @@ export default class App extends React.Component {
         })
         .catch((err) => {
           if (err)
-            alert("Error found in addToFavorites post request in App.jsx");
+          //TODO
+            this.alertModal("Error found in addToFavorites post request in App.jsx");
         });
     }
   }
 
   removeFromFavorites(sourceStr) {
     let favSources = this.state.favoriteSources;
-    console.log("Inside removeFromFavorites");
-
     if (favSources.includes(sourceStr)) {
-      //if (src === sourceStr) {
-      console.log("In here!");
-
       axios
         .delete(
           `https://team6-news.herokuapp.com/favorites/${this.state.username}/${sourceStr}`
@@ -490,13 +489,13 @@ export default class App extends React.Component {
           let deleted = favSources.splice(sourceStrIndex, 1);
           this.setState({ favoriteSources: favSources });
 
-          alert("Deleted from favorites successfully!");
+          this.alertModal("Deleted from favorites successfully!");
         })
         .catch((err) => {
           console.log(err);
         });
     } else {
-      alert("This source is not added to your favorites currently!");
+      this.alertModal("This source is not added to your favorites currently!");
     }
   }
 
@@ -506,7 +505,7 @@ export default class App extends React.Component {
   showFavorites(event) {
     event.preventDefault();
     // if (this.state.favoriteSources.length === 0) {
-    //   alert("No favorites have been added.");
+    //   this.alertModal("No favorites have been added.");
     //   return;
     // }
 
@@ -528,7 +527,7 @@ export default class App extends React.Component {
     //         results.push(found);
     //       })
     //       .catch((err) => {
-    //         if (err) alert(err);
+    //         if (err) this.alertModal(err);
     //       });
     //   });
     //   this.setState({
@@ -567,8 +566,23 @@ export default class App extends React.Component {
     event.preventDefault();
     //setting successfulLogin:false so it redirect to the Welcome page
     this.setState({
+      username: "",
+      email: "",
+      password: "",
+      passwordValidation: "",
+      searchBar: "",
       successfulLogin: false,
       hasClickedLogin: false,
+      hasClickedSignup: false,
+      memberSince: "",
+      userId: "",
+      alertMessage: "",
+      alertModalDisplay: false,
+      bookmarkedNews: [],
+      favoriteSources: [],
+      favoriteSourcesArticles: [],
+      displayFavorites: false,
+      displayBookmarks: false,
     });
   }
 
