@@ -365,7 +365,8 @@ export default class App extends React.Component {
         )
         .then((res) => {
           // Once a good response is received, we need to decide how to notify the user
-          console.log(res.data);
+          newsObj._id = res.data;
+          console.log(newsObj);
           bookmarkedNewsArray.push(newsObj);
           alert("Added to Bookmarks");
           this.setState({
@@ -622,7 +623,11 @@ export default class App extends React.Component {
             successfulLogin={this.state.successfulLogin}
             userSwapsModal={this.userSwapsModal}
           />
-          <AlertModal alertMessage={this.state.alertMessage}  userHasCanceled={this.userHasCanceled} alertModalDisplay={this.state.alertModalDisplay} />
+          <AlertModal
+            alertMessage={this.state.alertMessage}
+            userHasCanceled={this.userHasCanceled}
+            alertModalDisplay={this.state.alertModalDisplay}
+          />
         </div>
       );
     } else {
@@ -651,7 +656,11 @@ export default class App extends React.Component {
             checkBookmarks={this.checkBookmarks}
             checkFavorites={this.checkFavorites}
           />
-          <AlertModal alertMessage={this.state.alertMessage}  userHasCanceled={this.userHasCanceled} alertModalDisplay={this.state.alertModalDisplay} />
+          <AlertModal
+            alertMessage={this.state.alertMessage}
+            userHasCanceled={this.userHasCanceled}
+            alertModalDisplay={this.state.alertModalDisplay}
+          />
         </div>
       );
     }
