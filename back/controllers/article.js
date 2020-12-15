@@ -41,7 +41,7 @@ exports.bookmark_article = (req, res) => {
         article.bookmarkedBy.push(user);
         //saving article to db
         article.save();
-        return res.status(200).json("Success"); //successful operation
+        return res.status(200).json(article._id); //successful operation
       }
     })
   }); 
