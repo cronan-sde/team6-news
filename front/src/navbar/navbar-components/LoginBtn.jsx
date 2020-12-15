@@ -1,9 +1,10 @@
 import React from "react";
+import Button from '@material-ui/core/Button';
 
 const LoginBtn = (props) => {
     return (
         <div className="UserLogBtns">
-            <button name="hasClickedLogin" type="button" onClick={props.userHasClicked}>Login / SignUp</button>
+            <Button variant="contained" color="primary" name="hasClickedLogin" type="button" onClick={()=> {props.userHasClicked("hasClickedLogin")}}>Login / SignUp</Button>
         </div>
     )
 }
