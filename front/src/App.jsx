@@ -224,10 +224,10 @@ export default class App extends React.Component {
 
   // This method is an event listener for any buttons clicked to start rendering a new component, such as the modal
   // signup or modal login
-  userHasClicked(event) {
-    event.preventDefault();
+  userHasClicked(target) {
+    // event.preventDefault();
     this.setState({
-      [event.target.name]: true,
+      [target]: true,
     });
   }
 
@@ -326,9 +326,7 @@ export default class App extends React.Component {
     }
   }
 
-  onSubmitSearch(event) {
-    event.preventDefault();
-
+  onSubmitSearch() {
     //api.thenewsapi.com/v1/news/all?api_token=YOUR_API_TOKEN&search=usd
     // const keyword = this.state.searchBar;
     // console.log(`The this state searchBar is ${keyword}`);
