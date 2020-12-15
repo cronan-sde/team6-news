@@ -1,5 +1,5 @@
-import { PromiseProvider } from "mongoose";
 import React from "react";
+import Button from '@material-ui/core/Button';
 
 const SearchBar = (props) => {
   return (
@@ -10,9 +10,9 @@ const SearchBar = (props) => {
         placeholder="Search News"
         onChange={props.onChangeSearch}
       ></input>
-      <button onClick={props.onSubmitSearch} type="submit">
+      <Button variant="contained" color="primary" onClick={()=> props.onSubmitSearch()} type="button">
         Submit
-      </button>
+      </Button>
     </div>
   );
 };
