@@ -12,7 +12,7 @@ const UserNavBar = (props) => {
             <div className="navbar">
                 <Logo />
                 <SearchBar 
-                    onChangeSearch={props.onChange}
+                    onChangeSearch={props.onChangeSearch}
                     onSubmitSearch={props.onSubmitSearch}
                 />
                 <LogoutBtn 

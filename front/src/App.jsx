@@ -113,7 +113,8 @@ export default class App extends React.Component {
       displayFavorites: false,
       displayBookmarks: false,
       componentDidMountCount: 0,
-      componentDidMountStorage: []
+      componentDidMountStorage: [],
+      firstMount: true,
     };
     // All methods are bound to "this" in order to be passed down as props
     this.onChange = this.onChange.bind(this);
@@ -250,20 +251,18 @@ export default class App extends React.Component {
   }
 
   onSubmitSearch() {
-    //api.thenewsapi.com/v1/news/all?api_token=YOUR_API_TOKEN&search=usd
-    // const keyword = this.state.searchBar;
-    // console.log(`The this state searchBar is ${keyword}`);
-
     // axios
     //   .get(
-    //     `https://api.thenewsapi.com/v1/news/all?api_token=YOUR_KEY=${this.state.searchBar}`
+    //     `https://api.thenewsapi.com/v1/news/all?api_token=${process.env.NEWS_API_KEY}&language=en&limit=3&search=${this.state.searchBar}`
     //   )
     //   .then((res) => {
-    this.setState({
-      [this.state.displayedNews]: res.data.data,
-    });
-
-    //   });
+    //     this.setState({
+    //       displayedNews: res.data.data,
+    //     });
+    //   })
+    //   .catch( err => {
+    //     if (err) console.error(err);
+    //   })
   }
 
   // This method will be called when a logged in User adds an article to their Bookmarks
@@ -442,22 +441,22 @@ export default class App extends React.Component {
     //   faves.map((source) => {
     //     axios
     //       .get(
-    //         `https://api.thenewsapi.com/v1/news/top?api_token=YOUR_API_KEY&domains=${source}&locale=us&limit=1`
+    //         `https://api.thenewsapi.com/v1/news/top?api_token=${process.env.NEWS_API_KEY}&domains=${source}&locale=us&limit=1`
     //       )
     //       .then((res) => {
     //         const found = res.data.data;
-    //         results.push(found);
+    //         results.push(found[0]);
+    //         this.setState({
+    //           displayedNews: results,
+    //           favoriteSourcesArticles: results,
+    //           newsHeadline: "Favorite News Sources",
+    //           displayFavorites: true,
+    //           displayBookmarks: false,
+    //         });
     //       })
     //       .catch((err) => {
     //         if (err) this.alertModal(err);
     //       });
-    //   });
-    //   this.setState({
-    //     displayedNews: results,
-    //     favoriteSourcesArticles: results,
-    //     newsHeadline: "Favorite News Sources",
-    //     displayFavorites: true,
-    //     displayBookmarks: false,
     //   });
     // }
   }
@@ -527,38 +526,30 @@ export default class App extends React.Component {
                 uuid: <string>
             }
         */
-    // let count = 0;
-    // let storage = [];
-    while (this.state.componentDidMountCount < 4) {
-      axios.get(`https://api.thenewsapi.com/v1/news/top?api_token=${process.env.NEWS_API_KEY}&locale=us&limit=5`)
-      .then( res => {
-        console.log(res.data.data)
-        res.data.data.map( article => {
-          let storage = this.state.trendingNews.slice();
-          storage.push(article);
-          this.setState({
-            trendingNews: storage,
-            displayedNews: storage
-          })
-        })
-      })
-      // .then( () => {
-      //   console.log("Count", count)
-      //   if (count >= 4) {
-      //     console.log(`Inside if conditional, count - ${count}, storage - ${storage}`)
-      //     this.setState({
-      //         displayedNews: storage,
-      //         trendingNews: storage
-      //     })
-      //   }
-      // })
-      .catch( err => {
-        console.error(err);
-      })
-      this.setState({
-        componentDidMountCount: this.state.componentDidMountCount++
-      })
-    }
+    // if (this.state.firstMount === true) {
+    //   while (this.state.componentDidMountCount < 4) {
+    //     axios.get(`https://api.thenewsapi.com/v1/news/top?api_token=${process.env.NEWS_API_KEY}&locale=us&limit=3`)
+    //     .then( res => {
+    //       res.data.data.map( article => {
+    //         let storage = this.state.trendingNews.slice();
+    //         storage.push(article);
+    //         this.setState({
+    //           trendingNews: storage,
+    //           displayedNews: storage
+    //         })
+    //       })
+    //     })
+    //     .catch( err => {
+    //       console.error(err);
+    //     })
+    //     this.setState({
+    //       componentDidMountCount: this.state.componentDidMountCount++
+    //     })
+    //   }
+    //   this.setState({
+    //     firstMount: false,
+    //   })
+    // }
   }
 
   render() {

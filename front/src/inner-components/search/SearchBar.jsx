@@ -13,6 +13,9 @@ const SearchBar = (props) => {
       <Button variant="contained" color="primary" onClick={()=> props.onSubmitSearch()} type="button">
         Submit
       </Button>
+            {/* <button onClick={props.onSubmitSearch} type="button">
+        Submit
+      </button> */}
     </div>
   );
 };
