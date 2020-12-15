@@ -1,4 +1,5 @@
 const User = require('../models/user.model');
+const jwt = require('jsonwebtoken');
 const bcrypt = require('bcryptjs');
 
 
@@ -21,10 +22,16 @@ exports.user_login = async (req, res) => {
     return res.status(400).json("Error: Invalid username/password");
   }
 
-  //If passwords matched return the user
+  //If passwords matched return the user and assign token
   User.findOne({username}).populate("bookmarks", "-bookmarkedBy")
     .then(user => {
-      return res.json(user);
+      const token = jwt.sign({
+        username: user.username,
+        email: user.email,
+        bookmarks: user.bookmarks,
+        favorites: user.favorites
+      }, process.env.SECRET_JWT_KEY);
+      res.header('auth-token', token).send(token);
     });
 }
 
@@ -48,6 +55,6 @@ exports.user_signup = async (req, res) => {
 
   //save new user to database, upon success json message User Registered, otherwise 400 bad request
   newUser.save()
-    .then(() => res.json('User Registered'))
+    .then(() => res.status(201).json('User Registered'))
     .catch(err => res.status(400).json(err));
 }
