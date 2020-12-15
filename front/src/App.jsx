@@ -374,9 +374,11 @@ export default class App extends React.Component {
         // Check if the passed in object matches any of the articles currently bookmarked
         if (newsObj.uuid === article.uuid) {
           alert("Article already added.");
+          return;
         } else {
           // Send request if article isn't already bookmarked
           axiosRequest();
+          return;
         }
       });
     } else {
