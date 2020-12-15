@@ -1,5 +1,4 @@
 const User = require('../models/user.model');
-const jwt = require('jsonwebtoken');
 const bcrypt = require('bcryptjs');
 
 
@@ -25,13 +24,7 @@ exports.user_login = async (req, res) => {
   //If passwords matched return the user and assign token
   User.findOne({username}).populate("bookmarks", "-bookmarkedBy")
     .then(user => {
-      const token = jwt.sign({
-        username: user.username,
-        email: user.email,
-        bookmarks: user.bookmarks,
-        favorites: user.favorites
-      }, process.env.SECRET_JWT_KEY);
-      res.header('auth-token', token).send(token);
+      return res.json(user);
     });
 }
 
