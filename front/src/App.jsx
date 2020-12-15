@@ -448,20 +448,55 @@ export default class App extends React.Component {
   // There is no undefined information, just need to know what is expected on back end.
   // Calling this function will not break the app, just gets an error from the server
   addToFavorites(sourceStr) {
-    axios
-      .post(
-        `https://team6-news.herokuapp.com/favorites/article/${this.state.username}/${sourceStr}`
-      )
-      .then((res) => {
-        console.log(res.data);
-      })
-      .catch((err) => {
-        if (err) alert("Error found in addToFavorites post request in App.jsx");
-      });
+    if (this.checkFavorites(sourceStr)) {
+      // not checking right now
+      alert("Already added to your favorites.");
+    } else {
+      let result = this.state.favoriteSources;
+      axios
+        .post(
+          `https://team6-news.herokuapp.com/favorites/${this.state.username}/${sourceStr}`
+        )
+        .then((res) => {
+          console.log(res.data);
+          alert("News source added to favorites!");
+          result.push(sourceStr);
+          this.setState({
+            favoriteSources: result,
+          });
+        })
+        .catch((err) => {
+          if (err)
+            alert("Error found in addToFavorites post request in App.jsx");
+        });
+    }
   }
 
   removeFromFavorites(sourceStr) {
-    console.log(sourceStr);
+    let favSources = this.state.favoriteSources;
+    console.log("Inside removeFromFavorites");
+
+    if (favSources.includes(sourceStr)) {
+      //if (src === sourceStr) {
+      console.log("In here!");
+
+      axios
+        .delete(
+          `https://team6-news.herokuapp.com/favorites/${this.state.username}/${sourceStr}`
+        )
+        .then((res) => {
+          let sourceStrIndex = this.state.favoriteSources.indexOf(sourceStr);
+          let deleted = favSources.splice(sourceStrIndex, 1);
+          this.setState({ favoriteSources: favSources });
+
+          alert("Deleted from favorites successfully!");
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+    } else {
+      alert("This source is not added to your favorites currently!");
+    }
   }
 
   /* If favorite sources articles is empty, then showFavorites queries the news
@@ -506,10 +541,11 @@ export default class App extends React.Component {
   // This method will check the favoriteSources array to see whether or not a user has added a source to their favorites
   // The method will return true or false to determine if the add or remove button should render
   checkFavorites(sourceStr) {
-    if (this.state.favoriteStrs.length > 0) {
-      this.state.favoriteSources.map((favoritedSource) => {
-        if (favoritedSource === sourceStr) return true;
-      });
+    if (this.state.favoriteSources.includes(sourceStr)) {
+      // this.state.favoriteSources.map((favoritedSource) => {
+      //   if (favoritedSource === sourceStr) return true;
+      // });
+      return true;
     }
     return false;
   }
