@@ -28,6 +28,11 @@ const NewsFeed = (props) => {
                                 removeFromFavorites={props.removeFromFavorites}
                                 checkBookmarks={props.checkBookmarks}
                                 checkFavorites={props.checkFavorites}
+                                news={props.news}
+                                bookmarkedNews={props.bookmarkedNews}
+                                favoriteSourcesArticles={props.favoriteSourcesArticles}
+                                displayBookmarks={props.displayBookmarks}
+                                displayFavorites={props.displayFavorites}
                             />
                     )
                 })

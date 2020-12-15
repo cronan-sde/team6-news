@@ -1,13 +1,8 @@
 import React from 'react';
 
 const RemoveBookmark = (props) => {
-    let inBookmarks; 
-    ()=> {
-        inBookmarks = props.checkBookmarks(props.articleObject)
-        console.log(inBookmarks)
-    };
-
-    if (props.successfulLogin) {
+    // If the User has successfully logged in and they are viewing their bookmarks, a remove button for bookmarks will display.
+    if (props.successfulLogin === true && props.displayBookmarks === true) {
         return (
             <div>
                 <button onClick={() => { props.removeFromBookmarks(props.articleObject) }}>Remove From Bookmarks</button>

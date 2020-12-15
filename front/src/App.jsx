@@ -190,6 +190,8 @@ export default class App extends React.Component {
       favoriteSources: [],
       favoriteSourcesArticles: [],
       newsHeadline: "Trending News",
+      displayFavorites: false,
+      displayBookmarks: false,
     };
     // All methods are bound to "this" in order to be passed down as props
     this.onChange = this.onChange.bind(this);
@@ -423,6 +425,8 @@ export default class App extends React.Component {
       this.setState({
         displayedNews: this.state.bookmarkedNews,
         newsHeadline: "Bookmarked News",
+        displayBookmarks: true,
+        displayFavorites: false,
       });
     }
   }
@@ -532,7 +536,9 @@ export default class App extends React.Component {
     //   this.setState({
     //     displayedNews: results,
     //     favoriteSourcesArticles: results,
-    //     newsHeadline: "Favorite News Sources"
+    //     newsHeadline: "Favorite News Sources",
+    //     displayFavorites: true,
+    //     displayBookmarks: false,
     //   });
     // }
   }
@@ -554,6 +560,8 @@ export default class App extends React.Component {
     this.setState({
       displayedNews: this.state.trendingNews,
       newsHeadline: "Trending News",
+      displayBookmarks: false,
+      displayFavorites: false,
     });
   }
 
@@ -653,6 +661,9 @@ export default class App extends React.Component {
             bookmarkedNews={this.state.bookmarkedNews}
             checkBookmarks={this.checkBookmarks}
             checkFavorites={this.checkFavorites}
+            favoriteSourcesArticles={this.state.favoriteSourcesArticles}
+            displayBookmarks={this.state.displayBookmarks}
+            displayFavorites={this.state.displayFavorites}
           />
           <AlertModal
             alertMessage={this.state.alertMessage}
