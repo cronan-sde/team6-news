@@ -386,9 +386,7 @@ export default class App extends React.Component {
     let bookmarkedNews = this.state.bookmarkedNews;
     let displayedNews = this.state.displayedNews;
     // Function to remove bookmark from list without needed another get request to server
-    console.log("Function was called");
     bookmarkedNews.map((article, index) => {
-      console.log("article", article, "newsObj", newsObj);
       if (article._id === newsObj._id) {
         if (displayedNews === bookmarkedNews) {
           bookmarkedNews.splice(index, 1);
@@ -398,6 +396,7 @@ export default class App extends React.Component {
         } else {
           bookmarkedNews.splice(index, 1);
         }
+        // Send update to delete to server
         axios
           .delete(
             `https://team6-news.herokuapp.com/bookmarks/article/${this.state.username}/${newsObj._id}`
@@ -414,10 +413,8 @@ export default class App extends React.Component {
       }
     });
 
-    // Send update to delete to server
   }
 
-  //this.setState({squares: squares});
   showBookmarks(event) {
     event.preventDefault();
     if (this.state.bookmarkedNews.length === 0) {
