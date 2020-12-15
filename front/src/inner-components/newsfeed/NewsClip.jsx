@@ -50,14 +50,14 @@ const NewsClip = (props) => {
     return (
       <Card className={classes.root}>
         <CardContent>
-          <Typography className={classes.title} color="textSecondary" gutterBottom>
-            {props.title}
-          </Typography>
           <CardMedia
             className={classes.media}
             image={props.image}
             title="Paella dish"
             />
+          <Typography className={classes.title} color="textSecondary" gutterBottom>
+            {props.title}
+          </Typography>
           {/* <img className="NewsClipCardImg" src={props.image} alt="image"></img> */}
           {/* <Typography variant="h5" component="h2">
             be{bull}nev{bull}o{bull}lent
