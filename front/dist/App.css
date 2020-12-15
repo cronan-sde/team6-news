@@ -172,6 +172,14 @@ body{
     text-decoration: none;
   }
 
+  /* Alert Modal */
+  .alert-modal .form-content{
+    background-color: rgba(232, 230, 230, 0.98);
+  }
+  .alert-modal button {
+    width: auto;
+  }
+
 
   /* News Feed */
   #newsfeed {

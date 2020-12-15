@@ -11,7 +11,7 @@ const AlertModal = (props) => {
         return (
             // For now, this modal can use the other modal css, but eventually some things will need to change in case
             // this modal needs to appear on top of the other modal windows
-            <div className="modal">
+            <div className="modal alert-modal">
                 <div className="form-content">
                     <p>{props.alertMessage}</p>
                     <button name="alertModalDisplay" onClick={props.userHasCanceled}>Cancel</button>
