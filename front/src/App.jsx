@@ -256,7 +256,7 @@ export default class App extends React.Component {
   alertModal(stringMessage) {
     this.setState({
       alertMessage: stringMessage,
-      alertModal: true,
+      alertModalDisplay: true,
     });
   }
 
@@ -295,7 +295,7 @@ export default class App extends React.Component {
     if (this.state.username.length < 4) {
       this.alertModal("Username must be at least four characters long.");
     } else if (!emailIsValid(this.state.email)) {
-      alert("Invalid email. Please enter a valid email address.");
+      this.alertModal("Invalid email. Please enter a valid email address.");
     } else if (
       this.state.password === "" ||
       this.state.passwordValidation === ""
