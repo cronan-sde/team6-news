@@ -190,6 +190,8 @@ export default class App extends React.Component {
       favoriteSources: [],
       favoriteSourcesArticles: [],
       newsHeadline: "Trending News",
+      displayFavorites: false,
+      displayBookmarks: false,
     };
     // All methods are bound to "this" in order to be passed down as props
     this.onChange = this.onChange.bind(this);
@@ -386,9 +388,7 @@ export default class App extends React.Component {
     let bookmarkedNews = this.state.bookmarkedNews;
     let displayedNews = this.state.displayedNews;
     // Function to remove bookmark from list without needed another get request to server
-    console.log("Function was called");
     bookmarkedNews.map((article, index) => {
-      console.log("article", article, "newsObj", newsObj);
       if (article._id === newsObj._id) {
         if (displayedNews === bookmarkedNews) {
           bookmarkedNews.splice(index, 1);
@@ -398,6 +398,7 @@ export default class App extends React.Component {
         } else {
           bookmarkedNews.splice(index, 1);
         }
+        // Send update to delete to server
         axios
           .delete(
             `https://team6-news.herokuapp.com/bookmarks/article/${this.state.username}/${newsObj._id}`
@@ -414,10 +415,8 @@ export default class App extends React.Component {
       }
     });
 
-    // Send update to delete to server
   }
 
-  //this.setState({squares: squares});
   showBookmarks(event) {
     event.preventDefault();
     if (this.state.bookmarkedNews.length === 0) {
@@ -426,6 +425,8 @@ export default class App extends React.Component {
       this.setState({
         displayedNews: this.state.bookmarkedNews,
         newsHeadline: "Bookmarked News",
+        displayBookmarks: true,
+        displayFavorites: false,
       });
     }
   }
@@ -535,7 +536,9 @@ export default class App extends React.Component {
     //   this.setState({
     //     displayedNews: results,
     //     favoriteSourcesArticles: results,
-    //     newsHeadline: "Favorite News Sources"
+    //     newsHeadline: "Favorite News Sources",
+    //     displayFavorites: true,
+    //     displayBookmarks: false,
     //   });
     // }
   }
@@ -557,6 +560,8 @@ export default class App extends React.Component {
     this.setState({
       displayedNews: this.state.trendingNews,
       newsHeadline: "Trending News",
+      displayBookmarks: false,
+      displayFavorites: false,
     });
   }
 
@@ -656,6 +661,9 @@ export default class App extends React.Component {
             bookmarkedNews={this.state.bookmarkedNews}
             checkBookmarks={this.checkBookmarks}
             checkFavorites={this.checkFavorites}
+            favoriteSourcesArticles={this.state.favoriteSourcesArticles}
+            displayBookmarks={this.state.displayBookmarks}
+            displayFavorites={this.state.displayFavorites}
           />
           <AlertModal
             alertMessage={this.state.alertMessage}

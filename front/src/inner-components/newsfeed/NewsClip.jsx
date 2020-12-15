@@ -25,24 +25,38 @@ const NewsClip = (props) => {
                     source={props.source} 
                     addToFavorites={props.addToFavorites} 
                     checkFavorites={props.checkFavorites}
+                    news={props.news}
+                    favoriteSourcesArticles={props.favoriteSourcesArticles}
+                    articleObject={props.articleObject}
+                    displayFavorites={props.displayFavorites}
                 />
                 <RemoveFavorite 
                     successfulLogin={props.successfulLogin} 
                     source={props.source} 
                     removeFromFavorites={props.removeFromFavorites} 
                     checkFavorites={props.checkFavorites}
+                    news={props.news}
+                    favoriteSourcesArticles={props.favoriteSourcesArticles}
+                    articleObject={props.articleObject}
+                    displayFavorites={props.displayFavorites}
                 />
                 <AddBookmark 
                     successfulLogin={props.successfulLogin} 
                     articleObject={props.articleObject} 
                     addToBookmarks={props.addToBookmarks}
                     checkBookmarks={props.checkBookmarks}
+                    news={props.news}
+                    bookmarkedNews={props.bookmarkedNews}
+                    displayBookmarks={props.displayBookmarks}
                 />
                 <RemoveBookmark 
                     successfulLogin={props.successfulLogin} 
                     articleObject={props.articleObject} 
                     removeFromBookmarks={props.removeFromBookmarks} 
                     checkBookmarks={props.checkBookmarks}
+                    news={props.news}
+                    bookmarkedNews={props.bookmarkedNews}
+                    displayBookmarks={props.displayBookmarks}
                 />
             </div>
         </div>
@@ -50,3 +64,4 @@ const NewsClip = (props) => {
 }
 
 export default NewsClip;
+

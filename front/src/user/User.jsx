@@ -13,6 +13,10 @@ const User = (props) => {
           removeFromFavorites={props.removeFromFavorites}
           checkBookmarks={props.checkBookmarks}
           checkFavorites={props.checkFavorites}
+          bookmarkedNews={props.bookmarkedNews}
+          favoriteSourcesArticles={props.favoriteSourcesArticles}
+          displayBookmarks={props.displayBookmarks}
+          displayFavorites={props.displayFavorites}
         />
     </div>
   );

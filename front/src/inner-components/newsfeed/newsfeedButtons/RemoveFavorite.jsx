@@ -1,9 +1,8 @@
 import React from 'react';
 
 const RemoveFavorite = (props) => {
-    let inFavorites = ()=> {props.checkFavorites(props.source)};
-
-    if (props.successfulLogin) {
+    // If User has logged in and they are looking at their favorite sources, a remove button will render.
+    if (props.successfulLogin === true && props.displayFavorites === true) {
         return (
             <div>
                 <button onClick={() => { props.removeFromFavorites(props.source) }}>Remove From Favorites</button>
