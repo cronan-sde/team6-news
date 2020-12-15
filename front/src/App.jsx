@@ -543,10 +543,11 @@ export default class App extends React.Component {
   // This method will check the favoriteSources array to see whether or not a user has added a source to their favorites
   // The method will return true or false to determine if the add or remove button should render
   checkFavorites(sourceStr) {
-    if (this.state.favoriteSources.length > 0) {
-      this.state.favoriteSources.map((favoritedSource) => {
-        if (favoritedSource === sourceStr) return true;
-      });
+    if (this.state.favoriteSources.includes(sourceStr)) {
+      // this.state.favoriteSources.map((favoritedSource) => {
+      //   if (favoritedSource === sourceStr) return true;
+      // });
+      return true;
     }
     return false;
   }
