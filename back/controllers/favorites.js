@@ -12,9 +12,9 @@ exports.add_to_favorites = (req, res) => {
     {$addToSet: {favorites: source}}, {safe: true, new: true},
     function(err, result) {
       if (!result) {
-        return res.status(400).json("Error: Invalid username");
+        return res.status(400).json({message: "Error: Invalid username"});
       }
-      return res.status(200).json("Success");
+      return res.status(200).json({message: "Successfully added to favorites"});
     })
 }
 
@@ -29,8 +29,8 @@ exports.remove_favorite = (req, res) => {
     {$pull: {favorites: source}}, {safe: true, new: true},
     function(err, result) {
       if (result === null) {
-        return res.status(400).json("Error: Invalid username");
+        return res.status(400).json({message: "Error: Invalid username"});
       }
-      return res.status(200).json("Success"); 
+      return res.status(200).json({message: "Successfully removed favorite"}); 
     })
 }
