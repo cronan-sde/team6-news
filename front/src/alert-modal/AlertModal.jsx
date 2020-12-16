@@ -8,13 +8,20 @@ import React from 'react';
 // adding or removing articles have a timeout function that gets called after a certain amount of time.
 const AlertModal = (props) => {
     if(props.alertModalDisplay) {
+        setTimeout( () => {props.closeAlertModal();}, 4000)
         return (
             // For now, this modal can use the other modal css, but eventually some things will need to change in case
             // this modal needs to appear on top of the other modal windows
             <div className="modal alert-modal">
                 <div className="form-content">
                     <p>{props.alertMessage}</p>
-                    <button className="modal-button" name="alertModalDisplay" onClick={props.userHasCanceled}>Cancel</button>
+                    <button 
+                        className="modal-button" 
+                        name="alertModalDisplay" 
+                        onClick={props.userHasCanceled}
+                    >
+                        Cancel
+                    </button>
                 </div>
             </div>
         )

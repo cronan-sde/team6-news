@@ -215,6 +215,7 @@ export default class App extends React.Component {
     this.checkBookmarks = this.checkBookmarks.bind(this);
     this.checkFavorites = this.checkFavorites.bind(this);
     this.alertModal = this.alertModal.bind(this);
+    this.closeAlertModal = this.closeAlertModal.bind(this);
   }
 
   // This is an event listener method for input fields to change state based on the target name and value
@@ -262,6 +263,12 @@ export default class App extends React.Component {
       alertMessage: stringMessage,
       alertModalDisplay: true,
     });
+  }
+
+  closeAlertModal() {
+    this.setState({
+      alertModalDisplay: false,
+    })
   }
 
   // This will send an axios request to the server to request all of the users information
@@ -330,19 +337,20 @@ export default class App extends React.Component {
   }
 
   // Pulling user input to send request to News API and displaying news based on their search
-  onSubmitSearch() {
-    // axios
-    //   .get(
-    //     `https://api.thenewsapi.com/v1/news/all?api_token=${process.env.NEWS_API_KEY}&language=en&limit=3&search=${this.state.searchBar}`
-    //   )
-    //   .then((res) => {
-    //     this.setState({
-    //       displayedNews: res.data.data,
-    //     });
-    //   })
-    //   .catch( err => {
-    //     if (err) console.error(err);
-    //   })
+  onSubmitSearch(event) {
+    event.preventDefault();
+    axios
+      .get(
+        `https://api.thenewsapi.com/v1/news/all?api_token=${process.env.NEWS_API_KEY}&language=en&limit=3&search=${this.state.searchBar}`
+      )
+      .then((res) => {
+        this.setState({
+          displayedNews: res.data.data,
+        });
+      })
+      .catch( err => {
+        if (err) console.error(err);
+      })
   }
 
   // This method will be called when a logged in User adds an article to their Bookmarks
@@ -350,7 +358,7 @@ export default class App extends React.Component {
     let bookmarkedNewsArray = this.state.bookmarkedNews;
 
     if (this.checkBookmarks(newsObj)) {
-      this.alertModal("Already added!");
+      this.alertModal("This article was already added to Bookmarks!");
     } else {
       axios
         .post(
@@ -401,7 +409,7 @@ export default class App extends React.Component {
             `https://team6-news.herokuapp.com/bookmarks/article/${this.state.username}/${newsObj._id}`
           )
           .then((res) => {
-            this.alertModal(`${res.data}`);
+            this.alertModal("Bookmark has been removed.");
           })
           .catch((err) => {
             if (err)
@@ -497,35 +505,30 @@ export default class App extends React.Component {
       return;
     }
 
-    // let faves = this.state.favoriteSources.slice();
+    let faves = this.state.favoriteSources.slice();
 
-    // if (this.state.favoriteSourcesArticles.length > 0) {
-    //   this.setState({
-    //     displayedNews: this.state.favoriteSourcesArticles,
-    //   });
-    // } else {
-    //   let results = [];
-    //   faves.map((source) => {
-    //     axios
-    //       .get(
-    //         `https://api.thenewsapi.com/v1/news/top?api_token=${process.env.NEWS_API_KEY}&domains=${source}&locale=us&limit=1`
-    //       )
-    //       .then((res) => {
-    //         const found = res.data.data;
-    //         results.push(found[0]);
-    //         this.setState({
-    //           displayedNews: results,
-    //           favoriteSourcesArticles: results,
-    //           newsHeadline: "Favorite News Sources",
-    //           displayFavorites: true,
-    //           displayBookmarks: false,
-    //         });
-    //       })
-    //       .catch((err) => {
-    //         if (err) console.error(err);
-    //       });
-    //   });
-    // }
+      let results = [];
+      faves.map((source) => {
+        axios
+          .get(
+            `https://api.thenewsapi.com/v1/news/top?api_token=${process.env.NEWS_API_KEY}&domains=${source}&locale=us&limit=1`
+          )
+          .then((res) => {
+            const found = res.data.data;
+            results.push(found[0]);
+            this.setState({
+              displayedNews: results,
+              favoriteSourcesArticles: results,
+              newsHeadline: "Favorite News Sources",
+              displayFavorites: true,
+              displayBookmarks: false,
+            });
+            console.log(this.state.favoriteSourcesArticles)
+          })
+          .catch((err) => {
+            if (err) console.error(err);
+          });
+      });
   }
 
   // This method will check the favoriteSources array to see whether or not a user has added a source to their favorites
@@ -591,17 +594,17 @@ export default class App extends React.Component {
                 uuid: <string>
             }
         */
-      // axios.get(`https://api.thenewsapi.com/v1/news/top?api_token=${process.env.NEWS_API_KEY}&locale=us&limit=4`)
-      // .then( res => {
-      //     let storage = res.data.data;
-      //     this.setState({
-      //       trendingNews: storage,
-      //       displayedNews: storage
-      //     })
-      // })
-      // .catch( err => {
-      //   console.error(err);
-      // })
+      axios.get(`https://api.thenewsapi.com/v1/news/top?api_token=${process.env.NEWS_API_KEY}&locale=us&limit=4`)
+      .then( res => {
+          let storage = res.data.data;
+          this.setState({
+            trendingNews: storage,
+            displayedNews: storage
+          })
+      })
+      .catch( err => {
+        console.error(err);
+      })
 
   }
 
@@ -633,6 +636,7 @@ export default class App extends React.Component {
             alertMessage={this.state.alertMessage}
             userHasCanceled={this.userHasCanceled}
             alertModalDisplay={this.state.alertModalDisplay}
+            closeAlertModal={this.closeAlertModal}
           />
         </div>
       );
@@ -670,6 +674,7 @@ export default class App extends React.Component {
             alertMessage={this.state.alertMessage}
             userHasCanceled={this.userHasCanceled}
             alertModalDisplay={this.state.alertModalDisplay}
+            closeAlertModal={this.closeAlertModal}
           />
         </div>
       );
