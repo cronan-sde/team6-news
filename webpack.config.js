@@ -1,6 +1,8 @@
 const path = require('path');
 const SRC_DIR = path.join(__dirname, '/client/src');
 const Dotenv = require('dotenv-webpack');
+const webpack = require('webpack');
+require('dotenv').config();
 
 module.exports = {
   entry: './front/src/index.js',
@@ -27,6 +29,10 @@ module.exports = {
     ]
   },
   plugins: [
-    new Dotenv()
+    new webpack.DefinePlugin({
+      'process.env': {
+        'NEWS_API_KEY': JSON.stringify(process.env.NEWS_API_KEY),
+      }
+    })
   ]
 };
