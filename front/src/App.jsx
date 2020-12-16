@@ -614,30 +614,18 @@ export default class App extends React.Component {
                 uuid: <string>
             }
         */
-    // if (this.state.firstMount === true) {
-    //   while (this.state.componentDidMountCount < 4) {
-    //     axios.get(`https://api.thenewsapi.com/v1/news/top?api_token=${process.env.NEWS_API_KEY}&locale=us&limit=3`)
-    //     .then( res => {
-    //       res.data.data.map( article => {
-    //         let storage = this.state.trendingNews.slice();
-    //         storage.push(article);
-    //         this.setState({
-    //           trendingNews: storage,
-    //           displayedNews: storage
-    //         })
-    //       })
-    //     })
-    //     .catch( err => {
-    //       console.error(err);
-    //     })
-    //     this.setState({
-    //       componentDidMountCount: this.state.componentDidMountCount++
-    //     })
-    //   }
-    //   this.setState({
-    //     firstMount: false,
-    //   })
-    // }
+      // axios.get(`https://api.thenewsapi.com/v1/news/top?api_token=${process.env.NEWS_API_KEY}&locale=us&limit=5`)
+      // .then( res => {
+      //     let storage = res.data.data;
+      //     this.setState({
+      //       trendingNews: storage,
+      //       displayedNews: storage
+      //     })
+      // })
+      // .catch( err => {
+      //   console.error(err);
+      // })
+
   }
 
   render() {
@@ -676,7 +664,8 @@ export default class App extends React.Component {
           />
         </div>
       );
-    } else {
+    } 
+    else {
       return (
         <div id="app-user-container">
           <UserNavBar
