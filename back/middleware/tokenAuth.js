@@ -1,3 +1,5 @@
+/** FOR FUTURE HTTPONLY COOKIE THAT STORES JWT **/
+
 //Used to check if a user is logged in by checking if they have a token
 module.exports = function(req, res, next) {
   //get token from cookie

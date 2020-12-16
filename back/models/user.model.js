@@ -34,6 +34,7 @@ const UserSchema = new mongoose.Schema({
     type: Date,
     default: Date.now()
   },
+  //setting article id of bookmarked articles
   bookmarks: [
     { 
       type: mongoose.Schema.Types.ObjectId, 

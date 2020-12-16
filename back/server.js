@@ -7,7 +7,7 @@ const mongoose = require('mongoose');
 const path = require('path');
 const port = process.env.PORT || 3000;
 
-//path to get to react
+//path to traverse to front-end folder
 let reqPath = path.join(__dirname, '../');
 
 app.use(cors());
@@ -29,7 +29,9 @@ mongoose.connect(process.env.DATABASE_URL, {
   console.log(err);
 });
 
-//route to display app
+/*
+ * Root route, renders front-end
+*/
 app.get('/', (req, res) => {
   res.sendFile(path.join(reqPath, 'front/dist/index.html'));
 })
@@ -39,8 +41,10 @@ const userRouter = require('./routes/user');
 const articleRouter = require('./routes/article');
 const favSourcesRouter = require('./routes/favorites');
 
-//setting route, when going to /user userRouter will load
-// '/user/userRouter'
+
+/*
+ * Setting routes using imported routers
+*/
 app.use('/user', userRouter);
 app.use('/bookmarks', articleRouter);
 app.use('/favorites', favSourcesRouter)
