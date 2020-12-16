@@ -1,7 +1,5 @@
 //Used to check if a user is logged in by checking if they have a token
 module.exports = function(req, res, next) {
-  //getting auth-token from the header
-  // const token = req.header('auth-token');
   //get token from cookie
   const token = req.cookies.auth_token;
   //if no token present, no access granted
