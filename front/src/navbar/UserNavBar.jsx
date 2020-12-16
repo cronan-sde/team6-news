@@ -125,7 +125,7 @@ const UserNavBar = (props) => {
 
   return (
     <div className={classes.root}>
-      <AppBar position="static">
+      <AppBar position="static" style={{backgroundColor: '#5663ae'}}>
         <Toolbar>
           <Button
             edge="start"
