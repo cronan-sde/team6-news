@@ -20,13 +20,13 @@ const Login = (props) => {
           onChange={props.onChangeLogin}
         ></input>{" "}
         <button 
-        className="access-submit-button" 
+        className="access-submit-button modal-button" 
         type="submit" 
         onClick={props.onSubmitLogin}>
           Submit
         </button>{" "}
         <button
-          className="access-cancel-button"
+          className="access-cancel-button modal-button"
           type="cancel"
           name="hasClickedLogin"
           onClick={props.userHasCanceled}

@@ -14,7 +14,7 @@ import CardMedia from '@material-ui/core/CardMedia';
 const useStyles = makeStyles({
   root: {
     minWidth: 275,
-    height: 600,
+    height: 700,
     margin: 'auto',
     width: 400,
     marginTop: 20,
@@ -26,7 +26,8 @@ const useStyles = makeStyles({
     transform: 'scale(0.8)',
   },
   title: {
-    fontSize: 14,
+    fontSize: 20,
+    color: 'black'
   },
   pos: {
     marginBottom: 12,
@@ -58,12 +59,7 @@ const NewsClip = (props) => {
           <Typography className={classes.title} color="textSecondary" gutterBottom>
             {props.title}
           </Typography>
-          {/* <img className="NewsClipCardImg" src={props.image} alt="image"></img> */}
-          {/* <Typography variant="h5" component="h2">
-            be{bull}nev{bull}o{bull}lent
-          </Typography> */}
           <Typography className={classes.pos} color="textSecondary">
-          {/* Publish Date: {props.published_at} */}
           Publish Date: {moment(props.published_at).format("dddd, MMMM Do YYYY, h:mm:ss a")}
           </Typography>
           <Typography variant="body2" component="p">

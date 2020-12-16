@@ -6,17 +6,16 @@ import Card from '@material-ui/core/Card';
 
 const useStyles = makeStyles({
     logoContainer: {
-      minWidth: 175,
-      height: 150,
-      width: 175,
+      height: 80,
+      width: 90,
       marginTop: 20,
       marginBottom: 20,
     },
     logo: {
       objectFit: 'cover',
       display: 'block',
-      height: 150,
-      width: 175,
+      height: 80,
+      width: 90,
     }
   });
 

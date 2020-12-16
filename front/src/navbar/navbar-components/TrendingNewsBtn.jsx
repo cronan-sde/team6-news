@@ -1,16 +1,15 @@
 import React from "react";
+import Button from '@material-ui/core/Button';
 
 const TrendingNewsBtn = (props) => {
   return (
-    <div>
-      <button
+      <Button
         name="hasClickedShowTrendingNews"
         type="button"
-        onClick={props.showTrendingNews}
+        onClick={() => {props.showTrendingNews()}}
       >
         Trending News
-      </button>
-    </div>
+      </Button>
   );
 };
 

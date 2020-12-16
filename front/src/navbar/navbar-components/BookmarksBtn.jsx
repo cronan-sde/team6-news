@@ -1,12 +1,15 @@
 import React from "react";
+import Button from '@material-ui/core/Button';
 
 const BookmarksBtn = (props) => {
   return (
-    <div>
-      <button name="news" type="button" onClick={props.showBookmarks}>
+      <Button 
+        name="news" 
+        type="button" 
+        onClick={() => {props.showBookmarks()}}
+      >
         Bookmarked Articles
-      </button>
-    </div>
+      </Button>
   );
 };
 
