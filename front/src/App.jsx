@@ -196,7 +196,6 @@ export default class App extends React.Component {
       componentDidMountCount: 0,
       componentDidMountStorage: [],
       firstMount: true,
-      leavingLanding: false,
     };
     // All methods are bound to "this" in order to be passed down as props
     this.onChange = this.onChange.bind(this);
@@ -217,7 +216,6 @@ export default class App extends React.Component {
     this.checkBookmarks = this.checkBookmarks.bind(this);
     this.checkFavorites = this.checkFavorites.bind(this);
     this.alertModal = this.alertModal.bind(this);
-    this.leaveLanding = this.leaveLanding.bind(this);
   }
 
   // This is an event listener method for input fields to change state based on the target name and value
@@ -589,12 +587,6 @@ export default class App extends React.Component {
     });
   }
 
-  leaveLanding() {
-    this.setState({
-      leavingLanding: true
-    })
-  }
-
   componentDidMount() {
     // Request sends to The News API to gain access to top news stories, currently set to limit of 3, max is 5
     // res.data.data returns an array of objects. Objects inside array returned appears as such:
@@ -614,39 +606,22 @@ export default class App extends React.Component {
                 uuid: <string>
             }
         */
-    // if (this.state.firstMount === true) {
-    //   while (this.state.componentDidMountCount < 4) {
-    //     axios.get(`https://api.thenewsapi.com/v1/news/top?api_token=${process.env.NEWS_API_KEY}&locale=us&limit=3`)
-    //     .then( res => {
-    //       res.data.data.map( article => {
-    //         let storage = this.state.trendingNews.slice();
-    //         storage.push(article);
-    //         this.setState({
-    //           trendingNews: storage,
-    //           displayedNews: storage
-    //         })
-    //       })
-    //     })
-    //     .catch( err => {
-    //       console.error(err);
-    //     })
-    //     this.setState({
-    //       componentDidMountCount: this.state.componentDidMountCount++
-    //     })
-    //   }
-    //   this.setState({
-    //     firstMount: false,
-    //   })
-    // }
+      // axios.get(`https://api.thenewsapi.com/v1/news/top?api_token=${process.env.NEWS_API_KEY}&locale=us&limit=4`)
+      // .then( res => {
+      //     let storage = res.data.data;
+      //     this.setState({
+      //       trendingNews: storage,
+      //       displayedNews: storage
+      //     })
+      // })
+      // .catch( err => {
+      //   console.error(err);
+      // })
+
   }
 
   render() {
-    if (this.state.leavingLanding === false) {
-      return (
-        <Landing leaveLanding={this.leaveLanding}/>
-      )
-    }
-    else if (this.state.successfulLogin === false && this.state.leavingLanding === true) {
+    if (this.state.successfulLogin === false ) {
       return (
         <div id="app-welcome-container">
           <WelcomeNavBar
@@ -676,7 +651,8 @@ export default class App extends React.Component {
           />
         </div>
       );
-    } else {
+    } 
+    else {
       return (
         <div id="app-user-container">
           <UserNavBar
