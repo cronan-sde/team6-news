@@ -54,6 +54,7 @@ body{
     filter: drop-shadow(2px 4px 6px rgb(118, 113, 113));
     padding: 0%;
     margin: 3%;
+    color: #373f63;
   }
 
   /* Modal Windows */

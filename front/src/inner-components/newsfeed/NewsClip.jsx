@@ -65,7 +65,6 @@ const NewsClip = (props) => {
           <Typography variant="body2" component="p">
             {props.description}
             <br />
-            {'"a benevolent smile"'}
           </Typography>
         </CardContent>
         <CardActions>

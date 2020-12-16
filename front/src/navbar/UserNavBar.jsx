@@ -17,7 +17,7 @@ import { withStyles } from '@material-ui/core/styles';
 import TrendingUpIcon from '@material-ui/icons/TrendingUp';
 import BookmarkBorderIcon from '@material-ui/icons/BookmarkBorder';
 import FavoriteBorderIcon from '@material-ui/icons/FavoriteBorder';
-
+import ExitToAppIcon from '@material-ui/icons/ExitToApp';
 import IconButton from '@material-ui/core/IconButton';
 import Typography from '@material-ui/core/Typography';
 import InputBase from '@material-ui/core/InputBase';
@@ -127,11 +127,15 @@ const UserNavBar = (props) => {
     <div className={classes.root}>
       <AppBar position="static">
         <Toolbar>
-          <IconButton
+          <Button
             edge="start"
             className={classes.menuButton}
             color="inherit"
             aria-label="open drawer"
+            aria-controls="customized-menu"
+            aria-haspopup="true"
+            variant="contained"
+            style={{backgroundColor: "#66799b", color: "#e5e3e3"}}
             onClick={handleClick}
             >
             <MenuIcon />
@@ -160,8 +164,14 @@ const UserNavBar = (props) => {
                     </ListItemIcon>
                         <BookmarksBtn showBookmarks={props.showBookmarks} />
                     </StyledMenuItem>
+                    <StyledMenuItem>
+                    <ListItemIcon>
+                        <ExitToAppIcon fontSize="small" />
+                    </ListItemIcon>
+                    <LogoutBtn userLogout={props.userLogout}/>
+                    </StyledMenuItem>
                 </StyledMenu>
-          </IconButton>
+          </Button>
           <Typography className={classes.title} variant="h6" noWrap>
             News Team Six
           </Typography>
@@ -170,7 +180,7 @@ const UserNavBar = (props) => {
               <SearchIcon />
             </div>
             <InputBase
-              placeholder="Search…"
+              placeholder="Search News…"
               classes={{
                 root: classes.inputRoot,
                 input: classes.inputInput,
@@ -179,9 +189,6 @@ const UserNavBar = (props) => {
             />
           </div>
         </Toolbar>
-        <LogoutBtn 
-            userLogout={props.userLogout}
-        />
       </AppBar>
     </div>
   );
@@ -266,11 +273,11 @@ export default UserNavBar;
 //             </Toolbar>
 //             <div>
                 // <Button
-                //     aria-controls="customized-menu"
-                //     aria-haspopup="true"
-                //     variant="contained"
-                //     style={{backgroundColor: "#66799b", color: "#e5e3e3"}}
-                //     onClick={handleClick}
+                    // aria-controls="customized-menu"
+                    // aria-haspopup="true"
+                    // variant="contained"
+                    // style={{backgroundColor: "#66799b", color: "#e5e3e3"}}
+                    // onClick={handleClick}
                 // >
                 //     Open Menu
                 // </Button>
