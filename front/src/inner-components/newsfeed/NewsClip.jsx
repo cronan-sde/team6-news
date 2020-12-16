@@ -75,21 +75,7 @@ const NewsClip = (props) => {
         <CardActions>
             <p className="NewsClipCardSource">News Source: <a href={props.url} target="_blank">{props.source}</a></p>
         </CardActions>
-      </Card>
-    );
-    // Thinks can change here, for now everything is just filler to give an overview
-    return (
-        <div className="NewsClipCard-container">
-            <div className="NewsClipCard">
-            <img className="NewsClipCardImg" src={props.image} alt="image"></img>
-                <div className="NewsClipCardContentContainer">
-                    <p className="NewsClipCardTitle">{props.title}</p>
-                    <p className="NewsClipCardDescription">{props.description}</p>
-                    <p className="NewsClipCardSource">News Source: <a href={props.url} target="_blank">{props.source}</a></p>
-                    <p className="NewsClipCardPublishDate">Publish Date: {props.published_at}</p>
-                </div>
-            </div>
-            <div>
+        <div>
                 <AddFavorite 
                     successfulLogin={props.successfulLogin} 
                     source={props.source} 
@@ -129,8 +115,8 @@ const NewsClip = (props) => {
                     displayBookmarks={props.displayBookmarks}
                 />
             </div>
-        </div>
-    )
+      </Card>
+    );
 }
 
 export default NewsClip;
