@@ -27,6 +27,7 @@ const ArticleSchema = new mongoose.Schema({
     unique: true,
     required: true
   },
+  //storing user Ids who bookmarked the article
   bookmarkedBy: [
    { 
      type: mongoose.Schema.Types.ObjectId, 

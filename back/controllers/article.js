@@ -2,6 +2,9 @@
 const Article = require('../models/article.model');
 const User = require('../models/user.model');
 
+/*
+ * creating bookmark_article function to be exported with file
+*/
 exports.bookmark_article = (req, res) => {
   //get article info
   const { title, description, url, imageUrl, published, source, uuid } = req.body;
@@ -29,10 +32,10 @@ exports.bookmark_article = (req, res) => {
     //find user and if not already bookmarked, add article to bookmarks
     User.findOne({username: username}, function(err, user) {
       if (!user) {
-        return res.status(400).json("Error: user doesn't exist");
+        return res.status(400).json({message: "Error: user doesn't exist"});
       }
       if (user.bookmarks.includes(article._id)) {
-        return res.status(400).json("Error: already bookmarked");
+        return res.status(400).json({message: "Error: already bookmarked"});
       }
       else {
         user.bookmarks.push(article); //adding article to user bookmarks
@@ -47,21 +50,24 @@ exports.bookmark_article = (req, res) => {
   }); 
 }
 
+/*
+ * creating remove_bookmarks to export with file
+*/
 exports.remove_bookmarks = (req, res) => {
   const {username, articleId} = req.params;
 
   //finding user and removing the ID referencing the Article from bookmarks
   User.findOneAndUpdate({username: username}, {$pull: {bookmarks: articleId}}, {safe: true}, function(err, user) {
     if (err) {
-      return res.status(400).json("Error: Article not found"); //if an error occurs article id is wrong
+      return res.status(400).json({message: "Error: Article not found"}); //if an error occurs article id is wrong
     }
     if (!user) {
-      return res.status(400).json("Error: User not found"); //if user is null, username was wrong
+      return res.status(400).json({message: "Error: User not found"}); //if user is null, username was wrong
     }
     //Now searching the article to remove the user from its bookmarkedBy array
     Article.findByIdAndUpdate(articleId, {$pull: {bookmarkedBy: user._id}}, {safe: true, new: true}, function(err, article){
       if (!article) {
-        return res.status(400).json("Error: Article no longer exists in DB"); //error here means article was already removed
+        return res.status(400).json({message: "Error: Article no longer exists in DB"}); //error here means article was already removed
       }
       let result = article.bookmarkedBy.length; //checking how many users are bookmarking this article
       if (result === 0) {
@@ -70,7 +76,7 @@ exports.remove_bookmarks = (req, res) => {
           console.log("DELETED ARTICLE: " + delArticle);
         })
       }
-      return res.json("Successful bookmark removal"); //successful removal of associations between User and Article
+      return res.status(200).json({message: "Successful bookmark removal"}); //successful removal of associations between User and Article
     })
   })
 }
