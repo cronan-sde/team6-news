@@ -319,7 +319,6 @@ export default class App extends React.Component {
           password: this.state.password,
         })
         .then((res) => {
-          console.log(res.data);
           this.setState({ successfulLogin: true });
         })
         .catch((error) => {
@@ -368,7 +367,6 @@ export default class App extends React.Component {
         .then((res) => {
           // Once a good response is received, we need to decide how to notify the user
           newsObj._id = res.data;
-          console.log(newsObj);
           bookmarkedNewsArray.push(newsObj);
           this.alertModal("Added to Bookmarks");
           this.setState({
@@ -378,8 +376,7 @@ export default class App extends React.Component {
         .catch((err) => {
           // This needs to be edited not to alert the User to retry or whatever we decide
           if (err)
-          // TODO
-            this.alertModal("Error found in addToBookMarks post request in App.jsx");
+            console.error(err);
         });
     }
     // Function build for axios request to avoid duplicates and still be called when needed
@@ -409,10 +406,7 @@ export default class App extends React.Component {
           })
           .catch((err) => {
             if (err)
-              this.alertModal(
-                // TODO
-                "Error found in removeFromBookmarks axios request in App.jsx"
-              );
+              console.error(err);
           });
       }
     });
@@ -462,7 +456,6 @@ export default class App extends React.Component {
           `https://team6-news.herokuapp.com/favorites/${this.state.username}/${sourceStr}`
         )
         .then((res) => {
-          console.log(res.data);
           this.alertModal("News source added to favorites!");
           result.push(sourceStr);
           this.setState({
@@ -471,8 +464,7 @@ export default class App extends React.Component {
         })
         .catch((err) => {
           if (err)
-          //TODO
-            this.alertModal("Error found in addToFavorites post request in App.jsx");
+            console.error(err);
         });
     }
   }
@@ -489,10 +481,10 @@ export default class App extends React.Component {
           let deleted = favSources.splice(sourceStrIndex, 1);
           this.setState({ favoriteSources: favSources });
 
-          this.alertModal("Deleted from favorites successfully!");
+          this.alertModal("Deleted from favorites!");
         })
         .catch((err) => {
-          console.log(err);
+          console.error(err);
         });
     } else {
       this.alertModal("This source is not added to your favorites currently!");
@@ -533,7 +525,7 @@ export default class App extends React.Component {
     //         });
     //       })
     //       .catch((err) => {
-    //         if (err) this.alertModal(err);
+    //         if (err) console.error(err);
     //       });
     //   });
     // }
