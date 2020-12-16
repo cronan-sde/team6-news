@@ -2,7 +2,6 @@ import React from "react";
 
 const TrendingNewsBtn = (props) => {
   return (
-    <div>
       <button
         name="hasClickedShowTrendingNews"
         type="button"
@@ -10,7 +9,6 @@ const TrendingNewsBtn = (props) => {
       >
         Trending News
       </button>
-    </div>
   );
 };
 

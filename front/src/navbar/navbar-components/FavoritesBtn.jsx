@@ -2,7 +2,6 @@ import React from "react";
 
 const FavoritesBtn = (props) => {
   return (
-    <div>
       <button
         name="hasClickedShowFavorites"
         type="button"
@@ -10,7 +9,6 @@ const FavoritesBtn = (props) => {
       >
         Favorite News Sources
       </button>
-    </div>
   );
 };
 

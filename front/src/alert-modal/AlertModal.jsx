@@ -14,7 +14,7 @@ const AlertModal = (props) => {
             <div className="modal alert-modal">
                 <div className="form-content">
                     <p>{props.alertMessage}</p>
-                    <button name="alertModalDisplay" onClick={props.userHasCanceled}>Cancel</button>
+                    <button className="modal-button" name="alertModalDisplay" onClick={props.userHasCanceled}>Cancel</button>
                 </div>
             </div>
         )
