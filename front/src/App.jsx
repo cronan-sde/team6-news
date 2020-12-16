@@ -419,8 +419,7 @@ export default class App extends React.Component {
 
   }
 
-  showBookmarks(event) {
-    event.preventDefault();
+  showBookmarks() {
     if (this.state.bookmarkedNews.length === 0) {
       this.alertModal("No bookmarks have been added.");
     } else {
@@ -503,12 +502,11 @@ export default class App extends React.Component {
   /* If favorite sources articles is empty, then showFavorites queries the news
   api and sets displayedNews and favoriteSourcesArticles to the result returned. Searches
   for articles based on the domain (i.e. nytimes.com, foxnews.com, etc).*/
-  showFavorites(event) {
-    event.preventDefault();
-    // if (this.state.favoriteSources.length === 0) {
-    //   this.alertModal("No favorites have been added.");
-    //   return;
-    // }
+  showFavorites() {
+    if (this.state.favoriteSources.length === 0) {
+      this.alertModal("No favorites have been added.");
+      return;
+    }
 
     // let faves = this.state.favoriteSources.slice();
 
@@ -553,8 +551,7 @@ export default class App extends React.Component {
     return false;
   }
 
-  showTrendingNews(event) {
-    event.preventDefault();
+  showTrendingNews() {
     this.setState({
       displayedNews: this.state.trendingNews,
       newsHeadline: "Trending News",
@@ -584,6 +581,7 @@ export default class App extends React.Component {
       displayFavorites: false,
       displayBookmarks: false,
     });
+    this.showTrendingNews();
   }
 
   componentDidMount() {
