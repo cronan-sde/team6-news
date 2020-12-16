@@ -1,11 +1,9 @@
 import React from 'react';
 import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
-import IconButton from '@material-ui/core/IconButton';
 import Typography from '@material-ui/core/Typography';
 import InputBase from '@material-ui/core/InputBase';
 import { fade, makeStyles } from '@material-ui/core/styles';
-import MenuIcon from '@material-ui/icons/Menu';
 import SearchIcon from '@material-ui/icons/Search';
 
 import LoginBtn from './navbar-components/LoginBtn.jsx';
@@ -84,14 +82,18 @@ const WelcomeNavBar = (props) => {
             <div className={classes.searchIcon}>
               <SearchIcon />
             </div>
-            <InputBase
-              placeholder="Search…"
-              classes={{
-                root: classes.inputRoot,
-                input: classes.inputInput,
-              }}
-              inputProps={{ 'aria-label': 'search' }}
-            />
+            <form onSubmit={(event) => {props.onSubmitSearch(event)}}>
+                <InputBase
+                placeholder="Search…"
+                name="searchBar"
+                classes={{
+                    root: classes.inputRoot,
+                    input: classes.inputInput,
+                }}
+                inputProps={{ 'aria-label': 'search' }}
+                onChange={(event) => {props.onChangeSearch(event)}}
+                />
+            </form>
           </div>
         </Toolbar>
       </AppBar>
@@ -100,28 +102,3 @@ const WelcomeNavBar = (props) => {
 }
 
 export default WelcomeNavBar;
-
-// import React from 'react';
-// import SearchBar from '../inner-components/search/SearchBar.jsx';
-// import Logo from './navbar-components/Logo.jsx';
-// import LoginBtn from './navbar-components/LoginBtn.jsx';
-
-// import { AppBar, Toolbar } from '@material-ui/core';
-
-// const WelcomeNavBar = (props) => {
-//     return (
-//         <AppBar position="sticky" className="navbar" style={{backgroundColor: "#989ba1"}}>
-//             <Toolbar>
-//                 <Logo />
-//                 <SearchBar
-//                     onChangeSearch={props.onChangeSearch}
-//                     onSubmitSearch={props.onSubmitSearch}
-//                 />
-//                 <LoginBtn userHasClicked={props.userHasClicked} />
-//             </Toolbar>
-//             {/* <SignupBtn userHasClicked={props.userHasClicked} /> */}
-//         </AppBar>
-//     )
-// }
-
-// export default WelcomeNavBar;

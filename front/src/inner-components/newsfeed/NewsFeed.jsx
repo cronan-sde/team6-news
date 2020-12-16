@@ -3,11 +3,6 @@ import NewsClip from './NewsClip.jsx';
 import { Grid } from '@material-ui/core';
 
 const NewsFeed = (props) => {
-
-    // Right now this is a basic setup to render a NewsClip for every article in the news array
-    // sent down from this.state in App.jsx
-    // Once we have a proper API that gives us the right information we want, we will know
-    // what information needs to be passed down to NewsClip, such as id, photo, title, etc.
     return (
         <div id="newsfeed">
             <Grid
@@ -21,7 +16,7 @@ const NewsFeed = (props) => {
                     props.news.map( article => {
                         return (
                             <NewsClip 
-                                key={article.uuid}
+                                key={article.uuid || (Math.floor(Math.random() * 20000000) + 1)}
                                 description={article.description} 
                                 title={article.title} 
                                 image={article.image_url} 
