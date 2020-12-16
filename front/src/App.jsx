@@ -5,7 +5,6 @@ import axios from "axios";
 import WelcomeNavBar from "./navbar/WelcomeNavBar.jsx";
 import UserNavBar from "./navbar/UserNavBar.jsx";
 import AlertModal from "./alert-modal/AlertModal.jsx";
-import Landing from './landing/Landing.jsx';
 export default class App extends React.Component {
   constructor(props) {
     super(props);
