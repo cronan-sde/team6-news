@@ -70,7 +70,7 @@ const WelcomeNavBar = (props) => {
 
   return (
     <div className={classes.root}>
-      <AppBar position="static">
+      <AppBar position="static" style={{backgroundColor: '#5663ae'}}>
         <Toolbar>
         <LoginBtn 
         edge="start"

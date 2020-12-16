@@ -35,8 +35,8 @@ const Signup = (props) => {
         ></input>{" "}
         <button 
           type="submit" 
+          className="access-submit-button modal-button"
           onClick={props.onSubmitSignup}
-          className="access-submit-button"
         >
           Submit
         </button>
@@ -45,7 +45,7 @@ const Signup = (props) => {
           type="cancel" 
           name="hasClickedSignup" 
           onClick={props.userHasCanceled}
-          className="access-cancel-button"
+          className="access-cancel-button modal-button"
           >
             Cancel
           </button>
