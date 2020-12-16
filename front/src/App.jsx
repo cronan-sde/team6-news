@@ -265,7 +265,8 @@ export default class App extends React.Component {
   }
 
   // This will send an axios request to the server to request all of the users information
-  onSubmitLogin() {
+  onSubmitLogin(event) {
+    event.preventDefault();
     axios
       .post("https://team6-news.herokuapp.com/user/login", {
         username: this.state.username,
