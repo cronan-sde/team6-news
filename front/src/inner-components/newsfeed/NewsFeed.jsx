@@ -21,26 +21,26 @@ const NewsFeed = (props) => {
                     props.news.map( article => {
                         return (
                             <NewsClip 
-                            key={article.uuid}
-                            description={article.description} 
-                            title={article.title} 
-                                    image={article.image_url} 
-                                    url={article.url}
-                                    source={article.source}
-                                    published_at={article.published_at}
-                                    articleObject={article}
-                                    successfulLogin={props.successfulLogin}
-                                    addToBookmarks={props.addToBookmarks}
-                                    addToFavorites={props.addToFavorites}
-                                    removeFromBookmarks={props.removeFromBookmarks}
-                                    removeFromFavorites={props.removeFromFavorites}
-                                    checkBookmarks={props.checkBookmarks}
-                                    checkFavorites={props.checkFavorites}
-                                    news={props.news}
-                                    bookmarkedNews={props.bookmarkedNews}
-                                    favoriteSourcesArticles={props.favoriteSourcesArticles}
-                                    displayBookmarks={props.displayBookmarks}
-                                    displayFavorites={props.displayFavorites}
+                                key={article.uuid}
+                                description={article.description} 
+                                title={article.title} 
+                                image={article.image_url} 
+                                url={article.url}
+                                source={article.source}
+                                published_at={article.published_at}
+                                articleObject={article}
+                                successfulLogin={props.successfulLogin}
+                                addToBookmarks={props.addToBookmarks}
+                                addToFavorites={props.addToFavorites}
+                                removeFromBookmarks={props.removeFromBookmarks}
+                                removeFromFavorites={props.removeFromFavorites}
+                                checkBookmarks={props.checkBookmarks}
+                                checkFavorites={props.checkFavorites}
+                                news={props.news}
+                                bookmarkedNews={props.bookmarkedNews}
+                                favoriteSourcesArticles={props.favoriteSourcesArticles}
+                                displayBookmarks={props.displayBookmarks}
+                                displayFavorites={props.displayFavorites}
                                 />
                                 )
                             })

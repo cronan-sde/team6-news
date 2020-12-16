@@ -5,6 +5,7 @@ import axios from "axios";
 import WelcomeNavBar from "./navbar/WelcomeNavBar.jsx";
 import UserNavBar from "./navbar/UserNavBar.jsx";
 import AlertModal from "./alert-modal/AlertModal.jsx";
+import Landing from './landing/Landing.jsx';
 export default class App extends React.Component {
   constructor(props) {
     super(props);
@@ -195,6 +196,7 @@ export default class App extends React.Component {
       componentDidMountCount: 0,
       componentDidMountStorage: [],
       firstMount: true,
+      leavingLanding: false,
     };
     // All methods are bound to "this" in order to be passed down as props
     this.onChange = this.onChange.bind(this);
@@ -215,6 +217,7 @@ export default class App extends React.Component {
     this.checkBookmarks = this.checkBookmarks.bind(this);
     this.checkFavorites = this.checkFavorites.bind(this);
     this.alertModal = this.alertModal.bind(this);
+    this.leaveLanding = this.leaveLanding.bind(this);
   }
 
   // This is an event listener method for input fields to change state based on the target name and value
@@ -586,6 +589,12 @@ export default class App extends React.Component {
     });
   }
 
+  leaveLanding() {
+    this.setState({
+      leavingLanding: true
+    })
+  }
+
   componentDidMount() {
     // Request sends to The News API to gain access to top news stories, currently set to limit of 3, max is 5
     // res.data.data returns an array of objects. Objects inside array returned appears as such:
@@ -632,8 +641,12 @@ export default class App extends React.Component {
   }
 
   render() {
-    // This conditional rendering is checking to see if a user has logged in successfully or not. Once user information is gained, a function will change "this.state.successfulLogin" to "true" and the else "return()" will render instead of Welcome.
-    if (this.state.successfulLogin === false) {
+    if (this.state.leavingLanding === false) {
+      return (
+        <Landing leaveLanding={this.leaveLanding}/>
+      )
+    }
+    else if (this.state.successfulLogin === false && this.state.leavingLanding === true) {
       return (
         <div id="app-welcome-container">
           <WelcomeNavBar
