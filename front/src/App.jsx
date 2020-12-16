@@ -196,7 +196,7 @@ export default class App extends React.Component {
       componentDidMountStorage: [],
       firstMount: true,
     };
-    // All methods are bound to "this" in order to be passed down as props
+    // All methods are bound to "this" in order to be passed down as props and still hold the information of "this" Class object
     this.onChange = this.onChange.bind(this);
     this.userHasClicked = this.userHasClicked.bind(this);
     this.userLogout = this.userLogout.bind(this);
@@ -225,17 +225,14 @@ export default class App extends React.Component {
     });
   }
 
-  // This method is an event listener for any buttons clicked to start rendering a new component, such as the modal
-  // signup or modal login
+  // This method is an event listener for any buttons clicked to start rendering a new component, such as the modal sign up or login
   userHasClicked(target) {
-    // event.preventDefault();
     this.setState({
       [target]: true,
     });
   }
 
-  // This method is an event listener for any cancel button clicked to stop rendering a component, such as the modal
-  // signup or modal login
+  // This method is an event listener for any cancel button clicked to stop rendering a component, such as the modal sign up or modal login
   userHasCanceled(event) {
     event.preventDefault();
     this.setState({
@@ -243,6 +240,7 @@ export default class App extends React.Component {
     });
   }
 
+  // This is an event listener that allows the user to switch between login and sign up
   userSwapsModal(event) {
     event.preventDefault();
     if (event.target.name === "hasClickedLogin") {
@@ -258,6 +256,7 @@ export default class App extends React.Component {
     }
   }
 
+  // Method to call the alert modal instead of calling the generic alert 
   alertModal(stringMessage) {
     this.setState({
       alertMessage: stringMessage,
@@ -265,11 +264,8 @@ export default class App extends React.Component {
     });
   }
 
-  // For now, this event listener is waiting for the login submit button to be hit and do a simple console.log
-  // Eventually this will be used to send a request to the server with the proper information
-  onSubmitLogin(event) {
-    event.preventDefault();
-
+  // This will send an axios request to the server to request all of the users information
+  onSubmitLogin() {
     axios
       .post("https://team6-news.herokuapp.com/user/login", {
         username: this.state.username,
@@ -291,13 +287,16 @@ export default class App extends React.Component {
       });
   }
 
+  // This method will take the users information, authenticate, and then send the request to the server 
   onSubmitSignup(event) {
     event.preventDefault();
 
+    // Authentication for valid email address
     function emailIsValid(email) {
       return /\S+@\S+\.\S+/.test(email);
     }
 
+    // Running authentication based on app requirements
     if (this.state.username.length < 4) {
       this.alertModal("Username must be at least four characters long.");
     } else if (!emailIsValid(this.state.email)) {
@@ -329,6 +328,7 @@ export default class App extends React.Component {
     }
   }
 
+  // Pulling user input to send request to News API and displaying news based on their search
   onSubmitSearch() {
     // axios
     //   .get(
@@ -365,7 +365,7 @@ export default class App extends React.Component {
           }
         )
         .then((res) => {
-          // Once a good response is received, we need to decide how to notify the user
+          // Once a good response is received, the article is added to the the bookmarks array so that a request doesn't need to be sent to the server to request bookmarks and the user is alerted of the add.
           newsObj._id = res.data;
           bookmarkedNewsArray.push(newsObj);
           this.alertModal("Added to Bookmarks");
@@ -374,18 +374,16 @@ export default class App extends React.Component {
           });
         })
         .catch((err) => {
-          // This needs to be edited not to alert the User to retry or whatever we decide
           if (err)
             console.error(err);
         });
     }
-    // Function build for axios request to avoid duplicates and still be called when needed
   }
 
   removeFromBookmarks(newsObj) {
     let bookmarkedNews = this.state.bookmarkedNews;
     let displayedNews = this.state.displayedNews;
-    // Function to remove bookmark from list without needed another get request to server
+    // Function to remove bookmark from list without needing another get request to server - live update in state
     bookmarkedNews.map((article, index) => {
       if (article._id === newsObj._id) {
         if (displayedNews === bookmarkedNews) {
@@ -396,7 +394,7 @@ export default class App extends React.Component {
         } else {
           bookmarkedNews.splice(index, 1);
         }
-        // Send update to delete to server
+        // Send update to delete to server updated information on next login.
         axios
           .delete(
             `https://team6-news.herokuapp.com/bookmarks/article/${this.state.username}/${newsObj._id}`
@@ -413,6 +411,7 @@ export default class App extends React.Component {
 
   }
 
+  // Event listener for displaying bookmarks if bookmarks have been added.
   showBookmarks() {
     if (this.state.bookmarkedNews.length === 0) {
       this.alertModal("No bookmarks have been added.");
@@ -427,7 +426,7 @@ export default class App extends React.Component {
   }
 
   // This method will check the bookmarkedNews array to see whether or not a user has added an article to their bookmarks
-  // The method will return true or false to determine if the add or remove button should render
+  // The method will return true or false to determine if the add or remove button should render (Future implementation)
   checkBookmarks(articleObj) {
     if (this.state.bookmarkedNews.length > 0) {
       for (let i = 0; i < this.state.bookmarkedNews.length; i++) {
@@ -441,13 +440,9 @@ export default class App extends React.Component {
     }
   }
 
-  // This method will be called when a logged in User adds an article to their Favorites
-  // *********** Need to partner with Cody to see exactly what he is expecting on the backend
-  // There is no undefined information, just need to know what is expected on back end.
-  // Calling this function will not break the app, just gets an error from the server
+  // This method will be called when a logged in User adds an article to their Favorites if not already added
   addToFavorites(sourceStr) {
     if (this.checkFavorites(sourceStr)) {
-      // not checking right now
       this.alertModal("Already added to your favorites.");
     } else {
       let result = this.state.favoriteSources;
@@ -469,6 +464,7 @@ export default class App extends React.Component {
     }
   }
 
+  // Method to remove source from favorites and update in server
   removeFromFavorites(sourceStr) {
     let favSources = this.state.favoriteSources;
     if (favSources.includes(sourceStr)) {
@@ -532,17 +528,15 @@ export default class App extends React.Component {
   }
 
   // This method will check the favoriteSources array to see whether or not a user has added a source to their favorites
-  // The method will return true or false to determine if the add or remove button should render
+  // The method will return true or false to determine if the add or remove button should render (Future Implementation)
   checkFavorites(sourceStr) {
     if (this.state.favoriteSources.includes(sourceStr)) {
-      // this.state.favoriteSources.map((favoritedSource) => {
-      //   if (favoritedSource === sourceStr) return true;
-      // });
       return true;
     }
     return false;
   }
 
+  // Method to display trending news articles
   showTrendingNews() {
     this.setState({
       displayedNews: this.state.trendingNews,
@@ -552,8 +546,8 @@ export default class App extends React.Component {
     });
   }
 
+  // Setting successfulLogin:false so it redirect to the Welcome page and resetting information that was saved for the user
   userLogout() {
-    //setting successfulLogin:false so it redirect to the Welcome page
     this.setState({
       username: "",
       email: "",
@@ -576,6 +570,7 @@ export default class App extends React.Component {
     this.showTrendingNews();
   }
 
+  // Makes an immediate call of app successful load to grab trending news articles to display on the page.
   componentDidMount() {
     // Request sends to The News API to gain access to top news stories, currently set to limit of 3, max is 5
     // res.data.data returns an array of objects. Objects inside array returned appears as such:
